@@ -27,3 +27,4 @@ The consumer. I intend to explore the opinion-based data from the consumer in or
 My perspective. Based on the data I find from the first two perspectives, I will make a careful analysis and develop the suggestions I believe are the best measures for brands to take in order to improve their production. 
 
 # Concept Sketches
+[View the Project Documentation (PDF)](./docs/Concept_Sketches.pdf)
