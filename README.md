@@ -1,6 +1,6 @@
-# thesis
+# Thesis
 
-Literature Review
+# Literature Review
 
 - Moore, Jim, Jim Nelson, and Kanye West. Hunks & Heroes: Four Decades of fashion at GQ. New York: Rizzoli International, 2019. 
 - Lavergne, Michael. Fixing fashion: Rethinking the way we make, market and buy our clothes. Gabriola Island, BC, Canada: New Society Publishers, 2015.
@@ -25,3 +25,5 @@ My method will include three distinct perspectives that will come together to fo
 The brand. While I will go a short and general overview of the different sectors of the fashion industry, I will mainly focus on smaller brands with large customer bases, as these are brands that provide for a large number of people yet are still at a scale where they can implement swift changes to their business model in order to improve their ethical operations. 
 The consumer. I intend to explore the opinion-based data from the consumer in order to reflect what they truly want from brands when it comes to their product and operations, this will help define what brands should prioritize when implementing changes. 
 My perspective. Based on the data I find from the first two perspectives, I will make a careful analysis and develop the suggestions I believe are the best measures for brands to take in order to improve their production. 
+
+# Concept Sketches
