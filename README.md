@@ -28,3 +28,6 @@ My perspective. Based on the data I find from the first two perspectives, I will
 
 # Concept Sketches
 [View the Project Documentation (PDF)](./Concept_Sketches.pdf)
+
+# Design Mockup
+[View the Project Documentation (PDF)](./MockUps.pdf)
