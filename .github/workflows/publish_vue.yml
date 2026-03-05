@@ -2,7 +2,7 @@ name: Publish Vue Site to GitHub Pages
 
 on:
   push:
-    branches: [ "zzzmain" ]
+    branches: [ "main" ]
 
 env:
   VUEDIR: vue-project
