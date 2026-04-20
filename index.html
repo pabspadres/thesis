@@ -8,6 +8,13 @@
   <style>
     @font-face {
       font-family: "InterCustom";
+      src: url("./Fonts/Inter/static/Inter_24pt-Regular.ttf") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: "InterCustom";
       src: url("./Fonts/Inter/static/Inter_24pt-Bold.ttf") format("truetype");
       font-weight: 700;
       font-style: normal;
@@ -37,7 +44,15 @@
       height: 100%;
       background: #fff;
       color: #000;
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: auto;
+    }
+
+    html.no-snap,
+    body.no-snap {
+      scroll-snap-type: none !important;
     }
 
     body {
@@ -45,12 +60,337 @@
       font-family: "MontserratCustom", sans-serif;
     }
 
-    #app-interface {
+    #experience {
+      width: 100%;
+    }
+
+    .page {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      background: #fff;
+    }
+
+    .snap-page {
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+    }
+
+    #title-page {
+      overflow: hidden;
+    }
+
+    #title-box {
       position: absolute;
-      inset: 0;
+      top: 30px;
+      left: 30px;
+      width: 1028px;
+      height: 400px;
+      color: #000;
+      font-family: "InterCustom", sans-serif;
+      line-height: 0.92;
+      letter-spacing: -0.02em;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 16px;
+    }
+
+    .title-line {
+      margin: 0;
+      display: flex;
+      align-items: baseline;
+      gap: 20px;
+      white-space: nowrap;
+    }
+
+    .title-big {
+      font-size: 222px;
+      font-weight: 700;
+    }
+
+    .title-fashion {
+      font-size: 148px;
+      font-weight: 400;
+    }
+
+    .title-small {
+      font-size: 74px;
+      font-weight: 400;
+    }
+
+    .title-ethics {
+      font-size: 148px;
+      font-weight: 700;
+    }
+
+    #boundary-carousel-wrap {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: calc(100vh - 400px);
+      height: 400px;
+      overflow: hidden;
+      background: #fff;
+      z-index: 10;
+    }
+
+    #boundary-carousel-track {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 400px;
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      will-change: transform;
+      animation: title-carousel-scroll 45s linear infinite;
+    }
+
+    .title-model-image {
+      height: 400px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+      flex: 0 0 auto;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    @keyframes title-carousel-scroll {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(calc(-1 * var(--title-carousel-shift, 0px)));
+      }
+    }
+
+    #info-page {
+      transition: opacity 800ms ease;
+      opacity: 1;
+    }
+
+    #info-page.is-fading {
+      opacity: 0.08;
+    }
+
+    #play-intro-page.is-fading {
+      opacity: 0.08;
+    }
+
+    #info-bottom-band {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 415px;
+      height: 400px;
+    }
+
+    #info-left-box {
+      position: absolute;
+      top: 40px;
+      left: 10px;
+      width: 740px;
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+      color: #000;
+    }
+
+    #info-left-heading {
+      margin: 0 0 22px 0;
+      font-family: "MontserratCustom", sans-serif;
+      font-weight: 400;
+      font-size: 35px;
+      line-height: 1.08;
+      white-space: nowrap;
+    }
+
+    #info-left-p1,
+    #info-left-p2 {
+      margin: 0 0 16px 0;
+      font-family: "MontserratCustom", sans-serif;
+      font-weight: 400;
+      font-size: 23px;
+      line-height: 1.22;
+      max-width: 740px;
+    }
+
+    #info-right-box {
+      position: absolute;
+      top: 40px;
+      right: 10px;
+      width: 460px;
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-end;
+      text-align: right;
+      color: #000;
+    }
+
+    #info-right-title {
+      margin: 0 0 16px 0;
+      font-family: "InterCustom", sans-serif;
+      font-weight: 700;
+      font-size: 42px;
+      line-height: 1;
+      letter-spacing: 0.01em;
+    }
+
+    #info-right-copy {
+      margin: 0;
+      font-family: "MontserratCustom", sans-serif;
+      font-weight: 400;
+      font-size: 23px;
+      line-height: 1.22;
+      max-width: 460px;
+    }
+
+    #game-page {
+      transition: opacity 900ms ease;
+      opacity: 0.08;
+    }
+
+    #game-page.is-visible {
+      opacity: 1;
+    }
+
+    #insights-page-1 {
+      transition: opacity 900ms ease;
+      opacity: 1;
+    }
+
+    #insights-page-1.is-visible {
+      opacity: 1;
+    }
+
+    #insights-axis-frame {
+      position: absolute;
+      top: 170px;
+      left: 0;
+      right: 0;
+      bottom: 48px;
+      width: 100%;
+      height: calc(100% - 218px);
+    }
+
+    #insights-axis-panel {
+      width: 78%;
+      height: 100%;
+      position: relative;
+      margin: 0 auto;
+      padding: 10px 0 18px 0;
+    }
+
+    #insights-chart {
       width: 100%;
       height: 100%;
-      display: none;
+      display: block;
+      background: #fff;
+    }
+
+    .scatter-logo {
+      transform-origin: center;
+      transform-box: fill-box;
+      transition: transform 420ms ease, opacity 420ms ease;
+    }
+
+    .scatter-logo.is-hidden {
+      opacity: 0;
+      transform: scale(0);
+      pointer-events: none;
+    }
+
+    .scatter-logo.is-visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    #transition-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 200;
+    }
+
+    .transition-clone {
+      position: fixed;
+      object-fit: contain;
+      pointer-events: none;
+      z-index: 201;
+      will-change: left, top, width, height;
+    }
+
+    #play-intro-page {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #000;
+      background: #fff;
+    }
+
+    #play-intro-title {
+      margin: 200px 0 0 0;
+      width: 80vw;
+      max-width: 80vw;
+      text-align: center;
+      font-family: "InterCustom", sans-serif;
+      font-weight: 700;
+      font-size: clamp(58px, 5vw, 110px);
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    #play-intro-copy {
+      margin: 60px 0 0 0;
+      width: 80vw;
+      max-width: 80vw;
+      text-align: left;
+      font-family: "MontserratCustom", sans-serif;
+      font-weight: 400;
+      font-size: clamp(22px, 1.85vw, 34px);
+      line-height: 1.22;
+    }
+
+    #play-button {
+      margin: 60px 0 0 0;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: #000;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-align: center;
+      align-self: center;
+      font-family: "MontserratCustom", sans-serif;
+      font-weight: 400;
+      font-size: clamp(22px, 1.85vw, 34px);
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    #play-skip-button {
+      position: absolute;
+      bottom: 40px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: #000;
+      text-decoration: underline;
+      font-family: "MontserratCustom", sans-serif;
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    #game-stage {
+      position: relative;
+      width: 100%;
+      height: 100%;
     }
 
     #intro-view {
@@ -63,66 +403,30 @@
       display: block;
     }
 
-    #intro-header {
+    #intro-logo-row {
       position: absolute;
       top: 20px;
       left: 40px;
-      right: 10px;
-      height: 120px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-    }
-
-    #intro-title {
-      margin: 0;
-      color: #000;
-      font-family: "InterCustom", sans-serif;
-      font-weight: 700;
-      font-size: 56px;
-      line-height: 0.95;
-      white-space: nowrap;
-      flex: 0 0 auto;
-    }
-
-    #intro-copy {
-      margin: 0;
-      color: #000;
-      font-family: "MontserratCustom", sans-serif;
-      font-weight: 400;
-      font-size: 20px;
-      line-height: 1.18;
-      flex: 1 1 auto;
-      max-width: 760px;
-      text-align: left;
-      align-self: center;
+      right: 40px;
+      height: 130px;
     }
 
     #intro-content {
       position: absolute;
-      top: 150px;
+      top: 170px;
       left: 0;
       right: 0;
       bottom: 48px;
       width: 100%;
-      height: calc(100% - 198px);
-      display: flex;
-    }
-
-    #intro-left {
-      width: 30%;
-      min-width: 220px;
-      height: 100%;
-      position: relative;
-      padding: 18px 16px 16px 40px;
+      height: calc(100% - 218px);
     }
 
     #intro-chart-panel {
-      width: 70%;
+      width: 78%;
       height: 100%;
       position: relative;
-      padding: 10px 18px 18px 8px;
+      margin: 0 auto;
+      padding: 10px 0 18px 0;
     }
 
     #intro-chart {
@@ -169,227 +473,72 @@
       z-index: 40;
     }
 
-    #intro-skip {
-      position: absolute;
-      right: 12px;
-      bottom: 10px;
-      padding: 0;
-      border: 0;
-      background: transparent;
-      color: #000;
-      text-decoration: underline;
-      font-family: "MontserratCustom", sans-serif;
-      font-size: 18px;
-      font-weight: 400;
-      cursor: pointer;
-    }
-
-    #title {
-      position: absolute;
-      top: 20px;
-      left: 40px;
-      margin: 0;
-      color: #000;
-      font-family: "InterCustom", sans-serif;
-      font-weight: 1200;
-      font-size: 52px;
-      line-height: 1;
-      white-space: nowrap;
-      z-index: 20;
-    }
-
-    #view-toggle {
-      position: absolute;
-      top: 20px;
-      right: 10px;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      z-index: 20;
-    }
-
-    .view-button {
-      min-width: 94px;
-      height: 38px;
-      border: 2px solid #000;
-      background: #fff;
-      color: #000;
-      cursor: pointer;
-      font-family: "MontserratCustom", sans-serif;
-      font-size: 16px;
-      font-weight: 400;
-      line-height: 1;
-    }
-
-    .view-button.active {
-      background: #000;
-      color: #fff;
-    }
-
-    #dots-view,
-    #bars-view {
-      position: absolute;
-      top: 66px;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      width: 100%;
-      height: calc(100% - 66px);
-      font-family: "MontserratCustom", sans-serif;
-      color: #000;
-    }
-
-    #bars-view {
-      display: none;
-    }
-
-    #main {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      display: flex;
-      width: 100%;
-      height: 100%;
-    }
-
-    #legend-panel {
-      width: 30%;
-      min-width: 220px;
-      height: 100%;
-      overflow-y: auto;
-      padding: 18px 16px 16px 40px;
-      font-size: 20px;
-      scrollbar-width: none;
-    }
-
-    #legend-panel::-webkit-scrollbar {
-      display: none;
-    }
-
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin: 0 0 8px 0;
-      line-height: 1.2;
-      color: #000;
-      font-family: "MontserratCustom", sans-serif;
-      font-weight: 400;
-    }
-
-    .legend-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      flex: 0 0 auto;
-    }
-
-    #chart-panel {
-      width: 70%;
-      height: 100%;
-      padding: 10px 18px 18px 8px;
-    }
-
-    #chart {
-      width: 100%;
-      height: 100%;
-      display: block;
-      background: #fff;
-    }
-
-    .scatter-dot {
-      transition: transform 0.2s ease;
-      transform-origin: center;
-      transform-box: fill-box;
-    }
-
-    .scatter-dot.is-hovered {
-      transform: scale(1.2);
-    }
-
-    #bars-layout {
-      width: 100%;
-      height: 100%;
-      padding: 10px;
-    }
-
-    #bars-scroll {
-      width: 100%;
-      height: calc(100% - 74px);
-      overflow-y: auto;
-      overflow-x: hidden;
-    }
-
-    #bars-chart {
-      width: 100%;
-      display: block;
-      background: #fff;
-    }
-
-    #bars-axis-wrap {
-      width: 100%;
-      height: 74px;
-      background: #fff;
-      overflow: hidden;
-    }
-
-    #bars-axis {
-      width: 100%;
-      height: 100%;
-      display: block;
-      background: #fff;
-    }
-
   </style>
 </head>
 <body>
-  <section id="intro-view" aria-label="Intro Interactive Game">
-    <div id="intro-header">
-      <h1 id="intro-title">HOW WELL DO YOU<br>KNOW THESE BRANDS?</h1>
-      <p id="intro-copy">Based on how ethical they are the revenue they makes yearly, place the following brands on this graph to find out how well you know the industry.</p>
-    </div>
-
-    <div id="intro-content">
-      <div id="intro-left" aria-label="Draggable brand logos"></div>
-      <div id="intro-chart-panel">
-        <svg id="intro-chart" role="img" aria-label="Scatter plot axes for ethical compliance score and revenue scale score"></svg>
+  <div id="transition-overlay" aria-hidden="true"></div>
+  <main id="experience">
+    <section id="title-page" class="page snap-page" aria-label="Project title page">
+      <div id="title-box">
+        <p class="title-line">
+          <span class="title-big">BIG</span>
+          <span class="title-fashion">FASHION</span>
+        </p>
+        <p class="title-line">
+          <span class="title-small">SMALL</span>
+          <span class="title-ethics">ETHICS?</span>
+        </p>
       </div>
-      <div id="intro-token-layer" aria-hidden="false"></div>
+    </section>
+
+    <div id="boundary-carousel-wrap" aria-hidden="true">
+      <div id="boundary-carousel-track"></div>
     </div>
 
-    <button id="intro-skip" type="button">Skip</button>
-  </section>
-
-  <div id="app-interface">
-    <h1 id="title">ETHICAL COMPLIANCE INDEX</h1>
-
-    <div id="view-toggle">
-      <button id="dots-btn" class="view-button active" type="button">Dots</button>
-      <button id="bars-btn" class="view-button" type="button">Bars</button>
-    </div>
-
-    <section id="dots-view" aria-label="Dots View">
-      <div id="main">
-        <div id="legend-panel" aria-label="Legend"></div>
-        <div id="chart-panel">
-          <svg id="chart" role="img" aria-label="Scatter plot of Ethical Compliance Score vs Revenue Scale Score"></svg>
+    <section id="info-page" class="page snap-page" aria-label="Project introduction text">
+      <div id="info-bottom-band">
+        <div id="info-left-box">
+          <p id="info-left-heading">How well do you know the brands you shop?</p>
+          <p id="info-left-p1">The moment we buy an item of clothing, we are part of the clothing industry; therefore, we should know how our clothes are being made.</p>
+          <p id="info-left-p2">This project explores the ethical compromises of large-scale fashion brands in America through data analysis &amp; visualization.</p>
+        </div>
+        <div id="info-right-box">
+          <h2 id="info-right-title">DISCLAIMER</h2>
+          <p id="info-right-copy">The data and resulting scores in this project are used for exploratory and educational purposes, and should not be interpreted as definitive ratings of any brand.</p>
         </div>
       </div>
     </section>
 
-    <section id="bars-view" aria-label="Bars View">
-      <div id="bars-layout">
-        <div id="bars-scroll">
-          <svg id="bars-chart" role="img" aria-label="Scrollable horizontal bars by brand"></svg>
-        </div>
-        <div id="bars-axis-wrap">
-          <svg id="bars-axis" role="img" aria-label="Combined Score x-axis"></svg>
+    <section id="play-intro-page" class="page snap-page" aria-label="Game introduction">
+      <h2 id="play-intro-title">LET'S START WITH A GAME</h2>
+      <p id="play-intro-copy">When you play, you will find an axis, where the horizontal line is our ethical compliance score, the vertical line is the company's size in revenue scale. You will be given 6 brands of this project and you have to drag and drop them within the axis where you think they are meant to be based on the intersection of the two measurements.</p>
+      <button id="play-button" type="button">Play</button>
+      <button id="play-skip-button" type="button">Skip</button>
+    </section>
+
+    <section id="game-page" class="page snap-page" aria-label="Interactive game and data views">
+      <div id="game-stage">
+        <section id="intro-view" aria-label="Intro Interactive Game">
+          <div id="intro-logo-row" aria-label="Draggable brand logos"></div>
+
+          <div id="intro-content">
+            <div id="intro-chart-panel">
+              <svg id="intro-chart" role="img" aria-label="Scatter plot axes for ethical compliance score and revenue scale score"></svg>
+            </div>
+            <div id="intro-token-layer" aria-hidden="false"></div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section id="insights-page-1" class="page" aria-label="Brand logo scatter plot">
+      <div id="insights-axis-frame">
+        <div id="insights-axis-panel">
+          <svg id="insights-chart" role="img" aria-label="Scatter plot of Ethical Compliance Score vs Revenue Scale Score with brand logos"></svg>
         </div>
       </div>
     </section>
-  </div>
+  </main>
 
   <script>
     const controlFile = "./Data/Control_Database.xlsx";
@@ -404,6 +553,58 @@
       { id: "nike", file: "./media/nike.png", brands: ["nike"] },
       { id: "patagonia", file: "./media/patagonia.png", brands: ["patagonia"] }
     ];
+    const brandLogoMap = new Map([
+      ["gap", "./media/gap.png"],
+      ["abercrombie & fitch", "./media/A&F.png"],
+      ["american eagle", "./media/AE.png"],
+      ["american eagle outfitters", "./media/AE.png"],
+      ["anthropologie", "./media/anthropologie.png"],
+      ["banana republic", "./media/BR.png"],
+      ["champion", "./media/champion.png"],
+      ["calvin klein", "./media/CK.png"],
+      ["clavin klein", "./media/CK.png"],
+      ["calvin klein inc.", "./media/CK.png"],
+      ["calvin klein, inc.", "./media/CK.png"],
+      ["coach", "./media/coach.png"],
+      ["coach new york", "./media/coach.png"],
+      ["converse", "./media/converse.png"],
+      ["fruit of the loom", "./media/FL.png"],
+      ["forever 21", "./media/forever21.png"],
+      ["hanes", "./media/hanes.png"],
+      ["kate spade & co", "./media/KS.png"],
+      ["kate spade & co.", "./media/KS.png"],
+      ["kate spade & company", "./media/KS.png"],
+      ["kate spade", "./media/KS.png"],
+      ["levi strauss & co", "./media/levi.png"],
+      ["levi strauss & co.", "./media/levi.png"],
+      ["levi strauss and co", "./media/levi.png"],
+      ["ll. bean", "./media/llbean.png"],
+      ["ll bean", "./media/llbean.png"],
+      ["lululemon", "./media/lululemon.png"],
+      ["lululemon athletica", "./media/lululemon.png"],
+      ["marc jacobs", "./media/MJ.png"],
+      ["michael kors", "./media/MK.png"],
+      ["new balance", "./media/NB.png"],
+      ["the north face", "./media/NF.png"],
+      ["the north face, inc.", "./media/NF.png"],
+      ["north face", "./media/NF.png"],
+      ["nike", "./media/nike.png"],
+      ["old navy", "./media/ON.png"],
+      ["patagonia", "./media/patagonia.png"],
+      ["ralph lauren corporation", "./media/RL.png"],
+      ["ralph lauren", "./media/RL.png"],
+      ["steve madden", "./media/SM.png"],
+      ["tory burch", "./media/TB.png"],
+      ["tom ford", "./media/TF.png"],
+      ["tommy hilfiger", "./media/TH.png"],
+      ["under armour", "./media/UA.png"],
+      ["urban outfitters", "./media/UB.png"],
+      ["victoria’s secret & co", "./media/VS.png"],
+      ["victoria's secret & co", "./media/VS.png"],
+      ["victoria's secret", "./media/VS.png"],
+      ["victoria’s secret", "./media/VS.png"],
+      ["wrangler", "./media/wrangler.png"]
+    ]);
 
     function normalizeBrand(value) {
       return String(value || "").trim().toLowerCase();
@@ -553,70 +754,76 @@
       return axisAndTicks;
     }
 
-    function renderLegend(points) {
-      const legendPanel = document.getElementById("legend-panel");
-      legendPanel.innerHTML = "";
 
-      points.forEach((point) => {
-        const item = document.createElement("div");
-        item.className = "legend-item";
-
-        const dot = document.createElement("span");
-        dot.className = "legend-dot";
-        dot.style.backgroundColor = point.color;
-
-        const label = document.createElement("span");
-        label.textContent = point.brand;
-
-        item.appendChild(dot);
-        item.appendChild(label);
-        legendPanel.appendChild(item);
-      });
+    function getBrandLogoForScatter(brandName) {
+      const normalized = normalizeBrand(brandName);
+      if (brandLogoMap.has(normalized)) {
+        return brandLogoMap.get(normalized);
+      }
+      return null;
     }
 
-    function renderScatter(points) {
-      const svg = document.getElementById("chart");
+    function renderLogoScatter(points) {
+      const svg = document.getElementById("insights-chart");
+      if (!svg) {
+        return;
+      }
       const layout = getScatterLayout(svg);
       const { width, height, xToPx, yToPx } = layout;
       const axisAndTicks = buildScatterAxisAndTicks(layout);
+      const logoSize = 68;
+      const mappedPoints = points.filter((point) => getBrandLogoForScatter(point.brand));
+      const hiddenAll = insightsState.mode === "hidden-all";
+      const visibleBrandKeys = insightsState.mode === "subset-only"
+        ? new Set(insightsState.visibleBrandKeys || [])
+        : null;
 
-      const dots = points
+      const markers = mappedPoints
         .map((point) => {
           const cx = xToPx(point.ethical);
           const cy = yToPx(point.scale);
-          return `<circle class="scatter-dot" data-brand="${escapeXml(point.brand)}" cx="${cx}" cy="${cy}" r="8" fill="${point.color}" />`;
+          const logoPath = getBrandLogoForScatter(point.brand);
+          const brandKey = normalizeBrand(point.brand);
+          const isVisible = !hiddenAll && (!visibleBrandKeys || visibleBrandKeys.has(brandKey));
+          const visibilityClass = isVisible ? "is-visible" : "is-hidden";
+          return `<image class="scatter-logo ${visibilityClass}" data-brand="${escapeXml(point.brand)}" data-brand-key="${escapeXml(brandKey)}" href="${logoPath}" x="${cx - logoSize / 2}" y="${cy - logoSize / 2}" width="${logoSize}" height="${logoSize}" preserveAspectRatio="xMidYMid meet" />`;
         })
         .join("");
 
       svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
-      svg.innerHTML = `<g>${axisAndTicks.join("")}${dots}</g>
-      <g id="tooltip" visibility="hidden" pointer-events="none">
-        <rect id="tooltip-bg" x="0" y="0" width="0" height="0" rx="4" ry="4" fill="rgba(0,0,0,0.6)"></rect>
-        <text id="tooltip-text" x="0" y="0" fill="#fff" font-family="MontserratCustom" font-size="13" font-weight="400"></text>
+      svg.innerHTML = `<g>${axisAndTicks.join("")}${markers}</g>
+      <g id="insights-tooltip" visibility="hidden" pointer-events="none">
+        <rect id="insights-tooltip-bg" x="0" y="0" width="0" height="0" rx="4" ry="4" fill="rgba(0,0,0,0.6)"></rect>
+        <text id="insights-tooltip-text" x="0" y="0" fill="#fff" font-family="MontserratCustom" font-size="13" font-weight="400"></text>
       </g>`;
 
-      const tooltipGroup = svg.querySelector("#tooltip");
-      const tooltipBg = svg.querySelector("#tooltip-bg");
-      const tooltipText = svg.querySelector("#tooltip-text");
-      const dotElements = svg.querySelectorAll(".scatter-dot");
+      const tooltipGroup = svg.querySelector("#insights-tooltip");
+      const tooltipBg = svg.querySelector("#insights-tooltip-bg");
+      const tooltipText = svg.querySelector("#insights-tooltip-text");
+      const markerElements = svg.querySelectorAll(".scatter-logo");
 
-      dotElements.forEach((dot) => {
-        dot.addEventListener("mouseenter", (event) => {
-          dot.classList.add("is-hovered");
-          const brand = dot.getAttribute("data-brand") || "";
+      markerElements.forEach((marker) => {
+        marker.addEventListener("mouseenter", () => {
+          if (marker.classList.contains("is-hidden")) {
+            return;
+          }
+          const brand = marker.getAttribute("data-brand") || "";
           tooltipText.textContent = brand;
-
           const textBox = tooltipText.getBBox();
           const paddingX = 8;
           const paddingY = 6;
           const boxWidth = textBox.width + paddingX * 2;
           const boxHeight = textBox.height + paddingY * 2;
 
-          const cx = Number(dot.getAttribute("cx"));
-          const cy = Number(dot.getAttribute("cy"));
+          const x = Number(marker.getAttribute("x"));
+          const y = Number(marker.getAttribute("y"));
+          const w = Number(marker.getAttribute("width"));
+          const h = Number(marker.getAttribute("height"));
+          const cx = x + w / 2;
+          const cy = y + h / 2;
+
           let boxX = cx + 12;
           let boxY = cy - boxHeight - 12;
-
           if (boxX + boxWidth > width - 4) {
             boxX = cx - boxWidth - 12;
           }
@@ -628,17 +835,46 @@
           tooltipBg.setAttribute("y", String(boxY));
           tooltipBg.setAttribute("width", String(boxWidth));
           tooltipBg.setAttribute("height", String(boxHeight));
-
           tooltipText.setAttribute("x", String(boxX + paddingX));
           tooltipText.setAttribute("y", String(boxY + boxHeight - paddingY - 1));
-
           tooltipGroup.setAttribute("visibility", "visible");
         });
 
-        dot.addEventListener("mouseleave", () => {
-          dot.classList.remove("is-hovered");
+        marker.addEventListener("mouseleave", () => {
           tooltipGroup.setAttribute("visibility", "hidden");
         });
+      });
+    }
+
+    function getIntroTransitionBrandKeys() {
+      const keys = [];
+      introTokenDefs.forEach((tokenDef) => {
+        const point = getIntroBrandPoint(tokenDef);
+        if (point) {
+          keys.push(normalizeBrand(point.brand));
+        }
+      });
+      return keys;
+    }
+
+    function setInsightsMode(mode, visibleBrandKeys = []) {
+      insightsState.mode = mode;
+      insightsState.visibleBrandKeys = visibleBrandKeys;
+      if (currentPoints.length > 0) {
+        renderLogoScatter(currentPoints);
+      }
+    }
+
+    function revealRemainingInsightsLogos() {
+      const brandKeysToKeep = new Set(getIntroTransitionBrandKeys());
+      const logoElements = Array.from(document.querySelectorAll("#insights-chart .scatter-logo"));
+      const extraLogos = logoElements.filter((logo) => !brandKeysToKeep.has(logo.getAttribute("data-brand-key") || ""));
+
+      extraLogos.forEach((logo, index) => {
+        window.setTimeout(() => {
+          logo.classList.remove("is-hidden");
+          logo.classList.add("is-visible");
+        }, index * 45);
       });
     }
 
@@ -656,7 +892,12 @@
       dragOffsetX: 0,
       dragOffsetY: 0,
       revealTimer: null,
-      revealed: false
+      transitionTimer: null,
+      revealed: false,
+      transitioningToInsights: false
+    };
+    const insightsState = {
+      mode: "all-visible"
     };
 
     function getIntroTokenById(tokenId) {
@@ -692,31 +933,15 @@
 
     function placeIntroTokensInTray() {
       const content = document.getElementById("intro-content");
-      const leftPanel = document.getElementById("intro-left");
+      const logoRow = document.getElementById("intro-logo-row");
       const contentRect = content.getBoundingClientRect();
-      const leftRect = leftPanel.getBoundingClientRect();
+      const logoRect = logoRow.getBoundingClientRect();
 
-      const horizontalPadding = 20;
-      const verticalPadding = 16;
-      const colGap = 20;
-      const rowGap = 16;
-      const tokenAspect = 124 / 74;
-
-      const trayWidth = leftRect.width;
-      const trayHeight = leftRect.height;
-
-      const widthDrivenTokenWidth = (trayWidth - horizontalPadding * 2 - colGap) / 2;
-      let tokenWidth = Math.max(60, widthDrivenTokenWidth);
-      let tokenHeight = tokenWidth / tokenAspect;
-
-      const maxTokenHeightToFitVertically = (trayHeight - verticalPadding * 2 - rowGap * 2) / 3;
-      if (tokenHeight > maxTokenHeightToFitVertically) {
-        tokenHeight = Math.max(40, maxTokenHeightToFitVertically);
-        tokenWidth = tokenHeight * tokenAspect;
-      }
-
-      const startX = leftRect.left - contentRect.left + horizontalPadding;
-      const startY = leftRect.top - contentRect.top + verticalPadding;
+      const tokenHeight = Math.max(74, logoRect.height - 18);
+      const tokenWidth = tokenHeight * (124 / 74);
+      const usableWidth = logoRect.width - tokenWidth;
+      const startX = logoRect.left - contentRect.left;
+      const y = logoRect.top - contentRect.top + (logoRect.height - tokenHeight) / 2;
 
       introTokenDefs.forEach((tokenDef, index) => {
         const tokenState = getIntroTokenById(tokenDef.id);
@@ -724,14 +949,18 @@
           return;
         }
 
+        const sizeBoost = (tokenDef.id === "patagonia" || tokenDef.id === "lululemon") ? 1.2 : 1;
+        const currentTokenWidth = tokenWidth * sizeBoost;
+        const currentTokenHeight = tokenHeight * sizeBoost;
         tokenState.el.style.width = `${tokenWidth}px`;
         tokenState.el.style.height = `${tokenHeight}px`;
+        tokenState.el.style.width = `${currentTokenWidth}px`;
+        tokenState.el.style.height = `${currentTokenHeight}px`;
 
-        const col = index % 2;
-        const row = Math.floor(index / 2);
-        const x = startX + col * (tokenWidth + colGap);
-        const y = startY + row * (tokenHeight + rowGap);
-        setTokenPosition(tokenState, x, y);
+        const progress = introTokenDefs.length > 1 ? index / (introTokenDefs.length - 1) : 0;
+        const x = startX + usableWidth * progress - (currentTokenWidth - tokenWidth) / 2;
+        const currentY = y - (currentTokenHeight - tokenHeight) / 2;
+        setTokenPosition(tokenState, x, currentY);
       });
     }
 
@@ -753,11 +982,6 @@
         introState.revealTimer = null;
         revealIntroCorrectPlacements();
       }, 1000);
-    }
-
-    function updateSkipLabelAfterReveal() {
-      const skipButton = document.getElementById("intro-skip");
-      skipButton.textContent = "Explore More";
     }
 
     function revealIntroCorrectPlacements(force = false) {
@@ -786,7 +1010,12 @@
 
       if (!introState.revealed) {
         introState.revealed = true;
-        updateSkipLabelAfterReveal();
+        if (introState.transitionTimer) {
+          window.clearTimeout(introState.transitionTimer);
+        }
+        introState.transitionTimer = window.setTimeout(() => {
+          startGameToInsightsTransition();
+        }, 2000);
       }
     }
 
@@ -897,95 +1126,300 @@
 
     function showMainInterface() {
       const introView = document.getElementById("intro-view");
-      const appInterface = document.getElementById("app-interface");
+      const insightsPage = document.getElementById("insights-page-1");
 
       if (introState.revealTimer) {
         window.clearTimeout(introState.revealTimer);
         introState.revealTimer = null;
       }
-
-      introView.style.display = "none";
-      appInterface.style.display = "block";
-
-      switchView("dots");
-    }
-
-    function renderBars(points) {
-      const svg = document.getElementById("bars-chart");
-      const axisSvg = document.getElementById("bars-axis");
-      const scroll = document.getElementById("bars-scroll");
-      const width = Math.max(900, scroll.clientWidth);
-
-      const barHeight = 22;
-      const rowGap = 12;
-      const totalRowsHeight = points.length * (barHeight + rowGap);
-      const margin = { top: 16, right: 36, bottom: 12, left: 190 };
-      const height = margin.top + totalRowsHeight + margin.bottom;
-      const chartW = width - margin.left - margin.right;
-
-      const xToPx = (value) => margin.left + (value / 200) * chartW;
-
-      const elements = [];
-      elements.push(`<line x1="${margin.left}" y1="${margin.top}" x2="${margin.left}" y2="${height - margin.bottom}" stroke="#000" stroke-width="1.5" />`);
-
-      points.forEach((point, index) => {
-        const y = margin.top + index * (barHeight + rowGap);
-        const barEnd = xToPx(point.final);
-        elements.push(`<rect x="${margin.left}" y="${y}" width="${Math.max(0, barEnd - margin.left)}" height="${barHeight}" fill="${point.color}" />`);
-        elements.push(svgText(escapeXml(point.brand), margin.left - 10, y + barHeight - 6, 'text-anchor="end" font-family="MontserratCustom" font-size="13" fill="#000" font-weight="400"'));
-      });
-
-      svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
-      svg.setAttribute("height", String(height));
-      svg.innerHTML = `<g>${elements.join("")}</g>`;
-
-      const axisHeight = 74;
-      const axisY = 16;
-      const axisElements = [];
-      axisElements.push(`<line x1="${margin.left}" y1="${axisY}" x2="${margin.left + chartW}" y2="${axisY}" stroke="#000" stroke-width="1.5" />`);
-      axisElements.push(`<line x1="${margin.left}" y1="4" x2="${margin.left}" y2="${axisY}" stroke="#000" stroke-width="1.5" />`);
-
-      barsTicks.forEach((tick) => {
-        const x = xToPx(tick);
-        axisElements.push(`<line x1="${x}" y1="${axisY}" x2="${x}" y2="${axisY + 6}" stroke="#000" stroke-width="1" />`);
-        axisElements.push(svgText(tick, x, axisY + 24, 'text-anchor="middle" font-family="MontserratCustom" font-size="13" fill="#000" font-weight="400"'));
-      });
-
-      axisElements.push(svgText("Combined Score", margin.left + chartW / 2, axisHeight - 10, 'text-anchor="middle" font-family="MontserratCustom" font-size="15" fill="#000" font-weight="400"'));
-      axisSvg.setAttribute("viewBox", `0 0 ${width} ${axisHeight}`);
-      axisSvg.innerHTML = `<g>${axisElements.join("")}</g>`;
-    }
-
-    function setActiveButton(view) {
-      const dotsBtn = document.getElementById("dots-btn");
-      const barsBtn = document.getElementById("bars-btn");
-
-      dotsBtn.classList.toggle("active", view === "dots");
-      barsBtn.classList.toggle("active", view === "bars");
-    }
-
-    function switchView(view) {
-      const title = document.getElementById("title");
-      const dotsView = document.getElementById("dots-view");
-      const barsView = document.getElementById("bars-view");
-
-      if (view === "bars") {
-        title.textContent = "COMBINED INDEX";
-        title.style.fontSize = "34px";
-        dotsView.style.display = "none";
-        barsView.style.display = "block";
-        renderBars(currentPoints);
-      } else {
-        title.textContent = "ETHICAL COMPLIANCE INDEX";
-        title.style.fontSize = "52px";
-        dotsView.style.display = "block";
-        barsView.style.display = "none";
-        renderScatter(currentPoints);
+      if (introState.transitionTimer) {
+        window.clearTimeout(introState.transitionTimer);
+        introState.transitionTimer = null;
       }
 
-      currentView = view;
-      setActiveButton(view);
+      if (introView) {
+        introView.style.display = "none";
+      }
+
+      if (insightsPage) {
+        setInsightsMode("all-visible");
+        insightsPage.classList.add("is-visible");
+        document.documentElement.classList.add("no-snap");
+        document.body.classList.add("no-snap");
+        insightsPage.scrollIntoView({ behavior: "auto", block: "start" });
+        window.requestAnimationFrame(() => {
+          insightsPage.scrollIntoView({ behavior: "auto", block: "start" });
+        });
+      }
     }
+
+    function startGameToInsightsTransition() {
+      if (introState.transitioningToInsights) {
+        return;
+      }
+
+      const introView = document.getElementById("intro-view");
+      const insightsPage = document.getElementById("insights-page-1");
+      const insightsChart = document.getElementById("insights-chart");
+      const overlay = document.getElementById("transition-overlay");
+      if (!introView || !insightsPage || !insightsChart || !overlay) {
+        showMainInterface();
+        return;
+      }
+
+      introState.transitioningToInsights = true;
+      const transitionBrandKeys = new Set(getIntroTransitionBrandKeys());
+      setInsightsMode("hidden-all");
+      insightsPage.classList.add("is-visible");
+      document.documentElement.classList.add("no-snap");
+      document.body.classList.add("no-snap");
+      // Keep current frame visible while we re-parent the existing tokens.
+
+      window.requestAnimationFrame(() => {
+        const tokensToAnimate = [];
+        overlay.innerHTML = "";
+
+        // Move the EXISTING 6 token elements into the overlay as fixed-position,
+        // so they can shrink smoothly without ever disappearing.
+        introTokenDefs.forEach((tokenDef) => {
+          const tokenState = getIntroTokenById(tokenDef.id);
+          const point = getIntroBrandPoint(tokenDef);
+          if (!tokenState || !point) {
+            return;
+          }
+
+          const rect = tokenState.el.getBoundingClientRect();
+          tokenState.el.classList.remove("is-dragging");
+          tokenState.el.style.transition = "none";
+          tokenState.el.style.position = "fixed";
+          tokenState.el.style.left = `${rect.left}px`;
+          tokenState.el.style.top = `${rect.top}px`;
+          tokenState.el.style.width = `${rect.width}px`;
+          tokenState.el.style.height = `${rect.height}px`;
+          tokenState.el.style.margin = "0";
+          tokenState.el.style.zIndex = "202";
+          tokenState.el.style.cursor = "default";
+          tokenState.el.style.pointerEvents = "none";
+          tokenState.el.style.opacity = "1";
+          overlay.appendChild(tokenState.el);
+          tokensToAnimate.push({ el: tokenState.el, point });
+        });
+
+        // Now jump to the ECI page while the tokens stay fixed on screen.
+        insightsPage.scrollIntoView({ behavior: "auto", block: "start" });
+
+        const layout = getScatterLayout(insightsChart);
+        const chartRect = insightsChart.getBoundingClientRect();
+        // Animate the same token elements into the ECI positions + ECI size.
+        window.requestAnimationFrame(() => {
+          tokensToAnimate.forEach(({ el, point }) => {
+            el.style.transition = "left 650ms ease, top 650ms ease, width 650ms ease, height 650ms ease";
+            const targetSize = 68;
+            const targetLeft = chartRect.left + layout.xToPx(point.ethical) - targetSize / 2;
+            const targetTop = chartRect.top + layout.yToPx(point.scale) - targetSize / 2;
+            el.style.left = `${targetLeft}px`;
+            el.style.top = `${targetTop}px`;
+            el.style.width = `${targetSize}px`;
+            el.style.height = `${targetSize}px`;
+          });
+        });
+
+        window.setTimeout(() => {
+          introView.style.display = "none";
+          setInsightsMode("subset-only", Array.from(transitionBrandKeys));
+          overlay.innerHTML = "";
+          revealRemainingInsightsLogos();
+          introState.transitioningToInsights = false;
+        }, 700);
+      });
+    }
+
+    function initScrollTransitions() {
+      const gamePage = document.getElementById("game-page");
+      const infoPage = document.getElementById("info-page");
+      const playIntroPage = document.getElementById("play-intro-page");
+      const insightsPage = document.getElementById("insights-page-1");
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.target.id !== "game-page") {
+              if (entry.target.id === "insights-page-1") {
+                insightsPage.classList.toggle("is-visible", entry.isIntersecting && entry.intersectionRatio > 0.2);
+              }
+              return;
+            }
+            if (entry.isIntersecting && entry.intersectionRatio > 0.2) {
+              gamePage.classList.add("is-visible");
+              infoPage.classList.add("is-fading");
+              playIntroPage.classList.add("is-fading");
+            } else {
+              gamePage.classList.remove("is-visible");
+              infoPage.classList.remove("is-fading");
+              playIntroPage.classList.remove("is-fading");
+            }
+          });
+        },
+        {
+          threshold: [0, 0.2, 0.5, 0.8, 1]
+        }
+      );
+
+      observer.observe(gamePage);
+      observer.observe(insightsPage);
+    }
+
+    function initPlayGameNavigation() {
+      const playIntroPage = document.getElementById("play-intro-page");
+      const gamePage = document.getElementById("game-page");
+      const insightsPage = document.getElementById("insights-page-1");
+      const playButton = document.getElementById("play-button");
+      const playSkipButton = document.getElementById("play-skip-button");
+      if (!playIntroPage || !gamePage || !insightsPage || !playButton || !playSkipButton) {
+        return;
+      }
+
+      let allowGameJump = false;
+      const goToGameInstant = () => {
+        allowGameJump = true;
+        gamePage.scrollIntoView({ behavior: "auto", block: "start" });
+        window.setTimeout(() => {
+          allowGameJump = false;
+        }, 250);
+      };
+
+      playButton.addEventListener("click", goToGameInstant);
+      playSkipButton.addEventListener("click", () => showMainInterface());
+
+      function sectionVisibilityRatio(element) {
+        const rect = element.getBoundingClientRect();
+        const viewportH = window.innerHeight || document.documentElement.clientHeight;
+        const visibleTop = Math.max(0, rect.top);
+        const visibleBottom = Math.min(viewportH, rect.bottom);
+        const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+        return rect.height > 0 ? visibleHeight / rect.height : 0;
+      }
+
+      function isPlayIntroActive() {
+        return sectionVisibilityRatio(playIntroPage) > 0.6;
+      }
+
+      function isGameActive() {
+        return sectionVisibilityRatio(gamePage) > 0.6;
+      }
+
+      function isInsightsActive() {
+        return sectionVisibilityRatio(insightsPage) > 0.6;
+      }
+
+      window.addEventListener(
+        "wheel",
+        (event) => {
+          if (allowGameJump) {
+            return;
+          }
+
+          if (isPlayIntroActive()) {
+            if (event.deltaY > 0) {
+              event.preventDefault();
+            }
+            return;
+          }
+
+          if (isGameActive()) {
+            if (event.deltaX > 40 && Math.abs(event.deltaX) > Math.abs(event.deltaY)) {
+              playIntroPage.scrollIntoView({ behavior: "smooth", block: "start" });
+              return;
+            }
+            if (event.deltaY < 0) {
+              event.preventDefault();
+            }
+            return;
+          }
+
+          if (isInsightsActive() && Math.abs(event.deltaY) > 0) {
+            event.preventDefault();
+          }
+        },
+        { passive: false }
+      );
+
+      window.addEventListener(
+        "keydown",
+        (event) => {
+          if (allowGameJump) {
+            return;
+          }
+          if (isPlayIntroActive() && ["ArrowDown", "PageDown", " ", "End"].includes(event.key)) {
+            event.preventDefault();
+            return;
+          }
+          if (isGameActive() && ["ArrowUp", "PageUp", "Home"].includes(event.key)) {
+            event.preventDefault();
+            return;
+          }
+          if (isInsightsActive() && ["ArrowUp", "ArrowDown", "PageUp", "PageDown", " ", "Home", "End"].includes(event.key)) {
+            event.preventDefault();
+          }
+        },
+        { passive: false }
+      );
+    }
+
+    function initTitleCarousel() {
+      const track = document.getElementById("boundary-carousel-track");
+      if (!track) {
+        return;
+      }
+
+      const modelFiles = Array.from({ length: 21 }, (_, index) => `./media/models/model${index + 1}.png`);
+      const createImage = (filePath) => {
+        const image = document.createElement("img");
+        image.className = "title-model-image";
+        image.src = filePath;
+        image.alt = "";
+        image.loading = "eager";
+        image.decoding = "async";
+        return image;
+      };
+
+      track.innerHTML = "";
+      modelFiles.forEach((filePath) => track.appendChild(createImage(filePath)));
+      modelFiles.forEach((filePath) => track.appendChild(createImage(filePath)));
+
+      const updateShiftDistance = () => {
+        const images = Array.from(track.querySelectorAll(".title-model-image"));
+        const singleSet = images.slice(0, modelFiles.length);
+        const totalWidth = singleSet.reduce((sum, image) => sum + image.getBoundingClientRect().width, 0);
+        const totalGap = Math.max(0, singleSet.length - 1) * 3;
+        track.style.setProperty("--title-carousel-shift", `${Math.round(totalWidth + totalGap)}px`);
+      };
+
+      const allImages = Array.from(track.querySelectorAll(".title-model-image"));
+      let pendingLoads = allImages.length;
+      const handleLoad = () => {
+        pendingLoads -= 1;
+        if (pendingLoads <= 0) {
+          updateShiftDistance();
+        }
+      };
+
+      allImages.forEach((image) => {
+        if (image.complete) {
+          handleLoad();
+        } else {
+          image.addEventListener("load", handleLoad, { once: true });
+          image.addEventListener("error", handleLoad, { once: true });
+        }
+      });
+
+      if (pendingLoads <= 0) {
+        updateShiftDistance();
+      }
+
+      window.addEventListener("resize", updateShiftDistance);
+    }
+
 
     async function loadData() {
       const [controlResponse, colorResponse] = await Promise.all([
@@ -1015,21 +1449,17 @@
     }
 
     let currentPoints = [];
-    let currentView = "dots";
 
     async function init() {
       try {
         currentPoints = await loadData();
-        renderLegend(currentPoints);
         renderIntroChart();
         createIntroTokens();
+        renderLogoScatter(currentPoints);
 
-        const dotsBtn = document.getElementById("dots-btn");
-        const barsBtn = document.getElementById("bars-btn");
-        const skipButton = document.getElementById("intro-skip");
-        dotsBtn.addEventListener("click", () => switchView("dots"));
-        barsBtn.addEventListener("click", () => switchView("bars"));
-        skipButton.addEventListener("click", () => showMainInterface());
+        initPlayGameNavigation();
+        initTitleCarousel();
+        initScrollTransitions();
       } catch (error) {
         console.error(error);
       }
@@ -1047,11 +1477,7 @@
       }
 
       if (currentPoints.length > 0) {
-        if (currentView === "dots") {
-          renderScatter(currentPoints);
-        } else {
-          renderBars(currentPoints);
-        }
+        renderLogoScatter(currentPoints);
       }
     });
 
