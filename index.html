@@ -284,6 +284,302 @@
       height: calc(100% - 218px);
     }
 
+    #insights-explore-copy {
+      position: absolute;
+      top: 35px;
+      left: 50px;
+      right: 50px;
+      display: flex;
+      align-items: flex-start;
+      gap: 26px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 520ms ease;
+      z-index: 20;
+    }
+
+    #insights-page-1.show-explore-copy #insights-explore-copy {
+      opacity: 1;
+    }
+
+    #insights-explore-title {
+      margin: 0;
+      font-family: "InterCustom", sans-serif;
+      font-weight: 700;
+      font-size: 120px;
+      line-height: 0.9;
+      white-space: nowrap;
+      flex: 0 0 auto;
+    }
+
+    #insights-explore-text {
+      margin: 3px 0 0 0;
+      font-family: "MontserratCustom", sans-serif;
+      font-weight: 400;
+      font-size: 30px;
+      line-height: 1.16;
+      text-align: left;
+      flex: 1 1 auto;
+    }
+
+    #compare-page {
+      position: relative;
+      background: #fff;
+      color: #000;
+    }
+
+    #compare-top-copy {
+      position: absolute;
+      top: 50px;
+      left: 50px;
+      right: 50px;
+      display: flex;
+      align-items: flex-start;
+      gap: 26px;
+      opacity: 0;
+      transition: opacity 520ms ease;
+      z-index: 20;
+      pointer-events: none;
+    }
+
+    #compare-page.is-animated #compare-top-copy {
+      opacity: 1;
+    }
+
+    #compare-title {
+      margin: 0;
+      font-family: "InterCustom", sans-serif;
+      font-weight: 700;
+      font-size: 120px;
+      line-height: 0.9;
+      white-space: nowrap;
+      flex: 0 0 auto;
+    }
+
+    #compare-copy {
+      margin: 3px 0 0 0;
+      font-family: "MontserratCustom", sans-serif;
+      font-weight: 400;
+      font-size: 30px;
+      line-height: 1.16;
+      text-align: left;
+      flex: 1 1 auto;
+    }
+
+    #compare-axis-frame {
+      position: absolute;
+      top: 170px;
+      left: 0;
+      right: 0;
+      bottom: 48px;
+      width: 100%;
+      height: calc(100% - 218px);
+    }
+
+    #compare-axis-panel {
+      width: 86%;
+      height: 100%;
+      position: relative;
+      margin: 0 auto;
+      padding: 10px 0 18px 0;
+    }
+
+    #compare-chart {
+      width: 100%;
+      height: 100%;
+      display: block;
+      background: #fff;
+    }
+
+    .compare-y-title,
+    .compare-x-title {
+      opacity: 0;
+      transition: opacity 520ms ease;
+    }
+
+    #compare-page.is-animated .compare-y-title,
+    #compare-page.is-animated .compare-x-title {
+      opacity: 1;
+    }
+
+    .compare-bar {
+      transform-origin: center bottom;
+      transform-box: fill-box;
+      transform: scaleY(0);
+      transition: transform 760ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    #compare-page.is-animated .compare-bar {
+      transform: scaleY(1);
+    }
+
+    #compare-filter-menu {
+      position: absolute;
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      background: #fff;
+      border: 1px solid #000;
+      padding: 10px 12px;
+      z-index: 40;
+      min-width: 360px;
+    }
+
+    #compare-filter-menu.is-open {
+      display: flex;
+    }
+
+    .compare-filter-item {
+      font-family: "MontserratCustom", sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.2;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    #brand-detail-page {
+      position: fixed;
+      inset: 0;
+      background: #fff;
+      color: #000;
+      z-index: 350;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 220ms ease;
+    }
+
+    #brand-detail-page.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #brand-detail-title {
+      position: absolute;
+      top: 40px;
+      left: 40px;
+      margin: 0;
+      font-family: "InterCustom", sans-serif;
+      font-size: 120px;
+      font-weight: 700;
+      line-height: 0.9;
+      max-width: 58vw;
+    }
+
+    #brand-detail-top-actions {
+      position: absolute;
+      top: 40px;
+      right: 40px;
+      display: flex;
+      align-items: flex-start;
+      gap: 24px;
+      z-index: 2;
+    }
+
+    .brand-detail-action {
+      border: 0;
+      background: transparent;
+      padding: 0;
+      margin: 0;
+      color: #000;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      font-family: "MontserratCustom", sans-serif;
+      font-size: 30px;
+      font-weight: 400;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    #brand-detail-brands-wrap {
+      position: relative;
+    }
+
+    #brand-detail-brands-menu {
+      position: absolute;
+      top: 38px;
+      right: 0;
+      width: 360px;
+      max-height: 62vh;
+      overflow-y: auto;
+      border: 1px solid #000;
+      background: #fff;
+      padding: 8px 0;
+      display: none;
+      z-index: 4;
+    }
+
+    #brand-detail-brands-menu.is-open {
+      display: block;
+    }
+
+    .brand-detail-brand-option {
+      width: 100%;
+      border: 0;
+      background: #fff;
+      color: #000;
+      text-align: left;
+      padding: 10px 14px;
+      font-family: "MontserratCustom", sans-serif;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 1.15;
+      cursor: pointer;
+    }
+
+    .brand-detail-brand-option:hover {
+      background: #f5f5f5;
+    }
+
+    #brand-detail-eci-block {
+      position: absolute;
+      top: 248px;
+      left: 40px;
+      width: 500px;
+    }
+
+    .brand-score-value {
+      margin: 0;
+      font-family: "InterCustom", sans-serif;
+      font-weight: 700;
+      line-height: 0.9;
+    }
+
+    .brand-score-value.eci {
+      font-size: 120px;
+    }
+
+    .brand-score-value.metric {
+      font-size: 75px;
+    }
+
+    .brand-score-label {
+      margin: 12px 0 0 0;
+      font-family: "MontserratCustom", sans-serif;
+      font-size: 30px;
+      font-weight: 400;
+      line-height: 1.15;
+    }
+
+    #brand-detail-metrics-grid {
+      position: absolute;
+      top: 90px;
+      right: 40px;
+      width: 56vw;
+      min-width: 650px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 52px;
+      row-gap: 18px;
+    }
+
+    .brand-metric-card {
+      min-height: 150px;
+    }
+
     #insights-axis-panel {
       width: 78%;
       height: 100%;
@@ -297,12 +593,14 @@
       height: 100%;
       display: block;
       background: #fff;
+      overflow: visible;
     }
 
     .scatter-logo {
       transform-origin: center;
       transform-box: fill-box;
-      transition: transform 420ms ease, opacity 420ms ease;
+      transition: transform 280ms ease, opacity 420ms ease;
+      cursor: pointer;
     }
 
     .scatter-logo.is-hidden {
@@ -314,6 +612,11 @@
     .scatter-logo.is-visible {
       opacity: 1;
       transform: scale(1);
+      pointer-events: auto;
+    }
+
+    .scatter-logo.is-hovered {
+      transform: scale(1.22);
     }
 
     #transition-overlay {
@@ -772,6 +1075,46 @@
 </head>
 <body>
   <div id="transition-overlay" aria-hidden="true"></div>
+  <section id="brand-detail-page" aria-label="Brand detail page">
+    <h1 id="brand-detail-title"></h1>
+    <div id="brand-detail-top-actions">
+      <button id="brand-detail-index-button" class="brand-detail-action" type="button">Index</button>
+      <div id="brand-detail-brands-wrap">
+        <button id="brand-detail-brands-button" class="brand-detail-action" type="button">Brands</button>
+        <div id="brand-detail-brands-menu" aria-label="Brand selection menu"></div>
+      </div>
+    </div>
+    <div id="brand-detail-eci-block">
+      <p id="brand-detail-eci-value" class="brand-score-value eci"></p>
+      <p class="brand-score-label">Ethical Compliance Score</p>
+    </div>
+    <div id="brand-detail-metrics-grid">
+      <div class="brand-metric-card">
+        <p id="brand-detail-st-value" class="brand-score-value metric"></p>
+        <p class="brand-score-label">Social Transparency Score</p>
+      </div>
+      <div class="brand-metric-card">
+        <p id="brand-detail-lc-value" class="brand-score-value metric"></p>
+        <p class="brand-score-label">Labor Compensation Score</p>
+      </div>
+      <div class="brand-metric-card">
+        <p id="brand-detail-hrrr-value" class="brand-score-value metric"></p>
+        <p class="brand-score-label">Human Rights Risk &amp; Responsiveness Score</p>
+      </div>
+      <div class="brand-metric-card">
+        <p id="brand-detail-ei-value" class="brand-score-value metric"></p>
+        <p class="brand-score-label">Environmental Impact Score</p>
+      </div>
+      <div class="brand-metric-card">
+        <p id="brand-detail-sct-value" class="brand-score-value metric"></p>
+        <p class="brand-score-label">Supply Chain Transparency Score</p>
+      </div>
+      <div class="brand-metric-card">
+        <p id="brand-detail-vde-value" class="brand-score-value metric"></p>
+        <p class="brand-score-label">Value Distribution Equity Score</p>
+      </div>
+    </div>
+  </section>
   <main id="experience">
     <section id="title-page" class="page snap-page" aria-label="Project title page">
       <div id="title-box">
@@ -860,18 +1203,36 @@
       </div>
     </section>
 
-    <section id="insights-page-1" class="page" aria-label="Brand logo scatter plot">
+    <section id="insights-page-1" class="page snap-page" aria-label="Brand logo scatter plot">
+      <div id="insights-explore-copy" aria-hidden="true">
+        <h2 id="insights-explore-title">EXPLORE</h2>
+        <p id="insights-explore-text">Now you can explore all brands. Click on the Ethical Compliance Score to explore the different metrics or click on a brand to learn more about its scoring.</p>
+      </div>
       <div id="insights-axis-frame">
         <div id="insights-axis-panel">
           <svg id="insights-chart" role="img" aria-label="Scatter plot of Ethical Compliance Score vs Revenue Scale Score with brand logos"></svg>
         </div>
       </div>
     </section>
+
+    <section id="compare-page" class="page snap-page" aria-label="Brand metric comparison">
+      <div id="compare-top-copy" aria-hidden="true">
+        <h2 id="compare-title">COMPARE</h2>
+        <p id="compare-copy">Compare brands by their scores in each metric. Filter out metrics by clicking on the Metric/Index Score title below.</p>
+      </div>
+      <div id="compare-axis-frame">
+        <div id="compare-axis-panel">
+          <svg id="compare-chart" role="img" aria-label="Bar comparison of brands by ethical compliance index and metrics"></svg>
+        </div>
+      </div>
+      <div id="compare-filter-menu" aria-label="Metric filter menu"></div>
+    </section>
   </main>
 
   <script>
     const controlFile = "./Data/Control_Database.xlsx";
     const colorFile = "./Data/Color_Database.xlsx";
+    const metricsFile = "./Data/Metrics_Database.xlsx";
     const scatterTicks = [0, 25, 50, 75, 100];
     const barsTicks = [0, 50, 100, 150, 200];
     const introTokenDefs = [
@@ -934,6 +1295,15 @@
       ["victoria’s secret", "./media/VS.png"],
       ["wrangler", "./media/wrangler.png"]
     ]);
+    const compareSeriesDefs = [
+      { key: "ethical", label: "Ethical Compliance Index", color: "#111111" },
+      { key: "socialTransparency", label: "Social Transparency", color: "#4f46e5" },
+      { key: "laborCompensation", label: "Labor Compensation", color: "#0891b2" },
+      { key: "humanRights", label: "Human Rights Risk & Responsiveness", color: "#dc2626" },
+      { key: "environmentalImpact", label: "Environmental Impact", color: "#16a34a" },
+      { key: "supplyChainTransparency", label: "Supply Chain Transparency", color: "#ca8a04" },
+      { key: "valueDistributionEquity", label: "Value Distribution Equity", color: "#9333ea" }
+    ];
 
     function normalizeBrand(value) {
       return String(value || "").trim().toLowerCase();
@@ -1027,6 +1397,60 @@
       return colorMap;
     }
 
+    function parseMetricsRows(rows) {
+      const headerRowIndex = findHeaderRow(rows, [
+        "Brand",
+        "Social Transparency",
+        "Labor Compensation",
+        "Human Rights Risk & Responsiveness",
+        "Environmental Impact",
+        "Supply Chain Transparency",
+        "Value Distribution Equity"
+      ]);
+      if (headerRowIndex === -1) {
+        throw new Error("Metrics_Database.xlsx header row not found.");
+      }
+
+      const headers = rows[headerRowIndex].map((v) => (typeof v === "string" ? v.trim().toLowerCase() : v));
+      const idx = {
+        brand: headers.findIndex((h) => String(h) === "brand"),
+        socialTransparency: headers.findIndex((h) => String(h) === "social transparency"),
+        laborCompensation: headers.findIndex((h) => String(h) === "labor compensation"),
+        humanRights: headers.findIndex((h) => String(h) === "human rights risk & responsiveness"),
+        environmentalImpact: headers.findIndex((h) => String(h) === "environmental impact"),
+        supplyChainTransparency: headers.findIndex((h) => String(h) === "supply chain transparency"),
+        valueDistributionEquity: headers.findIndex((h) => String(h) === "value distribution equity")
+      };
+
+      const result = new Map();
+      for (let i = headerRowIndex + 1; i < rows.length; i += 1) {
+        const row = rows[i];
+        if (!row || row.length === 0) {
+          continue;
+        }
+        const brand = row[idx.brand];
+        if (!brand) {
+          continue;
+        }
+        const item = {
+          socialTransparency: Number(row[idx.socialTransparency]),
+          laborCompensation: Number(row[idx.laborCompensation]),
+          humanRights: Number(row[idx.humanRights]),
+          environmentalImpact: Number(row[idx.environmentalImpact]),
+          supplyChainTransparency: Number(row[idx.supplyChainTransparency]),
+          valueDistributionEquity: Number(row[idx.valueDistributionEquity])
+        };
+        Object.keys(item).forEach((key) => {
+          if (Number.isNaN(item[key])) {
+            item[key] = 0;
+          }
+          item[key] = Math.max(0, Math.min(100, item[key]));
+        });
+        result.set(normalizeBrand(brand), item);
+      }
+      return result;
+    }
+
     function svgText(content, x, y, extraAttrs = "") {
       return `<text x="${x}" y="${y}" ${extraAttrs}>${content}</text>`;
     }
@@ -1078,8 +1502,8 @@
         axisAndTicks.push(svgText(tick, margin.left - 12, y + 4, 'text-anchor="end" font-family="MontserratCustom" font-size="13" fill="#000" font-weight="400"'));
       });
 
-      axisAndTicks.push(svgText("Ethical Compliance Score", margin.left + chartW / 2, height - 22, 'text-anchor="middle" font-family="MontserratCustom" font-size="15" fill="#000" font-weight="400"'));
-      axisAndTicks.push(`<text x="24" y="${margin.top + chartH / 2}" transform="rotate(-90 24 ${margin.top + chartH / 2})" text-anchor="middle" font-family="MontserratCustom" font-size="15" fill="#000" font-weight="400">Revenue Scale Score</text>`);
+      axisAndTicks.push(svgText("Ethical Compliance Score", margin.left + chartW / 2, height - 10, 'text-anchor="middle" font-family="MontserratCustom" font-size="25" fill="#000" font-weight="400"'));
+      axisAndTicks.push(`<text x="12" y="${margin.top + chartH / 2}" transform="rotate(-90 12 ${margin.top + chartH / 2})" text-anchor="middle" font-family="MontserratCustom" font-size="25" fill="#000" font-weight="400">Revenue Scale Score</text>`);
 
       return axisAndTicks;
     }
@@ -1116,34 +1540,74 @@
           const brandKey = normalizeBrand(point.brand);
           const isVisible = !hiddenAll && (!visibleBrandKeys || visibleBrandKeys.has(brandKey));
           const visibilityClass = isVisible ? "is-visible" : "is-hidden";
-          return `<image class="scatter-logo ${visibilityClass}" data-brand="${escapeXml(point.brand)}" data-brand-key="${escapeXml(brandKey)}" href="${logoPath}" x="${cx - logoSize / 2}" y="${cy - logoSize / 2}" width="${logoSize}" height="${logoSize}" preserveAspectRatio="xMidYMid meet" />`;
+          return `<image class="scatter-logo ${visibilityClass}" data-brand="${escapeXml(point.brand)}" data-brand-key="${escapeXml(brandKey)}" data-ethical="${point.ethical}" data-scale="${point.scale}" href="${logoPath}" x="${cx - logoSize / 2}" y="${cy - logoSize / 2}" width="${logoSize}" height="${logoSize}" preserveAspectRatio="xMidYMid meet" />`;
         })
         .join("");
 
       svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
-      svg.innerHTML = `<g>${axisAndTicks.join("")}${markers}</g>
+      const yAxisTitleOverlay = `<text x="12" y="${layout.margin.top + layout.chartH / 2}" transform="rotate(-90 12 ${layout.margin.top + layout.chartH / 2})" text-anchor="middle" font-family="MontserratCustom" font-size="25" fill="#000" font-weight="400" pointer-events="none">Revenue Scale Score</text>`;
+      svg.innerHTML = `<g>${axisAndTicks.join("")}${markers}${yAxisTitleOverlay}</g>
       <g id="insights-tooltip" visibility="hidden" pointer-events="none">
         <rect id="insights-tooltip-bg" x="0" y="0" width="0" height="0" rx="4" ry="4" fill="rgba(0,0,0,0.6)"></rect>
-        <text id="insights-tooltip-text" x="0" y="0" fill="#fff" font-family="MontserratCustom" font-size="13" font-weight="400"></text>
+        <text id="insights-tooltip-line1" x="0" y="0" fill="#fff" font-family="MontserratCustom" font-size="13" font-weight="400" text-anchor="start"></text>
+        <text id="insights-tooltip-line2" x="0" y="0" fill="#fff" font-family="MontserratCustom" font-size="13" font-weight="400" text-anchor="start"></text>
+        <text id="insights-tooltip-line3" x="0" y="0" fill="#fff" font-family="MontserratCustom" font-size="13" font-weight="400" text-anchor="start"></text>
       </g>`;
 
       const tooltipGroup = svg.querySelector("#insights-tooltip");
       const tooltipBg = svg.querySelector("#insights-tooltip-bg");
-      const tooltipText = svg.querySelector("#insights-tooltip-text");
+      const tooltipLine1 = svg.querySelector("#insights-tooltip-line1");
+      const tooltipLine2 = svg.querySelector("#insights-tooltip-line2");
+      const tooltipLine3 = svg.querySelector("#insights-tooltip-line3");
       const markerElements = svg.querySelectorAll(".scatter-logo");
+      const getScatterLogoFromEvent = (event) => {
+        const path = typeof event.composedPath === "function" ? event.composedPath() : [];
+        for (let i = 0; i < path.length; i += 1) {
+          const node = path[i];
+          if (node instanceof Element && node.classList.contains("scatter-logo")) {
+            return node;
+          }
+        }
+        const target = event.target;
+        if (target instanceof Element && target.classList.contains("scatter-logo")) {
+          return target;
+        }
+        return null;
+      };
+      const clearScatterHover = () => {
+        markerElements.forEach((el) => el.classList.remove("is-hovered"));
+        tooltipGroup.setAttribute("visibility", "hidden");
+      };
 
       markerElements.forEach((marker) => {
         marker.addEventListener("mouseenter", () => {
           if (marker.classList.contains("is-hidden")) {
             return;
           }
+          clearScatterHover();
+          marker.classList.add("is-hovered");
+          if (marker.parentNode) {
+            marker.parentNode.appendChild(marker);
+          }
           const brand = marker.getAttribute("data-brand") || "";
-          tooltipText.textContent = brand;
-          const textBox = tooltipText.getBBox();
+          const ethicalScore = marker.getAttribute("data-ethical") || "";
+          const scaleScore = marker.getAttribute("data-scale") || "";
+          const line1 = brand;
+          const line2 = `Ethical Compliance Score: ${ethicalScore}`;
+          const line3 = `Revenue Scale Score: ${scaleScore}`;
+          tooltipLine1.textContent = line1;
+          tooltipLine2.textContent = line2;
+          tooltipLine3.textContent = line3;
+          const lineWidth = Math.max(
+            tooltipLine1.getComputedTextLength(),
+            tooltipLine2.getComputedTextLength(),
+            tooltipLine3.getComputedTextLength()
+          );
           const paddingX = 8;
           const paddingY = 6;
-          const boxWidth = textBox.width + paddingX * 2;
-          const boxHeight = textBox.height + paddingY * 2;
+          const lineHeight = 18;
+          const boxWidth = lineWidth + paddingX * 2;
+          const boxHeight = lineHeight * 3 + paddingY * 2;
 
           const x = Number(marker.getAttribute("x"));
           const y = Number(marker.getAttribute("y"));
@@ -1165,15 +1629,59 @@
           tooltipBg.setAttribute("y", String(boxY));
           tooltipBg.setAttribute("width", String(boxWidth));
           tooltipBg.setAttribute("height", String(boxHeight));
-          tooltipText.setAttribute("x", String(boxX + paddingX));
-          tooltipText.setAttribute("y", String(boxY + boxHeight - paddingY - 1));
+          tooltipLine1.setAttribute("x", String(boxX + paddingX));
+          tooltipLine1.setAttribute("y", String(boxY + paddingY + 12));
+          tooltipLine2.setAttribute("x", String(boxX + paddingX));
+          tooltipLine2.setAttribute("y", String(boxY + paddingY + 12 + lineHeight));
+          tooltipLine3.setAttribute("x", String(boxX + paddingX));
+          tooltipLine3.setAttribute("y", String(boxY + paddingY + 12 + lineHeight * 2));
           tooltipGroup.setAttribute("visibility", "visible");
         });
 
+        const onMarkerActivate = (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          const brandKey = marker.getAttribute("data-brand-key") || "";
+          if (!brandKey) {
+            return;
+          }
+          openBrandDetail(brandKey);
+        };
+        marker.addEventListener("pointerup", onMarkerActivate);
+        marker.addEventListener("click", onMarkerActivate);
+
         marker.addEventListener("mouseleave", () => {
-          tooltipGroup.setAttribute("visibility", "hidden");
+          clearScatterHover();
         });
       });
+
+      svg.addEventListener("mouseleave", () => {
+        clearScatterHover();
+      });
+
+      svg.addEventListener("mousemove", (event) => {
+        const target = event.target;
+        if (!(target instanceof Element) || !target.classList.contains("scatter-logo")) {
+          clearScatterHover();
+        }
+      });
+
+      svg.addEventListener("click", (event) => {
+        const targetLogo = getScatterLogoFromEvent(event);
+        if (!targetLogo) {
+          return;
+        }
+        if (targetLogo.classList.contains("is-hidden")) {
+          return;
+        }
+        const brandKey = targetLogo.getAttribute("data-brand-key") || "";
+        if (!brandKey) {
+          return;
+        }
+        event.preventDefault();
+        event.stopPropagation();
+        openBrandDetail(brandKey);
+      }, true);
     }
 
     function getIntroTransitionBrandKeys() {
@@ -1195,10 +1703,13 @@
       }
     }
 
-    function revealRemainingInsightsLogos() {
-      const brandKeysToKeep = new Set(getIntroTransitionBrandKeys());
+    function revealRemainingInsightsLogos(revealAll = false) {
+      const insightsPage = document.getElementById("insights-page-1");
+      const brandKeysToKeep = revealAll ? new Set() : new Set(getIntroTransitionBrandKeys());
       const logoElements = Array.from(document.querySelectorAll("#insights-chart .scatter-logo"));
-      const extraLogos = logoElements.filter((logo) => !brandKeysToKeep.has(logo.getAttribute("data-brand-key") || ""));
+      const extraLogos = revealAll
+        ? logoElements
+        : logoElements.filter((logo) => !brandKeysToKeep.has(logo.getAttribute("data-brand-key") || ""));
 
       extraLogos.forEach((logo, index) => {
         window.setTimeout(() => {
@@ -1206,6 +1717,13 @@
           logo.classList.add("is-visible");
         }, index * 45);
       });
+
+      const bloomDurationMs = extraLogos.length > 0 ? (extraLogos.length - 1) * 45 + 420 : 0;
+      window.setTimeout(() => {
+        if (insightsPage) {
+          insightsPage.classList.add("show-explore-copy");
+        }
+      }, bloomDurationMs);
     }
 
     function renderIntroChart() {
@@ -1214,6 +1732,106 @@
       const axisAndTicks = buildScatterAxisAndTicks(layout);
       svg.setAttribute("viewBox", `0 0 ${layout.width} ${layout.height}`);
       svg.innerHTML = `<g>${axisAndTicks.join("")}</g>`;
+    }
+
+    function buildCompareData(points) {
+      return points.map((point) => {
+        const metrics = point.metrics || {};
+        return {
+          brand: point.brand,
+          logo: getBrandLogoForScatter(point.brand),
+          values: {
+            ethical: point.ethical,
+            socialTransparency: metrics.socialTransparency || 0,
+            laborCompensation: metrics.laborCompensation || 0,
+            humanRights: metrics.humanRights || 0,
+            environmentalImpact: metrics.environmentalImpact || 0,
+            supplyChainTransparency: metrics.supplyChainTransparency || 0,
+            valueDistributionEquity: metrics.valueDistributionEquity || 0
+          }
+        };
+      });
+    }
+
+    function renderCompareChart(points) {
+      const svg = document.getElementById("compare-chart");
+      const filterMenu = document.getElementById("compare-filter-menu");
+      if (!svg || !filterMenu || points.length === 0) {
+        return;
+      }
+      const compareData = buildCompareData(points);
+      const width = Math.max(920, svg.clientWidth);
+      const height = Math.max(500, svg.clientHeight);
+      const margin = { top: 30, right: 30, bottom: 150, left: 95 };
+      const chartW = width - margin.left - margin.right;
+      const chartH = height - margin.top - margin.bottom;
+      const step = chartW / Math.max(1, compareData.length);
+      const groupW = Math.min(42, step * 0.55);
+      const xCenter = (index) => margin.left + step * index + step / 2;
+      const yForValue = (value) => margin.top + chartH - (value / 100) * chartH;
+      const selected = compareState.selectedSeries;
+      const activeSeries = compareSeriesDefs.filter((series) => selected.has(series.key));
+
+      const axis = [
+        `<line x1="${margin.left}" y1="${margin.top + chartH}" x2="${margin.left + chartW}" y2="${margin.top + chartH}" stroke="#000" stroke-width="1.5" />`,
+        `<line x1="${margin.left}" y1="${margin.top + chartH}" x2="${margin.left}" y2="${margin.top}" stroke="#000" stroke-width="1.5" />`
+      ];
+
+      scatterTicks.forEach((tick) => {
+        const y = yForValue(tick);
+        axis.push(`<line x1="${margin.left - 6}" y1="${y}" x2="${margin.left}" y2="${y}" stroke="#000" stroke-width="1" />`);
+        axis.push(svgText(tick, margin.left - 12, y + 4, 'text-anchor="end" font-family="MontserratCustom" font-size="13" fill="#000" font-weight="400"'));
+      });
+
+      axis.push(`<text class="compare-y-title" id="compare-y-axis-title" x="24" y="${margin.top + chartH / 2}" transform="rotate(-90 24 ${margin.top + chartH / 2})" text-anchor="middle" font-family="MontserratCustom" font-size="15" fill="#000" font-weight="400" style="cursor:pointer">Metric/Index Score</text>`);
+
+      const bars = [];
+      const labels = [];
+      compareData.forEach((item, index) => {
+        const cx = xCenter(index);
+        const seriesForBrand = activeSeries
+          .map((series) => ({ ...series, value: item.values[series.key] || 0 }))
+          .sort((a, b) => b.value - a.value);
+
+        seriesForBrand.forEach((series, barIndex) => {
+          const barWidth = groupW;
+          const x = cx - barWidth / 2;
+          const y = yForValue(series.value);
+          const h = margin.top + chartH - y;
+          bars.push(`<rect class="compare-bar" x="${x}" y="${y}" width="${barWidth}" height="${h}" fill="${series.color}" opacity="1" />`);
+        });
+
+        const shortBrand = item.brand.length > 18 ? `${item.brand.slice(0, 16)}..` : item.brand;
+        labels.push(`<text class="compare-x-title" x="${cx - 2}" y="${margin.top + chartH + 18}" transform="rotate(-45 ${cx - 2} ${margin.top + chartH + 18})" text-anchor="end" font-family="MontserratCustom" font-size="14" fill="#000" font-weight="400">${escapeXml(shortBrand)}</text>`);
+      });
+
+      svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+      svg.innerHTML = `<g>${axis.join("")}${bars.join("")}${labels.join("")}</g>`;
+
+      const yTitle = svg.querySelector("#compare-y-axis-title");
+      if (yTitle) {
+        yTitle.addEventListener("click", (event) => {
+          event.stopPropagation();
+          const panelRect = document.getElementById("compare-axis-panel").getBoundingClientRect();
+          const svgRect = svg.getBoundingClientRect();
+          const targetRect = yTitle.getBoundingClientRect();
+          filterMenu.style.left = `${targetRect.right - panelRect.left + 12}px`;
+          filterMenu.style.top = `${targetRect.top - panelRect.top}px`;
+          filterMenu.classList.toggle("is-open");
+        });
+      }
+
+    }
+
+    function startComparePageAnimation() {
+      const comparePage = document.getElementById("compare-page");
+      if (!comparePage) {
+        return;
+      }
+      comparePage.classList.remove("is-animated");
+      window.requestAnimationFrame(() => {
+        comparePage.classList.add("is-animated");
+      });
     }
 
     const introState = {
@@ -1243,6 +1861,136 @@
     const metricsBagState = {
       canScrollToGameIntro: false
     };
+    const compareState = {
+      selectedSeries: new Set(compareSeriesDefs.map((series) => series.key))
+    };
+    const brandDetailState = {
+      currentBrandKey: null
+    };
+
+    function formatScore(value) {
+      const number = Number(value);
+      if (Number.isNaN(number)) {
+        return "0";
+      }
+      return Number.isInteger(number) ? String(number) : number.toFixed(1);
+    }
+
+    function getBrandPointByKey(brandKey) {
+      return currentPoints.find((point) => normalizeBrand(point.brand) === brandKey) || null;
+    }
+
+    function renderBrandDetail(brandKey) {
+      const brandPoint = getBrandPointByKey(brandKey);
+      if (!brandPoint) {
+        return false;
+      }
+      brandDetailState.currentBrandKey = brandKey;
+
+      const titleEl = document.getElementById("brand-detail-title");
+      const eciEl = document.getElementById("brand-detail-eci-value");
+      const stEl = document.getElementById("brand-detail-st-value");
+      const lcEl = document.getElementById("brand-detail-lc-value");
+      const hrrrEl = document.getElementById("brand-detail-hrrr-value");
+      const eiEl = document.getElementById("brand-detail-ei-value");
+      const sctEl = document.getElementById("brand-detail-sct-value");
+      const vdeEl = document.getElementById("brand-detail-vde-value");
+      if (!titleEl || !eciEl || !stEl || !lcEl || !hrrrEl || !eiEl || !sctEl || !vdeEl) {
+        return false;
+      }
+
+      const metrics = brandPoint.metrics || {};
+      titleEl.textContent = brandPoint.brand;
+      eciEl.textContent = formatScore(brandPoint.ethical);
+      stEl.textContent = formatScore(metrics.socialTransparency || 0);
+      lcEl.textContent = formatScore(metrics.laborCompensation || 0);
+      hrrrEl.textContent = formatScore(metrics.humanRights || 0);
+      eiEl.textContent = formatScore(metrics.environmentalImpact || 0);
+      sctEl.textContent = formatScore(metrics.supplyChainTransparency || 0);
+      vdeEl.textContent = formatScore(metrics.valueDistributionEquity || 0);
+      return true;
+    }
+
+    function openBrandDetail(brandKey) {
+      const detailPage = document.getElementById("brand-detail-page");
+      if (!detailPage) {
+        return false;
+      }
+      const didRender = renderBrandDetail(brandKey);
+      if (!didRender) {
+        const titleEl = document.getElementById("brand-detail-title");
+        if (titleEl) {
+          titleEl.textContent = "Brand";
+        }
+      }
+      detailPage.classList.add("is-open");
+      return didRender;
+    }
+
+    function closeBrandDetail() {
+      const detailPage = document.getElementById("brand-detail-page");
+      const brandsMenu = document.getElementById("brand-detail-brands-menu");
+      if (!detailPage) {
+        return;
+      }
+      detailPage.classList.remove("is-open");
+      if (brandsMenu) {
+        brandsMenu.classList.remove("is-open");
+      }
+    }
+
+    function initBrandDetailUI() {
+      const indexButton = document.getElementById("brand-detail-index-button");
+      const brandsButton = document.getElementById("brand-detail-brands-button");
+      const brandsMenu = document.getElementById("brand-detail-brands-menu");
+      const detailPage = document.getElementById("brand-detail-page");
+      if (!indexButton || !brandsButton || !brandsMenu || !detailPage) {
+        return;
+      }
+
+      const sortedBrands = currentPoints
+        .slice()
+        .sort((a, b) => a.brand.localeCompare(b.brand));
+      brandsMenu.innerHTML = sortedBrands
+        .map((item) => `<button class="brand-detail-brand-option" type="button" data-brand-key="${escapeXml(normalizeBrand(item.brand))}">${escapeXml(item.brand)}</button>`)
+        .join("");
+
+      indexButton.addEventListener("click", () => {
+        closeBrandDetail();
+      });
+
+      brandsButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        brandsMenu.classList.toggle("is-open");
+      });
+
+      brandsMenu.addEventListener("click", (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLElement)) {
+          return;
+        }
+        const option = target.closest(".brand-detail-brand-option");
+        if (!(option instanceof HTMLElement)) {
+          return;
+        }
+        const brandKey = option.getAttribute("data-brand-key");
+        if (!brandKey) {
+          return;
+        }
+        renderBrandDetail(brandKey);
+        brandsMenu.classList.remove("is-open");
+      });
+
+      detailPage.addEventListener("click", (event) => {
+        const target = event.target;
+        if (!(target instanceof Element)) {
+          return;
+        }
+        if (!target.closest("#brand-detail-brands-wrap")) {
+          brandsMenu.classList.remove("is-open");
+        }
+      });
+    }
     const metricDetails = {
       "metric-vde": {
         title: "Value Distribution Equity",
@@ -1500,10 +2248,43 @@
       placeIntroTokensInTray();
     }
 
-    function showMainInterface() {
+    function goToExploreView(revealAll = false) {
       const introView = document.getElementById("intro-view");
+      const gamePage = document.getElementById("game-page");
       const insightsPage = document.getElementById("insights-page-1");
 
+      if (introView) {
+        introView.style.display = "none";
+      }
+      if (gamePage) {
+        gamePage.classList.remove("is-visible");
+        gamePage.style.display = "none";
+      }
+
+      if (insightsPage) {
+        document.documentElement.classList.remove("no-snap");
+        document.body.classList.remove("no-snap");
+        insightsPage.classList.remove("show-explore-copy");
+        if (currentPoints.length > 0) {
+          renderLogoScatter(currentPoints);
+        }
+        if (currentPoints.length > 0 && !revealAll) {
+          const transitionBrandKeys = new Set(getIntroTransitionBrandKeys());
+          setInsightsMode("subset-only", Array.from(transitionBrandKeys));
+        } else {
+          setInsightsMode("hidden-all");
+        }
+        insightsPage.classList.add("is-visible");
+        insightsPage.scrollIntoView({ behavior: "auto", block: "start" });
+        window.requestAnimationFrame(() => {
+          insightsPage.scrollIntoView({ behavior: "auto", block: "start" });
+          renderLogoScatter(currentPoints);
+          revealRemainingInsightsLogos(revealAll);
+        });
+      }
+    }
+
+    function showMainInterface() {
       if (introState.revealTimer) {
         window.clearTimeout(introState.revealTimer);
         introState.revealTimer = null;
@@ -1512,102 +2293,18 @@
         window.clearTimeout(introState.transitionTimer);
         introState.transitionTimer = null;
       }
-
-      if (introView) {
-        introView.style.display = "none";
-      }
-
-      if (insightsPage) {
-        setInsightsMode("all-visible");
-        insightsPage.classList.add("is-visible");
-        document.documentElement.classList.add("no-snap");
-        document.body.classList.add("no-snap");
-        insightsPage.scrollIntoView({ behavior: "auto", block: "start" });
-        window.requestAnimationFrame(() => {
-          insightsPage.scrollIntoView({ behavior: "auto", block: "start" });
-        });
-      }
+      goToExploreView(true);
     }
 
     function startGameToInsightsTransition() {
       if (introState.transitioningToInsights) {
         return;
       }
-
-      const introView = document.getElementById("intro-view");
-      const insightsPage = document.getElementById("insights-page-1");
-      const insightsChart = document.getElementById("insights-chart");
-      const overlay = document.getElementById("transition-overlay");
-      if (!introView || !insightsPage || !insightsChart || !overlay) {
-        showMainInterface();
-        return;
-      }
-
       introState.transitioningToInsights = true;
-      const transitionBrandKeys = new Set(getIntroTransitionBrandKeys());
-      setInsightsMode("hidden-all");
-      insightsPage.classList.add("is-visible");
-      document.documentElement.classList.add("no-snap");
-      document.body.classList.add("no-snap");
-      // Keep current frame visible while we re-parent the existing tokens.
-
-      window.requestAnimationFrame(() => {
-        const tokensToAnimate = [];
-        overlay.innerHTML = "";
-
-        // Move the EXISTING 6 token elements into the overlay as fixed-position,
-        // so they can shrink smoothly without ever disappearing.
-        introTokenDefs.forEach((tokenDef) => {
-          const tokenState = getIntroTokenById(tokenDef.id);
-          const point = getIntroBrandPoint(tokenDef);
-          if (!tokenState || !point) {
-            return;
-          }
-
-          const rect = tokenState.el.getBoundingClientRect();
-          tokenState.el.classList.remove("is-dragging");
-          tokenState.el.style.transition = "none";
-          tokenState.el.style.position = "fixed";
-          tokenState.el.style.left = `${rect.left}px`;
-          tokenState.el.style.top = `${rect.top}px`;
-          tokenState.el.style.width = `${rect.width}px`;
-          tokenState.el.style.height = `${rect.height}px`;
-          tokenState.el.style.margin = "0";
-          tokenState.el.style.zIndex = "202";
-          tokenState.el.style.cursor = "default";
-          tokenState.el.style.pointerEvents = "none";
-          tokenState.el.style.opacity = "1";
-          overlay.appendChild(tokenState.el);
-          tokensToAnimate.push({ el: tokenState.el, point });
-        });
-
-        // Now jump to the ECI page while the tokens stay fixed on screen.
-        insightsPage.scrollIntoView({ behavior: "auto", block: "start" });
-
-        const layout = getScatterLayout(insightsChart);
-        const chartRect = insightsChart.getBoundingClientRect();
-        // Animate the same token elements into the ECI positions + ECI size.
-        window.requestAnimationFrame(() => {
-          tokensToAnimate.forEach(({ el, point }) => {
-            el.style.transition = "left 650ms ease, top 650ms ease, width 650ms ease, height 650ms ease";
-            const targetSize = 68;
-            const targetLeft = chartRect.left + layout.xToPx(point.ethical) - targetSize / 2;
-            const targetTop = chartRect.top + layout.yToPx(point.scale) - targetSize / 2;
-            el.style.left = `${targetLeft}px`;
-            el.style.top = `${targetTop}px`;
-            el.style.width = `${targetSize}px`;
-            el.style.height = `${targetSize}px`;
-          });
-        });
-
-        window.setTimeout(() => {
-          introView.style.display = "none";
-          setInsightsMode("subset-only", Array.from(transitionBrandKeys));
-          overlay.innerHTML = "";
-          revealRemainingInsightsLogos();
-          introState.transitioningToInsights = false;
-        }, 700);
-      });
+      goToExploreView(false);
+      window.setTimeout(() => {
+        introState.transitioningToInsights = false;
+      }, 600);
     }
 
     function initScrollTransitions() {
@@ -1615,6 +2312,7 @@
       const infoPage = document.getElementById("info-page");
       const playIntroPage = document.getElementById("play-intro-page");
       const insightsPage = document.getElementById("insights-page-1");
+      const comparePage = document.getElementById("compare-page");
 
       const observer = new IntersectionObserver(
         (entries) => {
@@ -1622,6 +2320,14 @@
             if (entry.target.id !== "game-page") {
               if (entry.target.id === "insights-page-1") {
                 insightsPage.classList.toggle("is-visible", entry.isIntersecting && entry.intersectionRatio > 0.2);
+              } else if (entry.target.id === "compare-page") {
+                const isCompareActive = entry.isIntersecting && entry.intersectionRatio > 0.5;
+                comparePage.classList.toggle("is-active", isCompareActive);
+                if (isCompareActive) {
+                  startComparePageAnimation();
+                } else {
+                  comparePage.classList.remove("is-animated");
+                }
               }
               return;
             }
@@ -1643,6 +2349,65 @@
 
       observer.observe(gamePage);
       observer.observe(insightsPage);
+      if (comparePage) {
+        observer.observe(comparePage);
+      }
+    }
+
+    function initCompareInteractions() {
+      const comparePage = document.getElementById("compare-page");
+      const filterMenu = document.getElementById("compare-filter-menu");
+      if (!comparePage || !filterMenu) {
+        return;
+      }
+
+      const options = [
+        ...compareSeriesDefs.map((series) => ({ id: series.key, label: series.label })),
+        { id: "select-all", label: "Select All" }
+      ];
+
+      filterMenu.innerHTML = options
+        .map((option) => {
+          const checked = option.id === "select-all" ? false : compareState.selectedSeries.has(option.id);
+          return `<label class="compare-filter-item"><input type="checkbox" data-option="${option.id}" ${checked ? "checked" : ""} />${escapeXml(option.label)}</label>`;
+        })
+        .join("");
+
+      filterMenu.addEventListener("click", (event) => {
+        event.stopPropagation();
+      });
+
+      filterMenu.addEventListener("change", (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLInputElement)) {
+          return;
+        }
+        const option = target.getAttribute("data-option");
+        if (!option) {
+          return;
+        }
+        if (option === "select-all") {
+          compareState.selectedSeries = new Set(compareSeriesDefs.map((series) => series.key));
+          filterMenu.querySelectorAll('input[data-option]').forEach((input) => {
+            if (input instanceof HTMLInputElement && input.getAttribute("data-option") !== "select-all") {
+              input.checked = true;
+            }
+          });
+        } else if (target.checked) {
+          compareState.selectedSeries.add(option);
+        } else {
+          compareState.selectedSeries.delete(option);
+          if (compareState.selectedSeries.size === 0) {
+            compareState.selectedSeries.add(option);
+            target.checked = true;
+          }
+        }
+        renderCompareChart(currentPoints);
+      });
+
+      comparePage.addEventListener("click", () => {
+        filterMenu.classList.remove("is-open");
+      });
     }
 
     function initPlayGameNavigation() {
@@ -1877,6 +2642,31 @@
       };
 
       const goToGameInstant = () => {
+        const introView = document.getElementById("intro-view");
+        const gamePageEl = document.getElementById("game-page");
+        if (introView) {
+          introView.style.display = "block";
+        }
+        if (gamePageEl) {
+          gamePageEl.style.display = "block";
+        }
+        introState.revealed = false;
+        introState.transitioningToInsights = false;
+        if (introState.revealTimer) {
+          window.clearTimeout(introState.revealTimer);
+          introState.revealTimer = null;
+        }
+        if (introState.transitionTimer) {
+          window.clearTimeout(introState.transitionTimer);
+          introState.transitionTimer = null;
+        }
+        renderIntroChart();
+        if (introState.tokenMap.size === 0) {
+          createIntroTokens();
+        } else {
+          placeIntroTokensInTray();
+        }
+        gamePage.classList.add("is-visible");
         allowGameJump = true;
         gamePage.scrollIntoView({ behavior: "auto", block: "start" });
         window.setTimeout(() => {
@@ -2002,9 +2792,7 @@
             return;
           }
 
-          if (isInsightsActive() && Math.abs(event.deltaY) > 0) {
-            event.preventDefault();
-          }
+          
         },
         { passive: false }
       );
@@ -2058,9 +2846,7 @@
             event.preventDefault();
             return;
           }
-          if (isInsightsActive() && ["ArrowUp", "ArrowDown", "PageUp", "PageDown", " ", "Home", "End"].includes(event.key)) {
-            event.preventDefault();
-          }
+          
         },
         { passive: false }
       );
@@ -2122,29 +2908,41 @@
 
 
     async function loadData() {
-      const [controlResponse, colorResponse] = await Promise.all([
+      const [controlResponse, colorResponse, metricsResponse] = await Promise.all([
         fetch(controlFile),
-        fetch(colorFile)
+        fetch(colorFile),
+        fetch(metricsFile)
       ]);
 
-      if (!controlResponse.ok || !colorResponse.ok) {
+      if (!controlResponse.ok || !colorResponse.ok || !metricsResponse.ok) {
         throw new Error("Could not load one or both Excel files from the Data folder.");
       }
 
-      const [controlBuffer, colorBuffer] = await Promise.all([
+      const [controlBuffer, colorBuffer, metricsBuffer] = await Promise.all([
         controlResponse.arrayBuffer(),
-        colorResponse.arrayBuffer()
+        colorResponse.arrayBuffer(),
+        metricsResponse.arrayBuffer()
       ]);
 
       const controlRows = getFirstSheetRows(readWorkbookFromBuffer(controlBuffer));
       const colorRows = getFirstSheetRows(readWorkbookFromBuffer(colorBuffer));
+      const metricsRows = getFirstSheetRows(readWorkbookFromBuffer(metricsBuffer));
 
       const controlData = parseControlRows(controlRows);
       const colorMap = parseColorRows(colorRows);
+      const metricsMap = parseMetricsRows(metricsRows);
 
       return controlData.map((item) => ({
         ...item,
-        color: colorMap.get(normalizeBrand(item.brand)) || "#000000"
+        color: colorMap.get(normalizeBrand(item.brand)) || "#000000",
+        metrics: metricsMap.get(normalizeBrand(item.brand)) || {
+          socialTransparency: 0,
+          laborCompensation: 0,
+          humanRights: 0,
+          environmentalImpact: 0,
+          supplyChainTransparency: 0,
+          valueDistributionEquity: 0
+        }
       }));
     }
 
@@ -2173,6 +2971,11 @@
       } catch (error) {
         console.error("renderLogoScatter failed", error);
       }
+      try {
+        renderCompareChart(currentPoints);
+      } catch (error) {
+        console.error("renderCompareChart failed", error);
+      }
 
       try {
         initTitleCarousel();
@@ -2189,6 +2992,16 @@
       } catch (error) {
         console.error("initPlayGameNavigation failed", error);
       }
+      try {
+        initCompareInteractions();
+      } catch (error) {
+        console.error("initCompareInteractions failed", error);
+      }
+      try {
+        initBrandDetailUI();
+      } catch (error) {
+        console.error("initBrandDetailUI failed", error);
+      }
     }
 
     window.addEventListener("resize", () => {
@@ -2204,6 +3017,7 @@
 
       if (currentPoints.length > 0) {
         renderLogoScatter(currentPoints);
+        renderCompareChart(currentPoints);
       }
     });
 
