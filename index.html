@@ -85,92 +85,365 @@
 
     #title-page {
       overflow: hidden;
+      background: #fff;
     }
 
-    #title-box {
+    #title-stage-one,
+    #title-stage-two {
+      position: absolute;
+      inset: 0;
+      background: #fff;
+    }
+
+    #title-stage-two {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 380ms ease;
+    }
+
+    #title-page.phase-two #title-stage-two {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #title-page.phase-two-start #title-stage-two {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #title-page.phase-two-lyrics #title-stage-two {
+      filter: blur(10px);
+      opacity: 0.4;
+      transition: filter 320ms ease, opacity 320ms ease;
+    }
+
+    #title-lyrics-overlay {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 300ms ease;
+      z-index: 80;
+    }
+
+    #title-page.phase-two-lyrics #title-lyrics-overlay {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #title-lyrics-box {
+      position: absolute;
+      top: 50px;
+      right: 50px;
+      bottom: 50px;
+      left: 200px;
+      overflow: hidden;
+      font-family: "InterCustom", sans-serif;
+      font-size: 75px;
+      font-weight: 400;
+      line-height: 0.98;
+      text-align: left;
+    }
+
+    #title-lyrics-track {
+      will-change: transform;
+      transition: transform 420ms ease;
+    }
+
+    .title-lyric-paragraph {
+      margin: 0;
+      color: #dfdede;
+      transition: color 280ms ease;
+    }
+
+    .title-lyric-paragraph.is-active {
+      color: #000;
+    }
+
+    .title-appear {
+      opacity: 0;
+    }
+
+    .title-appear.is-visible {
+      opacity: 1;
+    }
+
+    .title-fade-only {
+      opacity: 0;
+    }
+
+    .title-fade-only.is-visible {
+      opacity: 1;
+    }
+
+    #title-gap-text-2,
+    #title-click {
+      transition: opacity 380ms ease;
+    }
+
+    #title-left-wrap {
       position: absolute;
       top: 30px;
       left: 30px;
-      width: 1028px;
-      height: 400px;
-      color: #000;
-      font-family: "InterCustom", sans-serif;
-      line-height: 0.92;
-      letter-spacing: -0.02em;
       display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      gap: 16px;
+      align-items: flex-start;
+      gap: 15px;
+      z-index: 3;
     }
 
-    .title-line {
-      margin: 0;
-      display: flex;
-      align-items: baseline;
-      gap: 20px;
-      white-space: nowrap;
-    }
-
-    .title-big {
-      font-size: 222px;
-      font-weight: 700;
-    }
-
-    .title-fashion {
-      font-size: 148px;
-      font-weight: 400;
-    }
-
-    .title-small {
-      font-size: 74px;
-      font-weight: 400;
-    }
-
-    .title-ethics {
-      font-size: 148px;
-      font-weight: 700;
-    }
-
-    #boundary-carousel-wrap {
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: calc(100vh - 400px);
-      height: 400px;
-      overflow: hidden;
-      background: #fff;
-      z-index: 10;
-    }
-
-    #boundary-carousel-track {
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: 400px;
-      display: flex;
-      align-items: flex-end;
-      gap: 3px;
-      will-change: transform;
-      animation: title-carousel-scroll 45s linear infinite;
-    }
-
-    .title-model-image {
-      height: 400px;
-      width: auto;
+    #title-sweater {
+      width: 240px;
+      height: auto;
       object-fit: contain;
       display: block;
-      flex: 0 0 auto;
-      user-select: none;
+    }
+
+    #title-left-copy {
+      width: 455px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 45px;
+      margin-top: 20px;
+    }
+
+    .title-story-text {
+      margin: 0;
+      font-family: "MontserratCustom", sans-serif;
+      font-size: 30px;
+      font-weight: 400;
+      line-height: 1.12;
+      text-align: left;
+      width: 100%;
+    }
+
+    #title-gap-wrap {
+      position: absolute;
+      top: 30px;
+      right: 60px;
+      width: 560px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 30px;
+      z-index: 3;
+    }
+
+    #title-gap-image {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    #title-click {
+      position: absolute;
+      left: 30px;
+      bottom: 30px;
+      border: 0;
+      background: transparent;
+      margin: 0;
+      padding: 0;
+      color: #000;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      font-family: "MontserratCustom", sans-serif;
+      font-size: 30px;
+      font-weight: 400;
+      line-height: 1;
+      cursor: pointer;
+      z-index: 5;
+    }
+
+    #title-page.phase-two-start #title-stage-one .title-fade-group {
+      opacity: 0 !important;
+      transition: opacity 360ms ease;
       pointer-events: none;
     }
 
-    @keyframes title-carousel-scroll {
-      from {
-        transform: translateX(0);
-      }
-      to {
-        transform: translateX(calc(-1 * var(--title-carousel-shift, 0px)));
-      }
+    #title-phase-two-column {
+      position: absolute;
+      top: 30px;
+      bottom: 30px;
+      left: 30px;
+      width: 240px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: stretch;
+    }
+
+    .title-phase-two-item {
+      width: 100%;
+      flex: 1 1 0;
+      object-fit: contain;
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 260ms ease, transform 260ms ease;
+    }
+
+    .title-phase-two-item + .title-phase-two-item {
+      margin-top: 12px;
+    }
+
+    .title-phase-two-item.is-visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    #title-phase-jeans {
+      height: calc((100% - 24px) / 3 - 10px);
+      position: relative;
+      top: 22px;
+      transform: scale(1.6);
+      transform-origin: center center;
+      transition: none;
+    }
+
+    #title-phase-shoe {
+      position: relative;
+      top: 45px;
+      transition: none;
+    }
+
+    #title-phase-two-right {
+      position: absolute;
+      top: 40px;
+      right: 50px;
+      bottom: 40px;
+      left: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-end;
+      text-align: right;
+    }
+
+    #title-phase-box-1,
+    #title-phase-box-2,
+    #title-phase-box-3 {
+      transform: translateX(-50px);
+    }
+
+    #title-phase-box-1 {
+      margin-top: 80px;
+    }
+
+    #title-phase-box-3 {
+      margin-bottom: 80px;
+    }
+
+    .title-phase-two-box {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 300ms ease, transform 300ms ease;
+    }
+
+    .title-phase-two-box.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #title-phase-box-1 p,
+    #title-phase-box-3 p {
+      margin: 0;
+      font-family: "InterCustom", sans-serif;
+      font-size: 120px;
+      line-height: 0.9;
+      white-space: nowrap;
+    }
+
+    #title-phase-box-1 .line-1 {
+      font-weight: 700;
+    }
+
+    #title-phase-box-1 .line-2 {
+      font-weight: 400;
+    }
+
+    #title-phase-box-3 .line-1 {
+      font-weight: 400;
+    }
+
+    #title-phase-box-3 .line-2 {
+      font-weight: 700;
+    }
+
+    #title-phase-box-2 p {
+      margin: 0;
+      font-family: "MontserratCustom", sans-serif;
+      font-size: 40px;
+      font-weight: 400;
+      line-height: 0.95;
+    }
+
+    #title-focus-recall {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 380ms ease;
+      z-index: 15;
+    }
+
+    #title-page.phase-two-focus #title-focus-recall {
+      opacity: 1;
+    }
+
+    #title-focus-left-copy {
+      position: absolute;
+      top: 50px;
+      left: 285px;
+      width: 455px;
+      display: flex;
+      flex-direction: column;
+      gap: 45px;
+    }
+
+    #title-focus-gap-wrap {
+      position: absolute;
+      top: 30px;
+      right: 60px;
+      width: 560px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    #title-focus-gap-image {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    #title-focus-left-copy .title-story-text,
+    #title-focus-gap-wrap .title-story-text {
+      margin: 0;
+      font-family: "MontserratCustom", sans-serif;
+      font-size: 30px;
+      font-weight: 400;
+      line-height: 1.12;
+      text-align: left;
+      width: 100%;
+    }
+
+    #title-stage-two .title-phase-two-item,
+    #title-stage-two .title-phase-two-box {
+      transition: opacity 300ms ease, transform 300ms ease, filter 300ms ease;
+    }
+
+    #title-page.phase-two-focus #title-phase-two-column .title-phase-two-item,
+    #title-page.phase-two-focus #title-phase-two-right {
+      filter: blur(10px);
+      opacity: 0.3;
+    }
+
+    #title-page.phase-two-focus .title-phase-two-item.is-focus-anchor {
+      filter: none !important;
+      opacity: 1 !important;
+      z-index: 5;
+      position: relative;
     }
 
     #info-page {
@@ -183,6 +456,10 @@
     }
 
     #play-intro-page.is-fading {
+      opacity: 0.08;
+    }
+
+    #method-intro-page.is-fading {
       opacity: 0.08;
     }
 
@@ -1001,6 +1278,98 @@
       display: block;
     }
 
+    #game-score-overlay {
+      position: absolute;
+      top: 30px;
+      left: 40px;
+      right: 40px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 420ms ease;
+      z-index: 60;
+    }
+
+    #game-score-overlay.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #game-score-overlay.is-fading {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #game-score-left {
+      display: flex;
+      align-items: baseline;
+      gap: 20px;
+      min-width: 0;
+      opacity: 1;
+      transition: opacity 300ms ease;
+    }
+
+    #game-score-label {
+      margin: 0;
+      font-family: "MontserratCustom", sans-serif;
+      font-size: 75px;
+      font-weight: 400;
+      line-height: 0.95;
+      white-space: nowrap;
+    }
+
+    #game-score-value {
+      margin: 0;
+      font-family: "MontserratCustom", sans-serif;
+      font-size: 75px;
+      font-weight: 700;
+      line-height: 0.95;
+      white-space: nowrap;
+    }
+
+    #game-score-actions {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      width: 620px;
+      min-height: 38px;
+      justify-content: flex-end;
+      margin-top: 34px;
+    }
+
+    .game-score-action {
+      position: absolute;
+      top: 0;
+      right: 0;
+      border: 0;
+      background: transparent;
+      padding: 0;
+      margin: 0;
+      color: #000;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      font-family: "MontserratCustom", sans-serif;
+      font-size: 30px;
+      font-weight: 400;
+      line-height: 1.1;
+      text-align: right;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 260ms ease;
+    }
+
+    .game-score-action.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #game-score-overlay.is-hiding-score #game-score-left {
+      opacity: 0;
+    }
+
     #intro-logo-row {
       position: absolute;
       top: 20px;
@@ -1032,6 +1401,7 @@
       height: 100%;
       display: block;
       background: #fff;
+      overflow: visible;
     }
 
     #intro-token-layer {
@@ -1117,32 +1487,68 @@
   </section>
   <main id="experience">
     <section id="title-page" class="page snap-page" aria-label="Project title page">
-      <div id="title-box">
-        <p class="title-line">
-          <span class="title-big">BIG</span>
-          <span class="title-fashion">FASHION</span>
-        </p>
-        <p class="title-line">
-          <span class="title-small">SMALL</span>
-          <span class="title-ethics">ETHICS?</span>
-        </p>
-      </div>
-    </section>
-
-    <div id="boundary-carousel-wrap" aria-hidden="true">
-      <div id="boundary-carousel-track"></div>
-    </div>
-
-    <section id="info-page" class="page snap-page" aria-label="Project introduction text">
-      <div id="info-bottom-band">
-        <div id="info-left-box">
-          <p id="info-left-heading">How well do you know the brands you shop?</p>
-          <p id="info-left-p1">The moment we buy an item of clothing, we are part of the clothing industry; therefore, we should know how our clothes are being made.</p>
-          <p id="info-left-p2">This project explores the ethical compromises of large-scale fashion brands in America through data analysis &amp; visualization.</p>
+      <div id="title-stage-one">
+        <div id="title-left-wrap" class="title-fade-group title-appear">
+          <img id="title-sweater" src="./media/title/sweater.png" alt="Rollneck sweater from The GAP" />
+          <div id="title-left-copy">
+            <p id="title-left-text-1" class="title-story-text">This is a rollneck sweater from<br />The GAP.</p>
+            <p id="title-left-text-2" class="title-story-text title-fade-only">The GAP sources knits from the SAE A Texpia factory in Guatemala.</p>
+          </div>
         </div>
-        <div id="info-right-box">
-          <h2 id="info-right-title">DISCLAIMER</h2>
-          <p id="info-right-copy">The data and resulting scores in this project are used for exploratory and educational purposes, and should not be interpreted as definitive ratings of any brand.</p>
+
+        <div id="title-gap-wrap" class="title-fade-group title-appear">
+          <img id="title-gap-image" src="./media/title/gap.png" alt="Anastacio Tzib Caal portrait" />
+          <p id="title-gap-text-1" class="title-story-text">This is union leader of<br />SITRATEXPIA II union at the SAE A<br />Texpia factory, Anastacio Tzib Caal.</p>
+          <p id="title-gap-text-2" class="title-story-text title-fade-only">On June 15, 2024, he was <strong>shot and killed</strong>. Since its founding in early 2022, SITRATEXPIA II union leaders and members have been the focus of violent attacks.</p>
+        </div>
+
+        <button id="title-click" class="title-fade-group title-fade-only" type="button">Click</button>
+      </div>
+
+      <div id="title-stage-two">
+        <div id="title-phase-two-column">
+          <img id="title-phase-sweater" class="title-phase-two-item" src="./media/title/sweater.png" alt="" />
+          <img id="title-phase-jeans" class="title-phase-two-item" src="./media/title/jeans.png" alt="" />
+          <img id="title-phase-shoe" class="title-phase-two-item" src="./media/title/shoe.png" alt="" />
+        </div>
+        <div id="title-phase-two-right">
+          <div id="title-phase-box-1" class="title-phase-two-box">
+            <p class="line-1">BIG</p>
+            <p class="line-2">FASHION</p>
+          </div>
+          <div id="title-phase-box-2" class="title-phase-two-box">
+            <p>How well do you know</p>
+            <p>the brands you shop?</p>
+          </div>
+          <div id="title-phase-box-3" class="title-phase-two-box">
+            <p class="line-1">SMALL</p>
+            <p class="line-2">ETHICS</p>
+          </div>
+        </div>
+        <div id="title-focus-recall" aria-hidden="true">
+          <div id="title-focus-left-copy">
+            <p id="title-focus-primary-1" class="title-story-text"></p>
+            <p id="title-focus-primary-2" class="title-story-text"></p>
+          </div>
+          <div id="title-focus-gap-wrap">
+            <img id="title-focus-gap-image" src="./media/title/gap.png" alt="" />
+            <p id="title-focus-secondary-1" class="title-story-text"></p>
+            <p id="title-focus-secondary-2" class="title-story-text"></p>
+            <p id="title-focus-secondary-3" class="title-story-text"></p>
+          </div>
+        </div>
+      </div>
+      <div id="title-lyrics-overlay" aria-hidden="true">
+        <div id="title-lyrics-box">
+          <div id="title-lyrics-track">
+            <p class="title-lyric-paragraph">The moment we buy an item of clothing, we are part of the clothing industry; therefore, we should know how our clothes are being made.</p>
+            <p class="title-lyric-paragraph">This project explores the ethical compromises of large-scale fashion brands in America through data analysis &amp; visualization.</p>
+            <p class="title-lyric-paragraph">To evaluate this, 32 large-scale American brands have been analyzed through their social and environmental performance.</p>
+            <p class="title-lyric-paragraph">Quantifiable data from multiple sources has been sorted into 6 different unique categories.</p>
+            <p class="title-lyric-paragraph">Social Transparency, Labor Compensation, Human Rights Risk &amp; Responsiveness, Environmental Impact, Supply Chain Transparency, and Value Distribution Equity.</p>
+            <p class="title-lyric-paragraph">Together, these categories serve as metrics to build the Ethical Compliance Index which rates each brand with a score.</p>
+            <p class="title-lyric-paragraph">Scroll</p>
+          </div>
         </div>
       </div>
     </section>
@@ -1191,6 +1597,16 @@
     <section id="game-page" class="page snap-page" aria-label="Interactive game and data views">
       <div id="game-stage">
         <section id="intro-view" aria-label="Intro Interactive Game">
+          <div id="game-score-overlay" aria-live="polite">
+            <div id="game-score-left">
+              <p id="game-score-label">Your Score</p>
+              <p id="game-score-value">0.0</p>
+            </div>
+            <div id="game-score-actions">
+              <button id="game-see-correct" class="game-score-action" type="button">See what the correct placement is</button>
+              <button id="game-see-rest" class="game-score-action" type="button">See the rest of the brands</button>
+            </div>
+          </div>
           <div id="intro-logo-row" aria-label="Draggable brand logos"></div>
 
           <div id="intro-content">
@@ -1206,7 +1622,7 @@
     <section id="insights-page-1" class="page snap-page" aria-label="Brand logo scatter plot">
       <div id="insights-explore-copy" aria-hidden="true">
         <h2 id="insights-explore-title">EXPLORE</h2>
-        <p id="insights-explore-text">Now you can explore all brands. Click on the Ethical Compliance Score to explore the different metrics or click on a brand to learn more about its scoring.</p>
+        <p id="insights-explore-text">Click on the Ethical Compliance Score to explore the different metrics, click on a brand to learn more about its scoring, or scroll to compare brands by all metrics.</p>
       </div>
       <div id="insights-axis-frame">
         <div id="insights-axis-panel">
@@ -1218,7 +1634,7 @@
     <section id="compare-page" class="page snap-page" aria-label="Brand metric comparison">
       <div id="compare-top-copy" aria-hidden="true">
         <h2 id="compare-title">COMPARE</h2>
-        <p id="compare-copy">Compare brands by their scores in each metric. Filter out metrics by clicking on the Metric/Index Score title below.</p>
+        <p id="compare-copy">Compare brands by their scores in each metric. Filter metrics by clicking on the Metric/Index Score title, or click on a brand to learn more about its scoring.</p>
       </div>
       <div id="compare-axis-frame">
         <div id="compare-axis-panel">
@@ -1517,6 +1933,19 @@
       return null;
     }
 
+    function getScatterLogoSizeForBrand(brandName) {
+      const baseSize = 68;
+      const normalized = normalizeBrand(brandName);
+      const isSpecialSize = (
+        normalized.includes("lululemon")
+        || normalized.includes("abercrombie")
+        || normalized.includes("victoria")
+        || normalized.includes("marc jacobs")
+        || normalized.includes("anthropologie")
+      );
+      return baseSize * (isSpecialSize ? 2 : 1.2);
+    }
+
     function renderLogoScatter(points) {
       const svg = document.getElementById("insights-chart");
       if (!svg) {
@@ -1525,7 +1954,6 @@
       const layout = getScatterLayout(svg);
       const { width, height, xToPx, yToPx } = layout;
       const axisAndTicks = buildScatterAxisAndTicks(layout);
-      const logoSize = 68;
       const mappedPoints = points.filter((point) => getBrandLogoForScatter(point.brand));
       const hiddenAll = insightsState.mode === "hidden-all";
       const visibleBrandKeys = insightsState.mode === "subset-only"
@@ -1534,13 +1962,14 @@
 
       const markers = mappedPoints
         .map((point) => {
+          const logoSize = getScatterLogoSizeForBrand(point.brand);
           const cx = xToPx(point.ethical);
           const cy = yToPx(point.scale);
           const logoPath = getBrandLogoForScatter(point.brand);
           const brandKey = normalizeBrand(point.brand);
           const isVisible = !hiddenAll && (!visibleBrandKeys || visibleBrandKeys.has(brandKey));
           const visibilityClass = isVisible ? "is-visible" : "is-hidden";
-          return `<image class="scatter-logo ${visibilityClass}" data-brand="${escapeXml(point.brand)}" data-brand-key="${escapeXml(brandKey)}" data-ethical="${point.ethical}" data-scale="${point.scale}" href="${logoPath}" x="${cx - logoSize / 2}" y="${cy - logoSize / 2}" width="${logoSize}" height="${logoSize}" preserveAspectRatio="xMidYMid meet" />`;
+          return `<image class="scatter-logo ${visibilityClass}" data-brand="${escapeXml(point.brand)}" data-brand-key="${escapeXml(brandKey)}" data-ethical="${Math.ceil(point.ethical)}" data-scale="${Math.ceil(point.scale)}" href="${logoPath}" x="${cx - logoSize / 2}" y="${cy - logoSize / 2}" width="${logoSize}" height="${logoSize}" preserveAspectRatio="xMidYMid meet" />`;
         })
         .join("");
 
@@ -1560,6 +1989,45 @@
       const tooltipLine2 = svg.querySelector("#insights-tooltip-line2");
       const tooltipLine3 = svg.querySelector("#insights-tooltip-line3");
       const markerElements = svg.querySelectorAll(".scatter-logo");
+      let activeScatterMarker = null;
+      const getNearestVisibleMarkerAtPointer = (event, maxDistancePx = 20) => {
+        const rect = svg.getBoundingClientRect();
+        if (!rect.width || !rect.height) {
+          return null;
+        }
+        const viewBox = svg.viewBox.baseVal;
+        const scaleX = viewBox && viewBox.width ? viewBox.width / rect.width : 1;
+        const scaleY = viewBox && viewBox.height ? viewBox.height / rect.height : 1;
+        const pointerX = (event.clientX - rect.left) * scaleX;
+        const pointerY = (event.clientY - rect.top) * scaleY;
+
+        let bestMarker = null;
+        let bestDistSq = Infinity;
+        markerElements.forEach((marker) => {
+          if (marker.classList.contains("is-hidden")) {
+            return;
+          }
+          const x = Number(marker.getAttribute("x"));
+          const y = Number(marker.getAttribute("y"));
+          const w = Number(marker.getAttribute("width"));
+          const h = Number(marker.getAttribute("height"));
+          const cx = x + w / 2;
+          const cy = y + h / 2;
+          const dx = pointerX - cx;
+          const dy = pointerY - cy;
+          const distSq = dx * dx + dy * dy;
+          if (distSq < bestDistSq) {
+            bestDistSq = distSq;
+            bestMarker = marker;
+          }
+        });
+
+        const maxDistSvg = maxDistancePx * ((scaleX + scaleY) / 2);
+        if (bestMarker && bestDistSq <= maxDistSvg * maxDistSvg) {
+          return bestMarker;
+        }
+        return null;
+      };
       const getScatterLogoFromEvent = (event) => {
         const path = typeof event.composedPath === "function" ? event.composedPath() : [];
         for (let i = 0; i < path.length; i += 1) {
@@ -1572,83 +2040,80 @@
         if (target instanceof Element && target.classList.contains("scatter-logo")) {
           return target;
         }
-        return null;
+        return getNearestVisibleMarkerAtPointer(event);
       };
       const clearScatterHover = () => {
         markerElements.forEach((el) => el.classList.remove("is-hovered"));
         tooltipGroup.setAttribute("visibility", "hidden");
+        activeScatterMarker = null;
+      };
+      const showScatterHover = (marker) => {
+        if (!marker || marker.classList.contains("is-hidden")) {
+          clearScatterHover();
+          return;
+        }
+        if (activeScatterMarker === marker) {
+          return;
+        }
+        clearScatterHover();
+        activeScatterMarker = marker;
+        marker.classList.add("is-hovered");
+        if (marker.parentNode) {
+          marker.parentNode.appendChild(marker);
+        }
+        const brand = marker.getAttribute("data-brand") || "";
+        const ethicalScore = marker.getAttribute("data-ethical") || "";
+        const scaleScore = marker.getAttribute("data-scale") || "";
+        const line1 = brand;
+        const line2 = `Ethical Compliance Score: ${ethicalScore}`;
+        const line3 = `Revenue Scale Score: ${scaleScore}`;
+        tooltipLine1.textContent = line1;
+        tooltipLine2.textContent = line2;
+        tooltipLine3.textContent = line3;
+        const lineWidth = Math.max(
+          tooltipLine1.getComputedTextLength(),
+          tooltipLine2.getComputedTextLength(),
+          tooltipLine3.getComputedTextLength()
+        );
+        const paddingX = 8;
+        const paddingY = 6;
+        const lineHeight = 18;
+        const boxWidth = lineWidth + paddingX * 2;
+        const boxHeight = lineHeight * 3 + paddingY * 2;
+
+        const x = Number(marker.getAttribute("x"));
+        const y = Number(marker.getAttribute("y"));
+        const w = Number(marker.getAttribute("width"));
+        const h = Number(marker.getAttribute("height"));
+        const cx = x + w / 2;
+        const cy = y + h / 2;
+
+        let boxX = cx + 12;
+        let boxY = cy - boxHeight - 12;
+        if (boxX + boxWidth > width - 4) {
+          boxX = cx - boxWidth - 12;
+        }
+        if (boxY < 4) {
+          boxY = cy + 12;
+        }
+
+        tooltipBg.setAttribute("x", String(boxX));
+        tooltipBg.setAttribute("y", String(boxY));
+        tooltipBg.setAttribute("width", String(boxWidth));
+        tooltipBg.setAttribute("height", String(boxHeight));
+        tooltipLine1.setAttribute("x", String(boxX + paddingX));
+        tooltipLine1.setAttribute("y", String(boxY + paddingY + 12));
+        tooltipLine2.setAttribute("x", String(boxX + paddingX));
+        tooltipLine2.setAttribute("y", String(boxY + paddingY + 12 + lineHeight));
+        tooltipLine3.setAttribute("x", String(boxX + paddingX));
+        tooltipLine3.setAttribute("y", String(boxY + paddingY + 12 + lineHeight * 2));
+        tooltipGroup.setAttribute("visibility", "visible");
       };
 
       markerElements.forEach((marker) => {
         marker.addEventListener("mouseenter", () => {
-          if (marker.classList.contains("is-hidden")) {
-            return;
-          }
-          clearScatterHover();
-          marker.classList.add("is-hovered");
-          if (marker.parentNode) {
-            marker.parentNode.appendChild(marker);
-          }
-          const brand = marker.getAttribute("data-brand") || "";
-          const ethicalScore = marker.getAttribute("data-ethical") || "";
-          const scaleScore = marker.getAttribute("data-scale") || "";
-          const line1 = brand;
-          const line2 = `Ethical Compliance Score: ${ethicalScore}`;
-          const line3 = `Revenue Scale Score: ${scaleScore}`;
-          tooltipLine1.textContent = line1;
-          tooltipLine2.textContent = line2;
-          tooltipLine3.textContent = line3;
-          const lineWidth = Math.max(
-            tooltipLine1.getComputedTextLength(),
-            tooltipLine2.getComputedTextLength(),
-            tooltipLine3.getComputedTextLength()
-          );
-          const paddingX = 8;
-          const paddingY = 6;
-          const lineHeight = 18;
-          const boxWidth = lineWidth + paddingX * 2;
-          const boxHeight = lineHeight * 3 + paddingY * 2;
-
-          const x = Number(marker.getAttribute("x"));
-          const y = Number(marker.getAttribute("y"));
-          const w = Number(marker.getAttribute("width"));
-          const h = Number(marker.getAttribute("height"));
-          const cx = x + w / 2;
-          const cy = y + h / 2;
-
-          let boxX = cx + 12;
-          let boxY = cy - boxHeight - 12;
-          if (boxX + boxWidth > width - 4) {
-            boxX = cx - boxWidth - 12;
-          }
-          if (boxY < 4) {
-            boxY = cy + 12;
-          }
-
-          tooltipBg.setAttribute("x", String(boxX));
-          tooltipBg.setAttribute("y", String(boxY));
-          tooltipBg.setAttribute("width", String(boxWidth));
-          tooltipBg.setAttribute("height", String(boxHeight));
-          tooltipLine1.setAttribute("x", String(boxX + paddingX));
-          tooltipLine1.setAttribute("y", String(boxY + paddingY + 12));
-          tooltipLine2.setAttribute("x", String(boxX + paddingX));
-          tooltipLine2.setAttribute("y", String(boxY + paddingY + 12 + lineHeight));
-          tooltipLine3.setAttribute("x", String(boxX + paddingX));
-          tooltipLine3.setAttribute("y", String(boxY + paddingY + 12 + lineHeight * 2));
-          tooltipGroup.setAttribute("visibility", "visible");
+          showScatterHover(marker);
         });
-
-        const onMarkerActivate = (event) => {
-          event.preventDefault();
-          event.stopPropagation();
-          const brandKey = marker.getAttribute("data-brand-key") || "";
-          if (!brandKey) {
-            return;
-          }
-          openBrandDetail(brandKey);
-        };
-        marker.addEventListener("pointerup", onMarkerActivate);
-        marker.addEventListener("click", onMarkerActivate);
 
         marker.addEventListener("mouseleave", () => {
           clearScatterHover();
@@ -1660,14 +2125,16 @@
       });
 
       svg.addEventListener("mousemove", (event) => {
-        const target = event.target;
-        if (!(target instanceof Element) || !target.classList.contains("scatter-logo")) {
+        const nearestMarker = getNearestVisibleMarkerAtPointer(event, 24);
+        if (nearestMarker) {
+          showScatterHover(nearestMarker);
+        } else {
           clearScatterHover();
         }
       });
 
       svg.addEventListener("click", (event) => {
-        const targetLogo = getScatterLogoFromEvent(event);
+        const targetLogo = activeScatterMarker || getNearestVisibleMarkerAtPointer(event, 32) || getScatterLogoFromEvent(event);
         if (!targetLogo) {
           return;
         }
@@ -1783,7 +2250,7 @@
         axis.push(svgText(tick, margin.left - 12, y + 4, 'text-anchor="end" font-family="MontserratCustom" font-size="13" fill="#000" font-weight="400"'));
       });
 
-      axis.push(`<text class="compare-y-title" id="compare-y-axis-title" x="24" y="${margin.top + chartH / 2}" transform="rotate(-90 24 ${margin.top + chartH / 2})" text-anchor="middle" font-family="MontserratCustom" font-size="15" fill="#000" font-weight="400" style="cursor:pointer">Metric/Index Score</text>`);
+      axis.push(`<text class="compare-y-title" id="compare-y-axis-title" x="24" y="${margin.top + chartH / 2}" transform="rotate(-90 24 ${margin.top + chartH / 2})" text-anchor="middle" font-family="MontserratCustom" font-size="20" fill="#000" font-weight="400" style="cursor:pointer">Metric/Index Score</text>`);
 
       const bars = [];
       const labels = [];
@@ -1798,28 +2265,126 @@
           const x = cx - barWidth / 2;
           const y = yForValue(series.value);
           const h = margin.top + chartH - y;
-          bars.push(`<rect class="compare-bar" x="${x}" y="${y}" width="${barWidth}" height="${h}" fill="${series.color}" opacity="1" />`);
+          bars.push(`<rect class="compare-bar" data-brand-key="${escapeXml(normalizeBrand(item.brand))}" data-brand="${escapeXml(item.brand)}" data-series-label="${escapeXml(series.label)}" data-score="${Math.ceil(series.value)}" x="${x}" y="${y}" width="${barWidth}" height="${h}" fill="${series.color}" opacity="1" style="cursor:pointer" />`);
         });
 
         const shortBrand = item.brand.length > 18 ? `${item.brand.slice(0, 16)}..` : item.brand;
-        labels.push(`<text class="compare-x-title" x="${cx - 2}" y="${margin.top + chartH + 18}" transform="rotate(-45 ${cx - 2} ${margin.top + chartH + 18})" text-anchor="end" font-family="MontserratCustom" font-size="14" fill="#000" font-weight="400">${escapeXml(shortBrand)}</text>`);
+        labels.push(`<text class="compare-x-title" data-brand-key="${escapeXml(normalizeBrand(item.brand))}" x="${cx - 2}" y="${margin.top + chartH + 18}" transform="rotate(-45 ${cx - 2} ${margin.top + chartH + 18})" text-anchor="end" font-family="MontserratCustom" font-size="14" fill="#000" font-weight="400" style="cursor:pointer">${escapeXml(shortBrand)}</text>`);
       });
 
       svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
-      svg.innerHTML = `<g>${axis.join("")}${bars.join("")}${labels.join("")}</g>`;
+      svg.innerHTML = `<g>${axis.join("")}${bars.join("")}${labels.join("")}</g>
+      <g id="compare-tooltip" visibility="hidden" pointer-events="none">
+        <rect id="compare-tooltip-bg" x="0" y="0" width="0" height="0" rx="4" ry="4" fill="rgba(0,0,0,0.6)"></rect>
+        <text id="compare-tooltip-line1" x="0" y="0" fill="#fff" font-family="MontserratCustom" font-size="13" font-weight="400" text-anchor="start"></text>
+        <text id="compare-tooltip-line2" x="0" y="0" fill="#fff" font-family="MontserratCustom" font-size="13" font-weight="400" text-anchor="start"></text>
+        <text id="compare-tooltip-line3" x="0" y="0" fill="#fff" font-family="MontserratCustom" font-size="13" font-weight="400" text-anchor="start"></text>
+      </g>`;
 
       const yTitle = svg.querySelector("#compare-y-axis-title");
+      const compareBars = Array.from(svg.querySelectorAll(".compare-bar"));
+      const compareLabels = Array.from(svg.querySelectorAll(".compare-x-title"));
+      const compareTooltip = svg.querySelector("#compare-tooltip");
+      const compareTooltipBg = svg.querySelector("#compare-tooltip-bg");
+      const compareTooltipLine1 = svg.querySelector("#compare-tooltip-line1");
+      const compareTooltipLine2 = svg.querySelector("#compare-tooltip-line2");
+      const compareTooltipLine3 = svg.querySelector("#compare-tooltip-line3");
+      const hideCompareTooltip = () => {
+        if (compareTooltip) {
+          compareTooltip.setAttribute("visibility", "hidden");
+        }
+      };
+      const showCompareTooltip = (event, line1, line2, line3) => {
+        if (!compareTooltip || !compareTooltipBg || !compareTooltipLine1 || !compareTooltipLine2 || !compareTooltipLine3) {
+          return;
+        }
+        compareTooltipLine1.textContent = line1;
+        compareTooltipLine2.textContent = line2;
+        compareTooltipLine3.textContent = line3;
+        const lineWidth = Math.max(
+          compareTooltipLine1.getComputedTextLength(),
+          compareTooltipLine2.getComputedTextLength(),
+          compareTooltipLine3.getComputedTextLength()
+        );
+        const paddingX = 8;
+        const paddingY = 6;
+        const lineHeight = 18;
+        const boxWidth = lineWidth + paddingX * 2;
+        const boxHeight = lineHeight * 3 + paddingY * 2;
+        const rect = svg.getBoundingClientRect();
+        const sx = width / Math.max(1, rect.width);
+        const sy = height / Math.max(1, rect.height);
+        const px = (event.clientX - rect.left) * sx;
+        const py = (event.clientY - rect.top) * sy;
+        let boxX = px + 10;
+        let boxY = py - boxHeight - 10;
+        if (boxX + boxWidth > width - 4) {
+          boxX = px - boxWidth - 10;
+        }
+        if (boxY < 4) {
+          boxY = py + 10;
+        }
+        compareTooltipBg.setAttribute("x", String(boxX));
+        compareTooltipBg.setAttribute("y", String(boxY));
+        compareTooltipBg.setAttribute("width", String(boxWidth));
+        compareTooltipBg.setAttribute("height", String(boxHeight));
+        compareTooltipLine1.setAttribute("x", String(boxX + paddingX));
+        compareTooltipLine1.setAttribute("y", String(boxY + paddingY + 12));
+        compareTooltipLine2.setAttribute("x", String(boxX + paddingX));
+        compareTooltipLine2.setAttribute("y", String(boxY + paddingY + 12 + lineHeight));
+        compareTooltipLine3.setAttribute("x", String(boxX + paddingX));
+        compareTooltipLine3.setAttribute("y", String(boxY + paddingY + 12 + lineHeight * 2));
+        compareTooltip.setAttribute("visibility", "visible");
+      };
       if (yTitle) {
         yTitle.addEventListener("click", (event) => {
           event.stopPropagation();
           const panelRect = document.getElementById("compare-axis-panel").getBoundingClientRect();
-          const svgRect = svg.getBoundingClientRect();
           const targetRect = yTitle.getBoundingClientRect();
           filterMenu.style.left = `${targetRect.right - panelRect.left + 12}px`;
           filterMenu.style.top = `${targetRect.top - panelRect.top}px`;
           filterMenu.classList.toggle("is-open");
         });
       }
+
+      compareBars.forEach((bar) => {
+        bar.addEventListener("mouseenter", (event) => {
+          const brandName = bar.getAttribute("data-brand") || "Brand";
+          const metricLabel = bar.getAttribute("data-series-label") || "Metric";
+          const score = bar.getAttribute("data-score") || "0";
+          showCompareTooltip(event, brandName, metricLabel, `Score: ${score}`);
+        });
+        bar.addEventListener("mousemove", (event) => {
+          const brandName = bar.getAttribute("data-brand") || "Brand";
+          const metricLabel = bar.getAttribute("data-series-label") || "Metric";
+          const score = bar.getAttribute("data-score") || "0";
+          showCompareTooltip(event, brandName, metricLabel, `Score: ${score}`);
+        });
+        bar.addEventListener("mouseleave", hideCompareTooltip);
+        bar.addEventListener("click", (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          const brandKey = bar.getAttribute("data-brand-key") || "";
+          if (!brandKey) {
+            return;
+          }
+          openBrandDetail(brandKey);
+        });
+      });
+
+      compareLabels.forEach((label) => {
+        label.addEventListener("click", (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          const brandKey = label.getAttribute("data-brand-key") || "";
+          if (!brandKey) {
+            return;
+          }
+          openBrandDetail(brandKey);
+        });
+      });
+
+      svg.addEventListener("mouseleave", hideCompareTooltip);
 
     }
 
@@ -1842,7 +2407,9 @@
       revealTimer: null,
       transitionTimer: null,
       revealed: false,
-      transitioningToInsights: false
+      transitioningToInsights: false,
+      scoreShown: false,
+      scoreValue: 0
     };
     const insightsState = {
       mode: "all-visible"
@@ -1873,7 +2440,7 @@
       if (Number.isNaN(number)) {
         return "0";
       }
-      return Number.isInteger(number) ? String(number) : number.toFixed(1);
+      return String(Math.ceil(number));
     }
 
     function getBrandPointByKey(brandKey) {
@@ -2073,7 +2640,7 @@
           return;
         }
 
-        const sizeBoost = (tokenDef.id === "patagonia" || tokenDef.id === "lululemon") ? 1.2 : 1;
+        const sizeBoost = (tokenDef.id === "patagonia" || tokenDef.id === "lululemon") ? 2 : 1;
         const currentTokenWidth = tokenWidth * sizeBoost;
         const currentTokenHeight = tokenHeight * sizeBoost;
         tokenState.el.style.width = `${tokenWidth}px`;
@@ -2089,7 +2656,7 @@
     }
 
     function maybeStartRevealTimer() {
-      if (introState.revealed || introState.revealTimer) {
+      if (introState.revealed || introState.revealTimer || introState.scoreShown) {
         return;
       }
 
@@ -2101,14 +2668,10 @@
       if (!allPlaced) {
         return;
       }
-
-      introState.revealTimer = window.setTimeout(() => {
-        introState.revealTimer = null;
-        revealIntroCorrectPlacements();
-      }, 1000);
+      showGameScoreStep();
     }
 
-    function revealIntroCorrectPlacements(force = false) {
+    function revealIntroCorrectPlacements(force = false, autoTransition = true) {
       if (introState.revealed && !force) {
         return;
       }
@@ -2134,13 +2697,110 @@
 
       if (!introState.revealed) {
         introState.revealed = true;
-        if (introState.transitionTimer) {
-          window.clearTimeout(introState.transitionTimer);
+        if (autoTransition) {
+          if (introState.transitionTimer) {
+            window.clearTimeout(introState.transitionTimer);
+          }
+          introState.transitionTimer = window.setTimeout(() => {
+            startGameToInsightsTransition();
+          }, 2000);
         }
-        introState.transitionTimer = window.setTimeout(() => {
-          startGameToInsightsTransition();
-        }, 2000);
       }
+    }
+
+    function computeGamePlacementScore() {
+      const content = document.getElementById("intro-content");
+      const chart = document.getElementById("intro-chart");
+      if (!content || !chart) {
+        return 0;
+      }
+      const contentRect = content.getBoundingClientRect();
+      const chartRect = chart.getBoundingClientRect();
+      const layout = getScatterLayout(chart);
+      const maxDist = Math.sqrt(layout.chartW * layout.chartW + layout.chartH * layout.chartH);
+      if (maxDist <= 0) {
+        return 0;
+      }
+
+      let sum = 0;
+      let count = 0;
+      introTokenDefs.forEach((tokenDef) => {
+        const tokenState = getIntroTokenById(tokenDef.id);
+        const point = getIntroBrandPoint(tokenDef);
+        if (!tokenState || !point) {
+          return;
+        }
+        const targetX = chartRect.left - contentRect.left + layout.xToPx(point.ethical);
+        const targetY = chartRect.top - contentRect.top + layout.yToPx(point.scale);
+        const currentX = tokenState.x + tokenState.el.offsetWidth / 2;
+        const currentY = tokenState.y + tokenState.el.offsetHeight / 2;
+        const dx = currentX - targetX;
+        const dy = currentY - targetY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const perLogo = Math.max(0, 1 - dist / maxDist);
+        sum += perLogo;
+        count += 1;
+      });
+      if (count === 0) {
+        return 0;
+      }
+      const raw = (sum / count) * 10;
+      return Math.max(0, Math.min(10, raw));
+    }
+
+    function showGameScoreStep() {
+      const overlay = document.getElementById("game-score-overlay");
+      const scoreValue = document.getElementById("game-score-value");
+      const seeCorrect = document.getElementById("game-see-correct");
+      if (!overlay || !scoreValue || !seeCorrect) {
+        return;
+      }
+      introState.scoreShown = true;
+      const targetScore = Math.max(0, Math.min(10, Math.round(computeGamePlacementScore() * 10) / 10));
+      introState.scoreValue = targetScore;
+      overlay.classList.remove("is-fading");
+      overlay.classList.add("is-visible");
+      const start = performance.now();
+      const duration = 700;
+      const step = (now) => {
+        const t = Math.min(1, (now - start) / duration);
+        const current = targetScore * t;
+        scoreValue.textContent = current.toFixed(1);
+        if (t < 1) {
+          window.requestAnimationFrame(step);
+        } else {
+          scoreValue.textContent = targetScore.toFixed(1);
+          window.setTimeout(() => {
+            seeCorrect.classList.add("is-visible");
+          }, 1000);
+        }
+      };
+      window.requestAnimationFrame(step);
+    }
+
+    function animateGameTokensToExploreSizeThenGo() {
+      const targetSize = 68;
+      const animated = [];
+      introTokenDefs.forEach((tokenDef) => {
+        const tokenState = getIntroTokenById(tokenDef.id);
+        if (!tokenState || !tokenState.el) {
+          return;
+        }
+        const el = tokenState.el;
+        const centerX = tokenState.x + el.offsetWidth / 2;
+        const centerY = tokenState.y + el.offsetHeight / 2;
+        const targetX = centerX - targetSize / 2;
+        const targetY = centerY - targetSize / 2;
+        el.style.transition = "left 650ms ease, top 650ms ease, width 650ms ease, height 650ms ease";
+        setTokenPosition(tokenState, targetX, targetY);
+        el.style.width = `${targetSize}px`;
+        el.style.height = `${targetSize}px`;
+        animated.push(tokenState);
+      });
+
+      window.setTimeout(() => {
+        goToExploreView(false);
+      }, animated.length > 0 ? 700 : 0);
     }
 
     function introOnPointerMove(event) {
@@ -2248,6 +2908,33 @@
       placeIntroTokensInTray();
     }
 
+    function initGameScoreActions() {
+      const seeCorrect = document.getElementById("game-see-correct");
+      const seeRest = document.getElementById("game-see-rest");
+      const overlay = document.getElementById("game-score-overlay");
+      if (!seeCorrect || !seeRest || !overlay) {
+        return;
+      }
+
+      seeCorrect.addEventListener("click", () => {
+        seeCorrect.classList.remove("is-visible");
+        revealIntroCorrectPlacements(true, false);
+        window.setTimeout(() => {
+          seeRest.classList.add("is-visible");
+        }, 700);
+      });
+
+      seeRest.addEventListener("click", () => {
+        seeRest.classList.remove("is-visible");
+        window.setTimeout(() => {
+          overlay.classList.add("is-hiding-score");
+          window.setTimeout(() => {
+            animateGameTokensToExploreSizeThenGo();
+          }, 320);
+        }, 260);
+      });
+    }
+
     function goToExploreView(revealAll = false) {
       const introView = document.getElementById("intro-view");
       const gamePage = document.getElementById("game-page");
@@ -2255,6 +2942,16 @@
 
       if (introView) {
         introView.style.display = "none";
+      }
+      const scoreOverlay = document.getElementById("game-score-overlay");
+      const seeCorrect = document.getElementById("game-see-correct");
+      const seeRest = document.getElementById("game-see-rest");
+      const scoreValue = document.getElementById("game-score-value");
+      if (scoreOverlay && seeCorrect && seeRest && scoreValue) {
+        scoreOverlay.classList.remove("is-visible", "is-fading", "is-hiding-score");
+        seeCorrect.classList.remove("is-visible");
+        seeRest.classList.remove("is-visible");
+        scoreValue.textContent = "0.0";
       }
       if (gamePage) {
         gamePage.classList.remove("is-visible");
@@ -2309,7 +3006,7 @@
 
     function initScrollTransitions() {
       const gamePage = document.getElementById("game-page");
-      const infoPage = document.getElementById("info-page");
+      const methodIntroPage = document.getElementById("method-intro-page");
       const playIntroPage = document.getElementById("play-intro-page");
       const insightsPage = document.getElementById("insights-page-1");
       const comparePage = document.getElementById("compare-page");
@@ -2333,11 +3030,11 @@
             }
             if (entry.isIntersecting && entry.intersectionRatio > 0.2) {
               gamePage.classList.add("is-visible");
-              infoPage.classList.add("is-fading");
+              methodIntroPage.classList.add("is-fading");
               playIntroPage.classList.add("is-fading");
             } else {
               gamePage.classList.remove("is-visible");
-              infoPage.classList.remove("is-fading");
+              methodIntroPage.classList.remove("is-fading");
               playIntroPage.classList.remove("is-fading");
             }
           });
@@ -2651,6 +3348,7 @@
           gamePageEl.style.display = "block";
         }
         introState.revealed = false;
+        introState.scoreShown = false;
         introState.transitioningToInsights = false;
         if (introState.revealTimer) {
           window.clearTimeout(introState.revealTimer);
@@ -2852,58 +3550,300 @@
       );
     }
 
-    function initTitleCarousel() {
-      const track = document.getElementById("boundary-carousel-track");
-      if (!track) {
+    function initTitleNarrative() {
+      const titlePage = document.getElementById("title-page");
+      const leftWrap = document.getElementById("title-left-wrap");
+      const leftText2 = document.getElementById("title-left-text-2");
+      const gapWrap = document.getElementById("title-gap-wrap");
+      const gapText2 = document.getElementById("title-gap-text-2");
+      const clickBtn = document.getElementById("title-click");
+      const phaseSweater = document.getElementById("title-phase-sweater");
+      const phaseJeans = document.getElementById("title-phase-jeans");
+      const phaseShoe = document.getElementById("title-phase-shoe");
+      const phaseTwoColumn = document.getElementById("title-phase-two-column");
+      const box1 = document.getElementById("title-phase-box-1");
+      const box2 = document.getElementById("title-phase-box-2");
+      const box3 = document.getElementById("title-phase-box-3");
+      const focusPrimary1 = document.getElementById("title-focus-primary-1");
+      const focusPrimary2 = document.getElementById("title-focus-primary-2");
+      const focusSecondary1 = document.getElementById("title-focus-secondary-1");
+      const focusSecondary2 = document.getElementById("title-focus-secondary-2");
+      const focusSecondary3 = document.getElementById("title-focus-secondary-3");
+      const focusImage = document.getElementById("title-focus-gap-image");
+      const focusLeftCopy = document.getElementById("title-focus-left-copy");
+      const lyricsOverlay = document.getElementById("title-lyrics-overlay");
+      const lyricsTrack = document.getElementById("title-lyrics-track");
+      const lyricParagraphs = Array.from(document.querySelectorAll("#title-lyrics-box .title-lyric-paragraph"));
+      const methodIntroPage = document.getElementById("method-intro-page");
+      if (!titlePage || !leftWrap || !leftText2 || !gapWrap || !gapText2 || !clickBtn || !phaseSweater || !phaseJeans || !phaseShoe || !phaseTwoColumn || !box1 || !box2 || !box3 || !focusPrimary1 || !focusPrimary2 || !focusSecondary1 || !focusSecondary2 || !focusSecondary3 || !focusImage || !focusLeftCopy || !lyricsOverlay || !lyricsTrack || !methodIntroPage) {
         return;
       }
 
-      const modelFiles = Array.from({ length: 21 }, (_, index) => `./media/models/model${index + 1}.png`);
-      const createImage = (filePath) => {
-        const image = document.createElement("img");
-        image.className = "title-model-image";
-        image.src = filePath;
-        image.alt = "";
-        image.loading = "eager";
-        image.decoding = "async";
-        return image;
+      const titleLyricsState = {
+        open: false,
+        index: 0,
+        lastStepAt: 0
+      };
+      const lyricStepIntervalMs = 850;
+
+      const updateLyricState = () => {
+        lyricParagraphs.forEach((paragraph, idx) => {
+          paragraph.classList.toggle("is-active", idx === titleLyricsState.index);
+        });
+        const activeParagraph = lyricParagraphs[titleLyricsState.index];
+        const targetTop = activeParagraph ? activeParagraph.offsetTop : 0;
+        lyricsTrack.style.transform = `translateY(${-targetTop}px)`;
       };
 
-      track.innerHTML = "";
-      modelFiles.forEach((filePath) => track.appendChild(createImage(filePath)));
-      modelFiles.forEach((filePath) => track.appendChild(createImage(filePath)));
-
-      const updateShiftDistance = () => {
-        const images = Array.from(track.querySelectorAll(".title-model-image"));
-        const singleSet = images.slice(0, modelFiles.length);
-        const totalWidth = singleSet.reduce((sum, image) => sum + image.getBoundingClientRect().width, 0);
-        const totalGap = Math.max(0, singleSet.length - 1) * 3;
-        track.style.setProperty("--title-carousel-shift", `${Math.round(totalWidth + totalGap)}px`);
+      const openLyricsOverlay = () => {
+        titleLyricsState.open = true;
+        titlePage.classList.add("phase-two-lyrics");
+        titleLyricsState.lastStepAt = Date.now();
+        updateLyricState();
       };
 
-      const allImages = Array.from(track.querySelectorAll(".title-model-image"));
-      let pendingLoads = allImages.length;
-      const handleLoad = () => {
-        pendingLoads -= 1;
-        if (pendingLoads <= 0) {
-          updateShiftDistance();
+      const closeLyricsOverlay = () => {
+        titleLyricsState.open = false;
+        titlePage.classList.remove("phase-two-lyrics");
+        lyricsTrack.style.transform = "translateY(0px)";
+      };
+
+      updateLyricState();
+
+      const focusTemplate = {
+        sweater: {
+          leftTop: "50px",
+          primary1: "This is a rollneck sweater from<br />The GAP.",
+          primary2: "The GAP sources knits from the SAE A Texpia factory in Guatemala.",
+          secondaryImage: "./media/title/gap.png",
+          secondary1: "This is union leader of<br />SITRATEXPIA II union at the SAE A<br />Texpia factory, Anastacio Tzib Caal.",
+          secondary2: "In June 15, 2024, he was <strong>shot and killed</strong>. Since its founding in early 2022, SITRATEXPIA II union leaders and members have been the focus of violent attacks.",
+          secondary3: ""
+        },
+        jeans: {
+          leftTop: "340px",
+          primary1: "These are Extra Loose Fit Wide Leg Jeans from Levi Strauss.",
+          primary2: "Levi Strauss sources denim products from the Özak Tekstil factory in Turkey.",
+          secondaryImage: "./media/title/levis.png",
+          secondary1: "These are workers of the Ozak Tekstil factory in Turkey.",
+          secondary2: "Since strike beginnings in 2023, Özak Tekstil factory workers in Turkey have been attacked with <strong>water cannons, pepper spray, riot shields and batons</strong> for unionizing and protesting.",
+          secondary3: ""
+        },
+        shoe: {
+          leftTop: "620px",
+          primary1: "These are a pair of sneakers from Ralph Lauren.",
+          primary2: "Ralph Lauren sources shoes from factories in South China.",
+          secondaryImage: "./media/title/RL.png",
+          secondary1: "This is labor activist Meng Han, from South China.",
+          secondary2: "In November, 2016, he was sentenced to <strong>21 months</strong> for educating workers from a Chinese factory about their rights.",
+          secondary3: "Ralph Lauren would source from this factory."
         }
       };
 
-      allImages.forEach((image) => {
-        if (image.complete) {
-          handleLoad();
-        } else {
-          image.addEventListener("load", handleLoad, { once: true });
-          image.addEventListener("error", handleLoad, { once: true });
+      const setFocusMode = (key) => {
+        const content = focusTemplate[key];
+        if (!content) {
+          return;
+        }
+        focusPrimary1.innerHTML = content.primary1;
+        focusPrimary2.innerHTML = content.primary2;
+        focusSecondary1.innerHTML = content.secondary1;
+        focusSecondary2.innerHTML = content.secondary2;
+        focusSecondary3.innerHTML = content.secondary3;
+        focusSecondary3.style.display = content.secondary3 ? "block" : "none";
+        focusImage.src = content.secondaryImage;
+        focusLeftCopy.style.top = content.leftTop || "50px";
+
+        phaseSweater.classList.remove("is-focus-anchor");
+        phaseJeans.classList.remove("is-focus-anchor");
+        phaseShoe.classList.remove("is-focus-anchor");
+        if (key === "sweater") {
+          phaseSweater.classList.add("is-focus-anchor");
+        } else if (key === "jeans") {
+          phaseJeans.classList.add("is-focus-anchor");
+        } else if (key === "shoe") {
+          phaseShoe.classList.add("is-focus-anchor");
+        }
+        titlePage.classList.add("phase-two-focus");
+      };
+
+      window.setTimeout(() => {
+        leftWrap.classList.add("is-visible");
+      }, 500);
+
+      window.setTimeout(() => {
+        leftText2.classList.add("is-visible");
+      }, 2500);
+
+      window.setTimeout(() => {
+        gapWrap.classList.add("is-visible");
+      }, 4500);
+
+      window.setTimeout(() => {
+        gapText2.classList.add("is-visible");
+      }, 6500);
+
+      window.setTimeout(() => {
+        clickBtn.classList.add("is-visible");
+      }, 8500);
+
+      clickBtn.addEventListener("click", () => {
+        if (titlePage.classList.contains("phase-two") || titlePage.classList.contains("phase-two-start")) {
+          return;
+        }
+        phaseSweater.classList.add("is-visible");
+        titlePage.classList.add("phase-two-start");
+        // Respect strict sequence:
+        // 1) fade everything except sweater
+        // 2) jeans
+        // 3) shoe
+        // 4) box 1
+        // 5) box 3
+        // 6) box 2
+        window.setTimeout(() => {
+          titlePage.classList.add("phase-two");
+          phaseJeans.classList.add("is-visible");
+        }, 1000);
+        window.setTimeout(() => {
+          phaseShoe.classList.add("is-visible");
+        }, 2000);
+        window.setTimeout(() => {
+          box1.classList.add("is-visible");
+        }, 2800);
+        window.setTimeout(() => {
+          box3.classList.add("is-visible");
+        }, 3300);
+        window.setTimeout(() => {
+          box2.classList.add("is-visible");
+        }, 3800);
+      });
+
+      titlePage.addEventListener("click", (event) => {
+        if (!titlePage.classList.contains("phase-two") || !box2.classList.contains("is-visible")) {
+          return;
+        }
+        const target = event.target;
+        if (!(target instanceof Element)) {
+          return;
+        }
+        const clickedSweater = target.id === "title-phase-sweater" || target.closest("#title-phase-sweater");
+        const clickedJeans = target.id === "title-phase-jeans" || target.closest("#title-phase-jeans");
+        const clickedShoe = target.id === "title-phase-shoe" || target.closest("#title-phase-shoe");
+        if (clickedSweater) {
+          setFocusMode("sweater");
+          return;
+        }
+        if (clickedJeans) {
+          setFocusMode("jeans");
+          return;
+        }
+        if (clickedShoe) {
+          setFocusMode("shoe");
+          return;
+        }
+        if (titlePage.classList.contains("phase-two-focus")) {
+          titlePage.classList.remove("phase-two-focus");
+          phaseSweater.classList.remove("is-focus-anchor");
+          phaseJeans.classList.remove("is-focus-anchor");
+          phaseShoe.classList.remove("is-focus-anchor");
         }
       });
 
-      if (pendingLoads <= 0) {
-        updateShiftDistance();
-      }
+      window.addEventListener(
+        "wheel",
+        (event) => {
+          const pageRect = titlePage.getBoundingClientRect();
+          const viewportH = window.innerHeight || document.documentElement.clientHeight;
+          const visibleTop = Math.max(0, pageRect.top);
+          const visibleBottom = Math.min(viewportH, pageRect.bottom);
+          const visibleRatio = pageRect.height > 0 ? Math.max(0, visibleBottom - visibleTop) / pageRect.height : 0;
+          const titlePageActive = visibleRatio > 0.55;
+          if (!titlePageActive || !titlePage.classList.contains("phase-two") || !box2.classList.contains("is-visible")) {
+            return;
+          }
+          if (titlePage.classList.contains("phase-two-focus")) {
+            return;
+          }
 
-      window.addEventListener("resize", updateShiftDistance);
+          if (event.deltaY > 0) {
+            event.preventDefault();
+            if (!titleLyricsState.open) {
+              titleLyricsState.index = 0;
+              openLyricsOverlay();
+              return;
+            }
+            const now = Date.now();
+            if (now - titleLyricsState.lastStepAt < lyricStepIntervalMs) {
+              return;
+            }
+            titleLyricsState.lastStepAt = now;
+            if (titleLyricsState.index < lyricParagraphs.length - 1) {
+              titleLyricsState.index += 1;
+              updateLyricState();
+              return;
+            }
+            closeLyricsOverlay();
+            methodIntroPage.scrollIntoView({ behavior: "auto", block: "start" });
+            return;
+          }
+
+          if (event.deltaY < 0 && titleLyricsState.open) {
+            event.preventDefault();
+            const now = Date.now();
+            if (now - titleLyricsState.lastStepAt < lyricStepIntervalMs) {
+              return;
+            }
+            titleLyricsState.lastStepAt = now;
+            if (titleLyricsState.index > 0) {
+              titleLyricsState.index -= 1;
+              updateLyricState();
+            } else {
+              closeLyricsOverlay();
+            }
+          }
+        },
+        { passive: false }
+      );
+
+      window.addEventListener(
+        "keydown",
+        (event) => {
+          if (!titlePage.classList.contains("phase-two") || !box2.classList.contains("is-visible")) {
+            return;
+          }
+          if (titlePage.classList.contains("phase-two-focus")) {
+            return;
+          }
+          const downKeys = ["ArrowDown", "PageDown", " ", "End"];
+          const upKeys = ["ArrowUp", "PageUp", "Home"];
+          if (downKeys.includes(event.key)) {
+            event.preventDefault();
+            if (!titleLyricsState.open) {
+              titleLyricsState.index = 0;
+              openLyricsOverlay();
+              return;
+            }
+            if (titleLyricsState.index < lyricParagraphs.length - 1) {
+              titleLyricsState.index += 1;
+              updateLyricState();
+              return;
+            }
+            closeLyricsOverlay();
+            methodIntroPage.scrollIntoView({ behavior: "auto", block: "start" });
+            return;
+          }
+          if (upKeys.includes(event.key) && titleLyricsState.open) {
+            event.preventDefault();
+            if (titleLyricsState.index > 0) {
+              titleLyricsState.index -= 1;
+              updateLyricState();
+            } else {
+              closeLyricsOverlay();
+            }
+          }
+        },
+        { passive: false }
+      );
     }
 
 
@@ -2978,9 +3918,9 @@
       }
 
       try {
-        initTitleCarousel();
+        initTitleNarrative();
       } catch (error) {
-        console.error("initTitleCarousel failed", error);
+        console.error("initTitleNarrative failed", error);
       }
       try {
         initScrollTransitions();
@@ -2991,6 +3931,11 @@
         initPlayGameNavigation();
       } catch (error) {
         console.error("initPlayGameNavigation failed", error);
+      }
+      try {
+        initGameScoreActions();
+      } catch (error) {
+        console.error("initGameScoreActions failed", error);
       }
       try {
         initCompareInteractions();
