@@ -12,6 +12,12 @@ This project will analyze 32 of the largest and most notable American brands and
 This project intends to give consumers the tools and data necessary for them to make their own decisions of which brands fit their standards, and provide a more guided and autonomous consumer experience.
 
 # Project Preview
+![Alt text](Documentation/hero/preview.png)
+![Alt text](Documentation/hero/1.png)
+![Alt text](Documentation/hero/2.png)
+![Alt text](Documentation/hero/3.png)
+![Alt text](Documentation/hero/4.png)
+![Alt text](Documentation/hero/5.png)
 
 # Acknowledgements
 
