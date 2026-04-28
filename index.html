@@ -88,6 +88,10 @@
       background: #fff;
     }
 
+    #title-page.title-intro-sequence-running {
+      pointer-events: none;
+    }
+
     #title-stage-one,
     #title-stage-two {
       position: absolute;
@@ -176,8 +180,7 @@
       opacity: 1;
     }
 
-    #title-gap-text-2,
-    #title-click {
+    #title-gap-text-2 {
       transition: opacity 380ms ease;
     }
 
@@ -234,25 +237,6 @@
       height: auto;
       object-fit: contain;
       display: block;
-    }
-
-    #title-click {
-      position: absolute;
-      left: 30px;
-      bottom: 30px;
-      border: 0;
-      background: transparent;
-      margin: 0;
-      padding: 0;
-      color: #000;
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      font-family: "MontserratCustom", sans-serif;
-      font-size: 30px;
-      font-weight: 400;
-      line-height: 1;
-      cursor: pointer;
-      z-index: 5;
     }
 
     #title-page.phase-two-start #title-stage-one .title-fade-group {
@@ -737,13 +721,17 @@
     #brand-detail-title {
       position: absolute;
       top: 40px;
-      left: 40px;
+      left: 100px;
       margin: 0;
       font-family: "InterCustom", sans-serif;
-      font-size: 120px;
+      font-size: 100px;
       font-weight: 700;
       line-height: 0.9;
       max-width: 58vw;
+    }
+
+    #brand-detail-page.is-abercrombie-detail #brand-detail-title {
+      max-width: 72vw;
     }
 
     #brand-detail-top-actions {
@@ -811,11 +799,40 @@
       background: #f5f5f5;
     }
 
-    #brand-detail-eci-block {
+    #brand-detail-upper {
       position: absolute;
+      left: 100px;
+      right: 40px;
       top: 248px;
-      left: 40px;
-      width: 500px;
+      bottom: 320px;
+      display: flex;
+      align-items: stretch;
+      gap: 40px;
+      z-index: 1;
+    }
+
+    #brand-detail-eci-block {
+      flex-shrink: 0;
+      width: 440px;
+      align-self: flex-start;
+    }
+
+    #brand-detail-chart-wrap {
+      flex: 1;
+      min-width: 220px;
+      min-height: 400px;
+      margin-top: -110px;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+    }
+
+    #brand-detail-bars-svg {
+      width: 100%;
+      height: 100%;
+      max-height: 100%;
+      display: block;
+      overflow: visible;
     }
 
     .brand-score-value {
@@ -841,20 +858,45 @@
       line-height: 1.15;
     }
 
-    #brand-detail-metrics-grid {
+    #brand-detail-metrics-strip {
       position: absolute;
-      top: 90px;
-      right: 40px;
-      width: 56vw;
-      min-width: 650px;
+      left: 100px;
+      right: 100px;
+      bottom: 100px;
+      width: auto;
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      column-gap: 52px;
-      row-gap: 18px;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      align-items: start;
+      column-gap: clamp(8px, 1.5vw, 24px);
+      z-index: 1;
+    }
+
+    #brand-detail-metrics-strip .brand-metric-card {
+      min-width: 0;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #brand-detail-metrics-strip .brand-metric-card:first-child {
+      text-align: left;
+      align-items: flex-start;
+    }
+
+    #brand-detail-metrics-strip .brand-score-value.metric {
+      flex-shrink: 0;
+      font-size: clamp(48px, 6.5vw, 88px);
+    }
+
+    #brand-detail-metrics-strip .brand-score-label {
+      font-size: clamp(16px, 2.1vw, 26px);
+      line-height: 1.2;
+      hyphens: auto;
     }
 
     .brand-metric-card {
-      min-height: 150px;
+      min-height: 0;
     }
 
     #insights-axis-panel {
@@ -1079,7 +1121,7 @@
     }
 
     #metrics-bag-page.is-opened #metrics-bag-image {
-      transform: scale(0.58);
+      transform: translateY(-14px) scale(0.58);
     }
 
     #metrics-burst-layer {
@@ -1107,12 +1149,11 @@
       transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1);
     }
 
-    #metric-ei { --x: -360px; --y: -235px; transition-delay: 0ms; }
-    #metric-hrrr { --x: 0px; --y: -295px; transition-delay: 40ms; }
-    #metric-lc { --x: 360px; --y: -235px; transition-delay: 80ms; }
-    #metric-sct { --x: -360px; --y: 235px; transition-delay: 120ms; }
-    #metric-st { --x: 0px; --y: 295px; transition-delay: 160ms; }
-    #metric-vde { --x: 360px; --y: 235px; transition-delay: 200ms; }
+    #metric-hrrr { --x: 0px; --y: -300px; transition-delay: 0ms; }
+    #metric-lc { --x: 285px; --y: -93px; transition-delay: 40ms; }
+    #metric-st { --x: -176px; --y: 257px; transition-delay: 80ms; }
+    #metric-sct { --x: 176px; --y: 257px; transition-delay: 120ms; }
+    #metric-ei { --x: -285px; --y: -93px; transition-delay: 160ms; }
 
     #metrics-bag-page.is-opened #metrics-burst-layer {
       pointer-events: auto;
@@ -1454,34 +1495,35 @@
         <div id="brand-detail-brands-menu" aria-label="Brand selection menu"></div>
       </div>
     </div>
-    <div id="brand-detail-eci-block">
-      <p id="brand-detail-eci-value" class="brand-score-value eci"></p>
-      <p class="brand-score-label">Ethical Compliance Score</p>
+    <div id="brand-detail-upper">
+      <div id="brand-detail-eci-block">
+        <p id="brand-detail-eci-value" class="brand-score-value eci"></p>
+        <p class="brand-score-label">Ethical Compliance</p>
+      </div>
+      <div id="brand-detail-chart-wrap">
+        <svg id="brand-detail-bars-svg" role="img" aria-label="Brand scores from 0 to 100 by metric"></svg>
+      </div>
     </div>
-    <div id="brand-detail-metrics-grid">
+    <div id="brand-detail-metrics-strip">
       <div class="brand-metric-card">
         <p id="brand-detail-st-value" class="brand-score-value metric"></p>
-        <p class="brand-score-label">Social Transparency Score</p>
+        <p class="brand-score-label">Social Transparency</p>
       </div>
       <div class="brand-metric-card">
         <p id="brand-detail-lc-value" class="brand-score-value metric"></p>
-        <p class="brand-score-label">Labor Compensation Score</p>
+        <p class="brand-score-label">Labor Compensation</p>
       </div>
       <div class="brand-metric-card">
         <p id="brand-detail-hrrr-value" class="brand-score-value metric"></p>
-        <p class="brand-score-label">Human Rights Risk &amp; Responsiveness Score</p>
+        <p class="brand-score-label">Human Rights Risk &amp; Responsiveness</p>
       </div>
       <div class="brand-metric-card">
         <p id="brand-detail-ei-value" class="brand-score-value metric"></p>
-        <p class="brand-score-label">Environmental Impact Score</p>
+        <p class="brand-score-label">Environmental Impact</p>
       </div>
       <div class="brand-metric-card">
         <p id="brand-detail-sct-value" class="brand-score-value metric"></p>
-        <p class="brand-score-label">Supply Chain Transparency Score</p>
-      </div>
-      <div class="brand-metric-card">
-        <p id="brand-detail-vde-value" class="brand-score-value metric"></p>
-        <p class="brand-score-label">Value Distribution Equity Score</p>
+        <p class="brand-score-label">Supply Chain Transparency</p>
       </div>
     </div>
   </section>
@@ -1502,7 +1544,6 @@
           <p id="title-gap-text-2" class="title-story-text title-fade-only">On June 15, 2024, he was <strong>shot and killed</strong>. Since its founding in early 2022, SITRATEXPIA II union leaders and members have been the focus of violent attacks.</p>
         </div>
 
-        <button id="title-click" class="title-fade-group title-fade-only" type="button">Click</button>
       </div>
 
       <div id="title-stage-two">
@@ -1543,11 +1584,10 @@
           <div id="title-lyrics-track">
             <p class="title-lyric-paragraph">The moment we buy an item of clothing, we are part of the clothing industry; therefore, we should know how our clothes are being made.</p>
             <p class="title-lyric-paragraph">This project explores the ethical compromises of large-scale fashion brands in America through data analysis &amp; visualization.</p>
-            <p class="title-lyric-paragraph">To evaluate this, 32 large-scale American brands have been analyzed through their social and environmental performance.</p>
-            <p class="title-lyric-paragraph">Quantifiable data from multiple sources has been sorted into 6 different unique categories.</p>
-            <p class="title-lyric-paragraph">Social Transparency, Labor Compensation, Human Rights Risk &amp; Responsiveness, Environmental Impact, Supply Chain Transparency, and Value Distribution Equity.</p>
+            <p class="title-lyric-paragraph">To evaluate this, 31 large-scale American brands have been analyzed through their social and environmental performance.</p>
+            <p class="title-lyric-paragraph">Quantifiable data from multiple sources has been sorted into 5 different unique categories.</p>
+            <p class="title-lyric-paragraph">Social Transparency, Labor Compensation, Human Rights Risk &amp; Responsiveness, Environmental Impact, and Supply Chain Transparency.</p>
             <p class="title-lyric-paragraph">Together, these categories serve as metrics to build the Ethical Compliance Index which rates each brand with a score.</p>
-            <p class="title-lyric-paragraph">Scroll</p>
           </div>
         </div>
       </div>
@@ -1558,12 +1598,12 @@
         <span>HOW ARE BRANDS</span>
         <span>SCORED?</span>
       </h2>
-      <p id="method-title-copy" class="method-fade-text">Before you start exploring the results, scroll to learn more about how the 6 metrics are used to create the ethical compliance score that rates brands.</p>
+      <p id="method-title-copy" class="method-fade-text">Before you start exploring the results, scroll to learn more about how the 5 metrics are used to create the ethical compliance score that rates brands.</p>
 
       <div id="method-bottom-area">
         <div id="method-bottom-left">
           <p id="method-bottom-heading" class="method-fade-text">Ethical Compliance<br />Index</p>
-          <p id="method-bottom-copy" class="method-fade-text">The ethical compliance index is calculated by giving each of the 6 metrics a weight, multiplying the metric score with it's weight and adding all six up, giving a score from 0-100.</p>
+          <p id="method-bottom-copy" class="method-fade-text">The ethical compliance index is calculated by giving each of the 5 metrics a weight, multiplying each metric score by its weight, and adding all five up to produce a score from 0-100.</p>
         </div>
         <img id="method-index-image" src="./media/metrics/index.png" alt="Ethical compliance index formula" />
       </div>
@@ -1577,7 +1617,6 @@
         <img id="metric-lc" class="metrics-burst-item" src="./media/metrics/LC.png" alt="" />
         <img id="metric-sct" class="metrics-burst-item" src="./media/metrics/SCT.png" alt="" />
         <img id="metric-st" class="metrics-burst-item" src="./media/metrics/ST.png" alt="" />
-        <img id="metric-vde" class="metrics-burst-item" src="./media/metrics/VDE.png" alt="" />
       </div>
       <p id="metrics-bag-hint">Click the bag to go through the metrics</p>
       <p id="metrics-scroll-hint">Scroll to interact with the data</p>
@@ -1647,69 +1686,65 @@
 
   <script>
     const controlFile = "./Data/Control_Database.xlsx";
-    const colorFile = "./Data/Color_Database.xlsx";
     const metricsFile = "./Data/Metrics_Database.xlsx";
     const scatterTicks = [0, 25, 50, 75, 100];
     const barsTicks = [0, 50, 100, 150, 200];
     const introTokenDefs = [
-      { id: "lululemon", file: "./media/lululemon.png", brands: ["lululemon"] },
-      { id: "levi", file: "./media/levi.png", brands: ["levi strauss & co.", "levi strauss and co", "levi"] },
-      { id: "rl", file: "./media/RL.png", brands: ["ralph lauren"] },
-      { id: "gap", file: "./media/gap.png", brands: ["gap"] },
-      { id: "nike", file: "./media/nike.png", brands: ["nike"] },
-      { id: "patagonia", file: "./media/patagonia.png", brands: ["patagonia"] }
+      { id: "underArmour", file: "./media/logos/UA.png", brands: ["under armour"] },
+      { id: "levi", file: "./media/logos/levi.png", brands: ["levi strauss & co.", "levi strauss and co", "levi"] },
+      { id: "rl", file: "./media/logos/RL.png", brands: ["ralph lauren"] },
+      { id: "gap", file: "./media/logos/gap.png", brands: ["gap"] },
+      { id: "nike", file: "./media/logos/nike.png", brands: ["nike"] },
+      { id: "patagonia", file: "./media/logos/patagonia.png", brands: ["patagonia"] }
     ];
     const brandLogoMap = new Map([
-      ["gap", "./media/gap.png"],
-      ["abercrombie & fitch", "./media/A&F.png"],
-      ["american eagle", "./media/AE.png"],
-      ["american eagle outfitters", "./media/AE.png"],
-      ["anthropologie", "./media/anthropologie.png"],
-      ["banana republic", "./media/BR.png"],
-      ["champion", "./media/champion.png"],
-      ["calvin klein", "./media/CK.png"],
-      ["clavin klein", "./media/CK.png"],
-      ["calvin klein inc.", "./media/CK.png"],
-      ["calvin klein, inc.", "./media/CK.png"],
-      ["coach", "./media/coach.png"],
-      ["coach new york", "./media/coach.png"],
-      ["converse", "./media/converse.png"],
-      ["fruit of the loom", "./media/FL.png"],
-      ["forever 21", "./media/forever21.png"],
-      ["hanes", "./media/hanes.png"],
-      ["kate spade & co", "./media/KS.png"],
-      ["kate spade & co.", "./media/KS.png"],
-      ["kate spade & company", "./media/KS.png"],
-      ["kate spade", "./media/KS.png"],
-      ["levi strauss & co", "./media/levi.png"],
-      ["levi strauss & co.", "./media/levi.png"],
-      ["levi strauss and co", "./media/levi.png"],
-      ["ll. bean", "./media/llbean.png"],
-      ["ll bean", "./media/llbean.png"],
-      ["lululemon", "./media/lululemon.png"],
-      ["lululemon athletica", "./media/lululemon.png"],
-      ["marc jacobs", "./media/MJ.png"],
-      ["michael kors", "./media/MK.png"],
-      ["new balance", "./media/NB.png"],
-      ["the north face", "./media/NF.png"],
-      ["the north face, inc.", "./media/NF.png"],
-      ["north face", "./media/NF.png"],
-      ["nike", "./media/nike.png"],
-      ["old navy", "./media/ON.png"],
-      ["patagonia", "./media/patagonia.png"],
-      ["ralph lauren corporation", "./media/RL.png"],
-      ["ralph lauren", "./media/RL.png"],
-      ["steve madden", "./media/SM.png"],
-      ["tory burch", "./media/TB.png"],
-      ["tom ford", "./media/TF.png"],
-      ["tommy hilfiger", "./media/TH.png"],
-      ["under armour", "./media/UA.png"],
-      ["urban outfitters", "./media/UB.png"],
-      ["victoria’s secret & co", "./media/VS.png"],
-      ["victoria's secret & co", "./media/VS.png"],
-      ["victoria's secret", "./media/VS.png"],
-      ["victoria’s secret", "./media/VS.png"],
-      ["wrangler", "./media/wrangler.png"]
+      ["gap", "./media/logos/gap.png"],
+      ["abercrombie & fitch", "./media/logos/A&F.png"],
+      ["american eagle", "./media/logos/AE.png"],
+      ["american eagle outfitters", "./media/logos/AE.png"],
+      ["anthropologie", "./media/logos/anthropologie.png"],
+      ["banana republic", "./media/logos/BR.png"],
+      ["champion", "./media/logos/champion.png"],
+      ["calvin klein", "./media/logos/CK.png"],
+      ["clavin klein", "./media/logos/CK.png"],
+      ["calvin klein inc.", "./media/logos/CK.png"],
+      ["calvin klein, inc.", "./media/logos/CK.png"],
+      ["coach", "./media/logos/coach.png"],
+      ["coach new york", "./media/logos/coach.png"],
+      ["converse", "./media/logos/converse.png"],
+      ["fruit of the loom", "./media/logos/FL.png"],
+      ["forever 21", "./media/logos/forever21.png"],
+      ["hanes", "./media/logos/hanes.png"],
+      ["kate spade & co.", "./media/logos/KS.png"],
+      ["kate spade & co", "./media/logos/KS.png"],
+      ["kate spade & company", "./media/logos/KS.png"],
+      ["kate spade", "./media/logos/KS.png"],
+      ["levi strauss & co", "./media/logos/levi.png"],
+      ["levi strauss & co.", "./media/logos/levi.png"],
+      ["levi strauss and co", "./media/logos/levi.png"],
+      ["ll. bean", "./media/logos/llbean.png"],
+      ["ll bean", "./media/logos/llbean.png"],
+      ["marc jacobs", "./media/logos/MJ.png"],
+      ["michael kors", "./media/logos/MK.png"],
+      ["new balance", "./media/logos/NB.png"],
+      ["the north face", "./media/logos/NF.png"],
+      ["the north face, inc.", "./media/logos/NF.png"],
+      ["north face", "./media/logos/NF.png"],
+      ["nike", "./media/logos/nike.png"],
+      ["old navy", "./media/logos/ON.png"],
+      ["patagonia", "./media/logos/patagonia.png"],
+      ["ralph lauren", "./media/logos/RL.png"],
+      ["steve madden", "./media/logos/SM.png"],
+      ["tory burch", "./media/logos/TB.png"],
+      ["tom ford", "./media/logos/TF.png"],
+      ["tommy hilfiger", "./media/logos/TH.png"],
+      ["under armour", "./media/logos/UA.png"],
+      ["urban outfitters", "./media/logos/UB.png"],
+      ["victoria’s secret & co", "./media/logos/VS.png"],
+      ["victoria's secret & co", "./media/logos/VS.png"],
+      ["victoria's secret", "./media/logos/VS.png"],
+      ["victoria’s secret", "./media/logos/VS.png"],
+      ["wrangler", "./media/logos/wrangler.png"]
     ]);
     const compareSeriesDefs = [
       { key: "ethical", label: "Ethical Compliance Index", color: "#111111" },
@@ -1717,12 +1752,15 @@
       { key: "laborCompensation", label: "Labor Compensation", color: "#0891b2" },
       { key: "humanRights", label: "Human Rights Risk & Responsiveness", color: "#dc2626" },
       { key: "environmentalImpact", label: "Environmental Impact", color: "#16a34a" },
-      { key: "supplyChainTransparency", label: "Supply Chain Transparency", color: "#ca8a04" },
-      { key: "valueDistributionEquity", label: "Value Distribution Equity", color: "#9333ea" }
+      { key: "supplyChainTransparency", label: "Supply Chain Transparency", color: "#ca8a04" }
     ];
 
     function normalizeBrand(value) {
       return String(value || "").trim().toLowerCase();
+    }
+
+    function isBrandExcludedFromProject(brand) {
+      return normalizeBrand(brand).includes("lululemon");
     }
 
     function readWorkbookFromBuffer(buffer) {
@@ -1784,35 +1822,6 @@
       return output;
     }
 
-    function parseColorRows(rows) {
-      const headerRowIndex = findHeaderRow(rows, ["Brand", "Color"]);
-      if (headerRowIndex === -1) {
-        throw new Error("Color_Database.xlsx header row not found.");
-      }
-
-      const headers = rows[headerRowIndex].map((v) => (typeof v === "string" ? v.trim() : v));
-      const brandIdx = headers.findIndex((h) => String(h).toLowerCase() === "brand");
-      const colorIdx = headers.findIndex((h) => String(h).toLowerCase() === "color");
-
-      const colorMap = new Map();
-      for (let i = headerRowIndex + 1; i < rows.length; i += 1) {
-        const row = rows[i];
-        if (!row || row.length === 0) {
-          continue;
-        }
-
-        const brand = row[brandIdx];
-        const color = row[colorIdx];
-
-        if (!brand || !color) {
-          continue;
-        }
-
-        colorMap.set(normalizeBrand(brand), String(color).trim());
-      }
-      return colorMap;
-    }
-
     function parseMetricsRows(rows) {
       const headerRowIndex = findHeaderRow(rows, [
         "Brand",
@@ -1820,8 +1829,7 @@
         "Labor Compensation",
         "Human Rights Risk & Responsiveness",
         "Environmental Impact",
-        "Supply Chain Transparency",
-        "Value Distribution Equity"
+        "Supply Chain Transparency"
       ]);
       if (headerRowIndex === -1) {
         throw new Error("Metrics_Database.xlsx header row not found.");
@@ -1834,8 +1842,7 @@
         laborCompensation: headers.findIndex((h) => String(h) === "labor compensation"),
         humanRights: headers.findIndex((h) => String(h) === "human rights risk & responsiveness"),
         environmentalImpact: headers.findIndex((h) => String(h) === "environmental impact"),
-        supplyChainTransparency: headers.findIndex((h) => String(h) === "supply chain transparency"),
-        valueDistributionEquity: headers.findIndex((h) => String(h) === "value distribution equity")
+        supplyChainTransparency: headers.findIndex((h) => String(h) === "supply chain transparency")
       };
 
       const result = new Map();
@@ -1853,8 +1860,7 @@
           laborCompensation: Number(row[idx.laborCompensation]),
           humanRights: Number(row[idx.humanRights]),
           environmentalImpact: Number(row[idx.environmentalImpact]),
-          supplyChainTransparency: Number(row[idx.supplyChainTransparency]),
-          valueDistributionEquity: Number(row[idx.valueDistributionEquity])
+          supplyChainTransparency: Number(row[idx.supplyChainTransparency])
         };
         Object.keys(item).forEach((key) => {
           if (Number.isNaN(item[key])) {
@@ -1937,8 +1943,7 @@
       const baseSize = 68;
       const normalized = normalizeBrand(brandName);
       const isSpecialSize = (
-        normalized.includes("lululemon")
-        || normalized.includes("abercrombie")
+        normalized.includes("abercrombie")
         || normalized.includes("victoria")
         || normalized.includes("marc jacobs")
         || normalized.includes("anthropologie")
@@ -2213,8 +2218,7 @@
             laborCompensation: metrics.laborCompensation || 0,
             humanRights: metrics.humanRights || 0,
             environmentalImpact: metrics.environmentalImpact || 0,
-            supplyChainTransparency: metrics.supplyChainTransparency || 0,
-            valueDistributionEquity: metrics.valueDistributionEquity || 0
+            supplyChainTransparency: metrics.supplyChainTransparency || 0
           }
         };
       });
@@ -2419,6 +2423,9 @@
       transitioningToBag: false,
       waitingForSecondScrollToBag: false,
       entryLockUntilMs: 0,
+      /** After programmatic jump from metrics bag, block upward wheel until momentum ends (idle), not a fixed ms window. */
+      suppressMethodScrollUpUntilIdle: false,
+      methodScrollUpIdleTimer: null,
       suppressMethodDownUntilIdle: false,
       methodDownIdleTimer: null,
       lastWheelEventAtMs: 0,
@@ -2447,12 +2454,76 @@
       return currentPoints.find((point) => normalizeBrand(point.brand) === brandKey) || null;
     }
 
+    function renderBrandDetailBarChart(brandPoint) {
+      const svg = document.getElementById("brand-detail-bars-svg");
+      if (!svg || !brandPoint) {
+        return;
+      }
+      const metrics = brandPoint.metrics || {};
+      const clampScore = (value) => Math.max(0, Math.min(100, Number(value) || 0));
+      const rows = [
+        { ...compareSeriesDefs[0], value: clampScore(brandPoint.ethical) },
+        { ...compareSeriesDefs[1], value: clampScore(metrics.socialTransparency) },
+        { ...compareSeriesDefs[2], value: clampScore(metrics.laborCompensation) },
+        { ...compareSeriesDefs[3], value: clampScore(metrics.humanRights) },
+        { ...compareSeriesDefs[4], value: clampScore(metrics.environmentalImpact) },
+        { ...compareSeriesDefs[5], value: clampScore(metrics.supplyChainTransparency) }
+      ];
+      const n = rows.length;
+      const margin = { top: 14, right: 52, bottom: 42, left: 268 };
+      const W = 920;
+      const rowH = 52;
+      const barPad = 10;
+      const chartInnerW = W - margin.left - margin.right;
+      const chartH = margin.top + n * rowH + margin.bottom;
+
+      const parts = [];
+      rows.forEach((row, i) => {
+        const y0 = margin.top + i * rowH;
+        const displayVal = Math.ceil(row.value);
+        const rawW = (row.value / 100) * chartInnerW;
+        const barW = row.value <= 0 ? 0 : Math.max(rawW, 2);
+        const barY = y0 + barPad;
+        const barHeight = rowH - barPad * 2;
+        const centerY = y0 + rowH / 2;
+        parts.push(
+          `<text x="${margin.left - 12}" y="${centerY}" text-anchor="end" dominant-baseline="middle" font-family="MontserratCustom,sans-serif" font-size="14" fill="#000">${escapeXml(row.label)}</text>`
+        );
+        parts.push(
+          `<rect x="${margin.left}" y="${barY}" width="${barW}" height="${barHeight}" rx="3" fill="${row.color}" />`
+        );
+        parts.push(
+          `<text x="${margin.left + barW + 10}" y="${centerY}" dominant-baseline="middle" font-family="InterCustom,sans-serif" font-size="16" font-weight="700" fill="#000">${displayVal}</text>`
+        );
+      });
+
+      const axisY = margin.top + n * rowH;
+      parts.push(
+        `<line x1="${margin.left}" y1="${axisY}" x2="${margin.left + chartInnerW}" y2="${axisY}" stroke="#000" stroke-width="1.5" />`
+      );
+      [0, 25, 50, 75, 100].forEach((tick) => {
+        const x = margin.left + (tick / 100) * chartInnerW;
+        parts.push(`<line x1="${x}" y1="${axisY}" x2="${x}" y2="${axisY + 8}" stroke="#000" stroke-width="1" />`);
+        parts.push(
+          `<text x="${x}" y="${axisY + 26}" text-anchor="middle" font-family="MontserratCustom,sans-serif" font-size="13" fill="#444">${tick}</text>`
+        );
+      });
+
+      svg.setAttribute("viewBox", `0 0 ${W} ${chartH}`);
+      svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+      svg.innerHTML = parts.join("");
+    }
+
     function renderBrandDetail(brandKey) {
       const brandPoint = getBrandPointByKey(brandKey);
       if (!brandPoint) {
         return false;
       }
       brandDetailState.currentBrandKey = brandKey;
+      const detailPage = document.getElementById("brand-detail-page");
+      if (detailPage) {
+        detailPage.classList.toggle("is-abercrombie-detail", brandKey === "abercrombie & fitch");
+      }
 
       const titleEl = document.getElementById("brand-detail-title");
       const eciEl = document.getElementById("brand-detail-eci-value");
@@ -2461,8 +2532,7 @@
       const hrrrEl = document.getElementById("brand-detail-hrrr-value");
       const eiEl = document.getElementById("brand-detail-ei-value");
       const sctEl = document.getElementById("brand-detail-sct-value");
-      const vdeEl = document.getElementById("brand-detail-vde-value");
-      if (!titleEl || !eciEl || !stEl || !lcEl || !hrrrEl || !eiEl || !sctEl || !vdeEl) {
+      if (!titleEl || !eciEl || !stEl || !lcEl || !hrrrEl || !eiEl || !sctEl) {
         return false;
       }
 
@@ -2474,7 +2544,7 @@
       hrrrEl.textContent = formatScore(metrics.humanRights || 0);
       eiEl.textContent = formatScore(metrics.environmentalImpact || 0);
       sctEl.textContent = formatScore(metrics.supplyChainTransparency || 0);
-      vdeEl.textContent = formatScore(metrics.valueDistributionEquity || 0);
+      renderBrandDetailBarChart(brandPoint);
       return true;
     }
 
@@ -2489,6 +2559,10 @@
         if (titleEl) {
           titleEl.textContent = "Brand";
         }
+        const barsSvg = document.getElementById("brand-detail-bars-svg");
+        if (barsSvg) {
+          barsSvg.innerHTML = "";
+        }
       }
       detailPage.classList.add("is-open");
       return didRender;
@@ -2501,6 +2575,7 @@
         return;
       }
       detailPage.classList.remove("is-open");
+      detailPage.classList.remove("is-abercrombie-detail");
       if (brandsMenu) {
         brandsMenu.classList.remove("is-open");
       }
@@ -2559,11 +2634,6 @@
       });
     }
     const metricDetails = {
-      "metric-vde": {
-        title: "Value Distribution Equity",
-        text: "Fill with sample text",
-        placement: "right"
-      },
       "metric-lc": {
         title: "Labor Compensation",
         text: "Fill with sample text",
@@ -2572,7 +2642,7 @@
       "metric-st": {
         title: "Social Transparency",
         text: "This metric extracts scores from the Fashion Transparency Index by Fashion Revolution, which provides scores from 2023, grading the brand on their public disclosure on social and environmental impact.",
-        placement: "bottom"
+        placement: "left"
       },
       "metric-ei": {
         title: "Environmental Impact",
@@ -2582,7 +2652,7 @@
       "metric-sct": {
         title: "Supply Chain Transparency",
         text: "This metric extracts  scores from a dataset from the Supply Chain Transparency Score from the The Clean Clothes Campaign through Wikirate. These scores rate brands based on how transparent they are about their suppliers.",
-        placement: "left"
+        placement: "bottom"
       },
       "metric-hrrr": {
         title: "Human Rights Risk & Responsiveness",
@@ -2640,7 +2710,7 @@
           return;
         }
 
-        const sizeBoost = (tokenDef.id === "patagonia" || tokenDef.id === "lululemon") ? 2 : 1;
+        const sizeBoost = tokenDef.id === "patagonia" ? 2 : 1;
         const currentTokenWidth = tokenWidth * sizeBoost;
         const currentTokenHeight = tokenHeight * sizeBoost;
         tokenState.el.style.width = `${tokenWidth}px`;
@@ -3131,6 +3201,11 @@
         methodIntroState.transitioningToBag = false;
         methodIntroState.waitingForSecondScrollToBag = false;
         methodIntroState.entryLockUntilMs = 0;
+        methodIntroState.suppressMethodScrollUpUntilIdle = false;
+        if (methodIntroState.methodScrollUpIdleTimer) {
+          window.clearTimeout(methodIntroState.methodScrollUpIdleTimer);
+          methodIntroState.methodScrollUpIdleTimer = null;
+        }
         methodIntroState.suppressMethodDownUntilIdle = false;
         methodIntroState.lastWheelEventAtMs = 0;
         methodIntroState.wheelGestureId = 0;
@@ -3281,6 +3356,17 @@
       });
 
       let allowGameJump = false;
+      let suppressPlayIntroScrollUpUntilIdle = false;
+      let playIntroScrollUpIdleTimer = null;
+      const schedulePlayIntroScrollUpMomentumEnd = () => {
+        if (playIntroScrollUpIdleTimer) {
+          window.clearTimeout(playIntroScrollUpIdleTimer);
+        }
+        playIntroScrollUpIdleTimer = window.setTimeout(() => {
+          suppressPlayIntroScrollUpUntilIdle = false;
+          playIntroScrollUpIdleTimer = null;
+        }, 280);
+      };
       const revealMethodIntro = () => {
         if (methodIntroState.revealed) {
           return;
@@ -3338,9 +3424,46 @@
         }, 930);
       };
 
+      const scheduleMethodScrollUpMomentumEnd = () => {
+        if (methodIntroState.methodScrollUpIdleTimer) {
+          window.clearTimeout(methodIntroState.methodScrollUpIdleTimer);
+        }
+        methodIntroState.methodScrollUpIdleTimer = window.setTimeout(() => {
+          methodIntroState.suppressMethodScrollUpUntilIdle = false;
+          methodIntroState.methodScrollUpIdleTimer = null;
+        }, 280);
+      };
+
+      /** From metrics bag: plain scroll back — NO slide-in entry (that is lyrics → method intro only). */
+      const scrollFromMetricsBagToMethodIntro = () => {
+        if (methodIntroState.transitioningToBag) {
+          return;
+        }
+        methodIntroState.revealed = true;
+        methodIntroState.waitingForSecondScrollToBag = false;
+        methodIntroPage.classList.remove("is-pre-reveal");
+        methodIntroPage.classList.remove("is-transitioning-forward");
+
+        metricsBagPage.classList.remove("is-opened");
+        metricsBagPage.classList.remove("is-scroll-ready");
+        metricsBagPage.classList.remove("is-detail-open");
+        metricDetailBox.classList.remove("is-visible", "align-left", "align-right");
+        metricItems.forEach((item) => item.classList.remove("is-focused"));
+        metricsBagState.canScrollToGameIntro = false;
+
+        methodIntroState.suppressMethodScrollUpUntilIdle = true;
+        scheduleMethodScrollUpMomentumEnd();
+        methodIntroState.entryLockUntilMs = Date.now() + 700;
+        methodIntroPage.scrollIntoView({ behavior: "instant", block: "start" });
+      };
+
       const goToGameInstant = () => {
         const introView = document.getElementById("intro-view");
         const gamePageEl = document.getElementById("game-page");
+        const scoreOverlay = document.getElementById("game-score-overlay");
+        const seeCorrect = document.getElementById("game-see-correct");
+        const seeRest = document.getElementById("game-see-rest");
+        const scoreValue = document.getElementById("game-score-value");
         if (introView) {
           introView.style.display = "block";
         }
@@ -3350,6 +3473,9 @@
         introState.revealed = false;
         introState.scoreShown = false;
         introState.transitioningToInsights = false;
+        introState.dragId = null;
+        introState.dragOffsetX = 0;
+        introState.dragOffsetY = 0;
         if (introState.revealTimer) {
           window.clearTimeout(introState.revealTimer);
           introState.revealTimer = null;
@@ -3358,10 +3484,20 @@
           window.clearTimeout(introState.transitionTimer);
           introState.transitionTimer = null;
         }
+        if (scoreOverlay && seeCorrect && seeRest && scoreValue) {
+          scoreOverlay.classList.remove("is-visible", "is-fading", "is-hiding-score");
+          seeCorrect.classList.remove("is-visible");
+          seeRest.classList.remove("is-visible");
+          scoreValue.textContent = "0.0";
+        }
         renderIntroChart();
         if (introState.tokenMap.size === 0) {
           createIntroTokens();
         } else {
+          introState.tokenMap.forEach((tokenState) => {
+            tokenState.placed = false;
+            tokenState.el.style.transition = "";
+          });
           placeIntroTokensInTray();
         }
         gamePage.classList.add("is-visible");
@@ -3422,6 +3558,16 @@
             return;
           }
 
+          if (
+            isMethodIntroActive()
+            && event.deltaY < 0
+            && methodIntroState.suppressMethodScrollUpUntilIdle
+          ) {
+            event.preventDefault();
+            scheduleMethodScrollUpMomentumEnd();
+            return;
+          }
+
           if (isMethodIntroActive() && event.deltaY > 0 && methodIntroState.suppressMethodDownUntilIdle) {
             event.preventDefault();
             if (methodIntroState.methodDownIdleTimer) {
@@ -3462,9 +3608,20 @@
           }
 
           if (isMetricsBagActive() && event.deltaY < 0) {
-            metricsBagPage.classList.remove("is-active");
-            metricsBagPage.classList.remove("is-opened");
-            hideMetricDetail(false);
+            if (metricsBagPage.classList.contains("is-detail-open")) {
+              event.preventDefault();
+              hideMetricDetail(false);
+              return;
+            }
+            if (metricsBagPage.classList.contains("is-opened")) {
+              event.preventDefault();
+              metricsBagPage.classList.remove("is-opened");
+              hideMetricDetail(false);
+              return;
+            }
+            event.preventDefault();
+            scrollFromMetricsBagToMethodIntro();
+            return;
           }
 
           if (isMetricsBagActive() && event.deltaY > 0 && !metricsBagState.canScrollToGameIntro) {
@@ -3472,7 +3629,20 @@
             return;
           }
 
+          if (isInsightsActive() && event.deltaY < 0) {
+            event.preventDefault();
+            suppressPlayIntroScrollUpUntilIdle = true;
+            schedulePlayIntroScrollUpMomentumEnd();
+            playIntroPage.scrollIntoView({ behavior: "instant", block: "start" });
+            return;
+          }
+
           if (isPlayIntroActive()) {
+            if (event.deltaY < 0 && suppressPlayIntroScrollUpUntilIdle) {
+              event.preventDefault();
+              schedulePlayIntroScrollUpMomentumEnd();
+              return;
+            }
             if (event.deltaY > 0) {
               event.preventDefault();
             }
@@ -3507,6 +3677,15 @@
           }
           if (
             isMethodIntroActive()
+            && ["ArrowUp", "PageUp", "Home"].includes(event.key)
+            && methodIntroState.suppressMethodScrollUpUntilIdle
+          ) {
+            event.preventDefault();
+            scheduleMethodScrollUpMomentumEnd();
+            return;
+          }
+          if (
+            isMethodIntroActive()
             && !methodIntroState.revealed
             && ["ArrowDown", "PageDown", " ", "End"].includes(event.key)
           ) {
@@ -3536,12 +3715,50 @@
             event.preventDefault();
             return;
           }
+          if (
+            isPlayIntroActive()
+            && ["ArrowUp", "PageUp", "Home"].includes(event.key)
+            && suppressPlayIntroScrollUpUntilIdle
+          ) {
+            event.preventDefault();
+            schedulePlayIntroScrollUpMomentumEnd();
+            return;
+          }
           if (isMetricsBagActive() && ["ArrowDown", "PageDown", " ", "End"].includes(event.key) && !metricsBagState.canScrollToGameIntro) {
             event.preventDefault();
             return;
           }
+          if (
+            isMetricsBagActive()
+            && ["ArrowUp", "PageUp", "Home"].includes(event.key)
+            && !metricsBagPage.classList.contains("is-opened")
+            && !metricsBagPage.classList.contains("is-detail-open")
+          ) {
+            event.preventDefault();
+            scrollFromMetricsBagToMethodIntro();
+            return;
+          }
+          if (
+            isMetricsBagActive()
+            && ["ArrowUp", "PageUp", "Home"].includes(event.key)
+            && (metricsBagPage.classList.contains("is-opened") || metricsBagPage.classList.contains("is-detail-open"))
+          ) {
+            event.preventDefault();
+            if (metricsBagPage.classList.contains("is-detail-open")) {
+              hideMetricDetail(false);
+            } else {
+              metricsBagPage.classList.remove("is-opened");
+              hideMetricDetail(false);
+            }
+            return;
+          }
           if (isGameActive() && ["ArrowUp", "PageUp", "Home"].includes(event.key)) {
             event.preventDefault();
+            return;
+          }
+          if (isInsightsActive() && ["ArrowUp", "PageUp", "Home"].includes(event.key)) {
+            event.preventDefault();
+            playIntroPage.scrollIntoView({ behavior: "auto", block: "start" });
             return;
           }
           
@@ -3556,7 +3773,6 @@
       const leftText2 = document.getElementById("title-left-text-2");
       const gapWrap = document.getElementById("title-gap-wrap");
       const gapText2 = document.getElementById("title-gap-text-2");
-      const clickBtn = document.getElementById("title-click");
       const phaseSweater = document.getElementById("title-phase-sweater");
       const phaseJeans = document.getElementById("title-phase-jeans");
       const phaseShoe = document.getElementById("title-phase-shoe");
@@ -3575,9 +3791,71 @@
       const lyricsTrack = document.getElementById("title-lyrics-track");
       const lyricParagraphs = Array.from(document.querySelectorAll("#title-lyrics-box .title-lyric-paragraph"));
       const methodIntroPage = document.getElementById("method-intro-page");
-      if (!titlePage || !leftWrap || !leftText2 || !gapWrap || !gapText2 || !clickBtn || !phaseSweater || !phaseJeans || !phaseShoe || !phaseTwoColumn || !box1 || !box2 || !box3 || !focusPrimary1 || !focusPrimary2 || !focusSecondary1 || !focusSecondary2 || !focusSecondary3 || !focusImage || !focusLeftCopy || !lyricsOverlay || !lyricsTrack || !methodIntroPage) {
+      if (!titlePage || !leftWrap || !leftText2 || !gapWrap || !gapText2 || !phaseSweater || !phaseJeans || !phaseShoe || !phaseTwoColumn || !box1 || !box2 || !box3 || !focusPrimary1 || !focusPrimary2 || !focusSecondary1 || !focusSecondary2 || !focusSecondary3 || !focusImage || !focusLeftCopy || !lyricsOverlay || !lyricsTrack || !methodIntroPage) {
         return;
       }
+
+      const titleIntroSequenceEndMs = 7000;
+      let titleIntroSequenceComplete = false;
+      /** True while BIG FASHION → boxes staged; blocks scroll until lyrics can open (box2 visible). */
+      let titlePhaseTwoRevealInProgress = false;
+
+      titlePage.classList.add("title-intro-sequence-running");
+
+      const titlePageVisibilityRatio = () => {
+        const pageRect = titlePage.getBoundingClientRect();
+        const viewportH = window.innerHeight || document.documentElement.clientHeight;
+        const visibleTop = Math.max(0, pageRect.top);
+        const visibleBottom = Math.min(viewportH, pageRect.bottom);
+        return pageRect.height > 0 ? Math.max(0, visibleBottom - visibleTop) / pageRect.height : 0;
+      };
+
+      window.addEventListener(
+        "wheel",
+        (event) => {
+          const titleVis = titlePageVisibilityRatio();
+          if (!titleIntroSequenceComplete) {
+            event.preventDefault();
+            return;
+          }
+          if (
+            titleVis > 0.55
+            && (
+              titlePhaseTwoRevealInProgress
+              || titlePage.classList.contains("phase-two-focus")
+            )
+          ) {
+            event.preventDefault();
+          }
+        },
+        { passive: false, capture: true }
+      );
+
+      const startTitlePhaseTwo = () => {
+        if (titlePage.classList.contains("phase-two") || titlePage.classList.contains("phase-two-start")) {
+          return;
+        }
+        titlePhaseTwoRevealInProgress = true;
+        phaseSweater.classList.add("is-visible");
+        titlePage.classList.add("phase-two-start");
+        window.setTimeout(() => {
+          titlePage.classList.add("phase-two");
+          phaseJeans.classList.add("is-visible");
+        }, 1000);
+        window.setTimeout(() => {
+          phaseShoe.classList.add("is-visible");
+        }, 2000);
+        window.setTimeout(() => {
+          box1.classList.add("is-visible");
+        }, 2800);
+        window.setTimeout(() => {
+          box3.classList.add("is-visible");
+        }, 3300);
+        window.setTimeout(() => {
+          box2.classList.add("is-visible");
+          titlePhaseTwoRevealInProgress = false;
+        }, 3800);
+      };
 
       const titleLyricsState = {
         open: false,
@@ -3606,6 +3884,14 @@
         titleLyricsState.open = false;
         titlePage.classList.remove("phase-two-lyrics");
         lyricsTrack.style.transform = "translateY(0px)";
+      };
+
+      const goFromLyricsToMethodIntro = () => {
+        closeLyricsOverlay();
+        methodIntroPage.classList.add("is-pre-reveal");
+        methodIntroState.revealed = false;
+        methodIntroState.waitingForSecondScrollToBag = false;
+        methodIntroPage.scrollIntoView({ behavior: "auto", block: "start" });
       };
 
       updateLyricState();
@@ -3684,39 +3970,51 @@
       }, 6500);
 
       window.setTimeout(() => {
-        clickBtn.classList.add("is-visible");
-      }, 8500);
+        titleIntroSequenceComplete = true;
+        titlePage.classList.remove("title-intro-sequence-running");
+      }, titleIntroSequenceEndMs);
 
-      clickBtn.addEventListener("click", () => {
-        if (titlePage.classList.contains("phase-two") || titlePage.classList.contains("phase-two-start")) {
-          return;
-        }
-        phaseSweater.classList.add("is-visible");
-        titlePage.classList.add("phase-two-start");
-        // Respect strict sequence:
-        // 1) fade everything except sweater
-        // 2) jeans
-        // 3) shoe
-        // 4) box 1
-        // 5) box 3
-        // 6) box 2
-        window.setTimeout(() => {
-          titlePage.classList.add("phase-two");
-          phaseJeans.classList.add("is-visible");
-        }, 1000);
-        window.setTimeout(() => {
-          phaseShoe.classList.add("is-visible");
-        }, 2000);
-        window.setTimeout(() => {
-          box1.classList.add("is-visible");
-        }, 2800);
-        window.setTimeout(() => {
-          box3.classList.add("is-visible");
-        }, 3300);
-        window.setTimeout(() => {
-          box2.classList.add("is-visible");
-        }, 3800);
-      });
+      window.addEventListener(
+        "touchmove",
+        (event) => {
+          const tv = titlePageVisibilityRatio();
+          if (
+            !titleIntroSequenceComplete
+            || (tv > 0.55 && (titlePhaseTwoRevealInProgress || titlePage.classList.contains("phase-two-focus")))
+          ) {
+            event.preventDefault();
+          }
+        },
+        { passive: false, capture: true }
+      );
+
+      window.addEventListener(
+        "keydown",
+        (event) => {
+          const tv = titlePageVisibilityRatio();
+          const focusDetailView =
+            tv > 0.55 && titlePage.classList.contains("phase-two-focus");
+          const scrollNavigationKeys = ["ArrowDown", "ArrowUp", "PageDown", "PageUp", " ", "Home", "End"];
+
+          if (focusDetailView && scrollNavigationKeys.includes(event.key)) {
+            if (!(event.ctrlKey || event.metaKey || event.altKey)) {
+              event.preventDefault();
+            }
+            return;
+          }
+
+          if (titleIntroSequenceComplete && !titlePhaseTwoRevealInProgress) {
+            return;
+          }
+          if (!titleIntroSequenceComplete || titlePhaseTwoRevealInProgress) {
+            if (event.ctrlKey || event.metaKey || event.altKey) {
+              return;
+            }
+            event.preventDefault();
+          }
+        },
+        { capture: true }
+      );
 
       titlePage.addEventListener("click", (event) => {
         if (!titlePage.classList.contains("phase-two") || !box2.classList.contains("is-visible")) {
@@ -3752,16 +4050,29 @@
       window.addEventListener(
         "wheel",
         (event) => {
-          const pageRect = titlePage.getBoundingClientRect();
-          const viewportH = window.innerHeight || document.documentElement.clientHeight;
-          const visibleTop = Math.max(0, pageRect.top);
-          const visibleBottom = Math.min(viewportH, pageRect.bottom);
-          const visibleRatio = pageRect.height > 0 ? Math.max(0, visibleBottom - visibleTop) / pageRect.height : 0;
+          if (!titleIntroSequenceComplete || titlePhaseTwoRevealInProgress) {
+            return;
+          }
+
+          const visibleRatio = titlePageVisibilityRatio();
           const titlePageActive = visibleRatio > 0.55;
+
+          if (
+            titlePageActive
+            && event.deltaY > 0
+            && !titlePage.classList.contains("phase-two")
+            && !titlePage.classList.contains("phase-two-start")
+          ) {
+            event.preventDefault();
+            startTitlePhaseTwo();
+            return;
+          }
+
           if (!titlePageActive || !titlePage.classList.contains("phase-two") || !box2.classList.contains("is-visible")) {
             return;
           }
           if (titlePage.classList.contains("phase-two-focus")) {
+            event.preventDefault();
             return;
           }
 
@@ -3782,8 +4093,7 @@
               updateLyricState();
               return;
             }
-            closeLyricsOverlay();
-            methodIntroPage.scrollIntoView({ behavior: "auto", block: "start" });
+            goFromLyricsToMethodIntro();
             return;
           }
 
@@ -3808,14 +4118,33 @@
       window.addEventListener(
         "keydown",
         (event) => {
+          const pageRect = titlePage.getBoundingClientRect();
+          const viewportH = window.innerHeight || document.documentElement.clientHeight;
+          const visibleTop = Math.max(0, pageRect.top);
+          const visibleBottom = Math.min(viewportH, pageRect.bottom);
+          const visibleRatio = pageRect.height > 0 ? Math.max(0, visibleBottom - visibleTop) / pageRect.height : 0;
+          const titlePageActive = visibleRatio > 0.55;
+          const downKeys = ["ArrowDown", "PageDown", " ", "End"];
+          const upKeys = ["ArrowUp", "PageUp", "Home"];
+
+          if (
+            titlePageActive
+            && titleIntroSequenceComplete
+            && !titlePage.classList.contains("phase-two")
+            && !titlePage.classList.contains("phase-two-start")
+            && downKeys.includes(event.key)
+          ) {
+            event.preventDefault();
+            startTitlePhaseTwo();
+            return;
+          }
+
           if (!titlePage.classList.contains("phase-two") || !box2.classList.contains("is-visible")) {
             return;
           }
           if (titlePage.classList.contains("phase-two-focus")) {
             return;
           }
-          const downKeys = ["ArrowDown", "PageDown", " ", "End"];
-          const upKeys = ["ArrowUp", "PageUp", "Home"];
           if (downKeys.includes(event.key)) {
             event.preventDefault();
             if (!titleLyricsState.open) {
@@ -3828,8 +4157,7 @@
               updateLyricState();
               return;
             }
-            closeLyricsOverlay();
-            methodIntroPage.scrollIntoView({ behavior: "auto", block: "start" });
+            goFromLyricsToMethodIntro();
             return;
           }
           if (upKeys.includes(event.key) && titleLyricsState.open) {
@@ -3848,42 +4176,35 @@
 
 
     async function loadData() {
-      const [controlResponse, colorResponse, metricsResponse] = await Promise.all([
-        fetch(controlFile),
-        fetch(colorFile),
-        fetch(metricsFile)
-      ]);
+      const [controlResponse, metricsResponse] = await Promise.all([fetch(controlFile), fetch(metricsFile)]);
 
-      if (!controlResponse.ok || !colorResponse.ok || !metricsResponse.ok) {
-        throw new Error("Could not load one or both Excel files from the Data folder.");
+      if (!controlResponse.ok || !metricsResponse.ok) {
+        throw new Error("Could not load Control_Database.xlsx or Metrics_Database.xlsx from the Data folder.");
       }
 
-      const [controlBuffer, colorBuffer, metricsBuffer] = await Promise.all([
+      const [controlBuffer, metricsBuffer] = await Promise.all([
         controlResponse.arrayBuffer(),
-        colorResponse.arrayBuffer(),
         metricsResponse.arrayBuffer()
       ]);
 
       const controlRows = getFirstSheetRows(readWorkbookFromBuffer(controlBuffer));
-      const colorRows = getFirstSheetRows(readWorkbookFromBuffer(colorBuffer));
       const metricsRows = getFirstSheetRows(readWorkbookFromBuffer(metricsBuffer));
 
       const controlData = parseControlRows(controlRows);
-      const colorMap = parseColorRows(colorRows);
       const metricsMap = parseMetricsRows(metricsRows);
 
-      return controlData.map((item) => ({
-        ...item,
-        color: colorMap.get(normalizeBrand(item.brand)) || "#000000",
-        metrics: metricsMap.get(normalizeBrand(item.brand)) || {
-          socialTransparency: 0,
-          laborCompensation: 0,
-          humanRights: 0,
-          environmentalImpact: 0,
-          supplyChainTransparency: 0,
-          valueDistributionEquity: 0
-        }
-      }));
+      return controlData
+        .map((item) => ({
+          ...item,
+          metrics: metricsMap.get(normalizeBrand(item.brand)) || {
+            socialTransparency: 0,
+            laborCompensation: 0,
+            humanRights: 0,
+            environmentalImpact: 0,
+            supplyChainTransparency: 0
+          }
+        }))
+        .filter((item) => !isBrandExcludedFromProject(item.brand));
     }
 
     let currentPoints = [];
