@@ -720,6 +720,724 @@
       display: flex;
     }
 
+    #conscious-shopping-page {
+      position: relative;
+      background: #fff;
+      color: #000;
+      overflow: hidden;
+    }
+
+    #conscious-shopping-white {
+      position: absolute;
+      inset: 0;
+      background: #fff;
+      opacity: 0;
+      transition: opacity 520ms ease;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    #conscious-shopping-page.is-visible #conscious-shopping-white {
+      opacity: 1;
+    }
+
+    #conscious-shopping-copy {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 10vw;
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 520ms ease;
+      text-align: center;
+    }
+
+    #conscious-shopping-page.is-visible #conscious-shopping-copy {
+      opacity: 1;
+    }
+
+    #conscious-shopping-title {
+      margin: 0 0 28px 0;
+      font-family: "InterCustom", sans-serif;
+      font-weight: 700;
+      font-size: clamp(58px, 5vw, 110px);
+      line-height: 0.9;
+    }
+
+    #conscious-shopping-text {
+      margin: 0;
+      font-family: "MontserratCustom", sans-serif;
+      font-weight: 400;
+      font-size: 30px;
+      line-height: 1.16;
+      max-width: 1100px;
+      text-align: left;
+    }
+
+    #shopping-tool-page {
+      position: relative;
+      background: #fff;
+      color: #000;
+      overflow: hidden;
+    }
+
+    #shopping-tool-white {
+      position: absolute;
+      inset: 0;
+      background: #fff;
+      opacity: 0;
+      transition: opacity 520ms ease;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    #shopping-tool-page.is-visible #shopping-tool-white {
+      opacity: 1;
+    }
+
+    #shopping-tool-stage {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 520ms ease;
+      isolation: isolate;
+    }
+
+    #shopping-tool-page.is-visible #shopping-tool-stage {
+      opacity: 1;
+    }
+
+    #shopping-tool-clusters {
+      position: absolute;
+      inset: 0;
+      pointer-events: auto;
+      z-index: 1;
+    }
+
+    #shopping-cluster-blur-backdrop {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      opacity: 0;
+      pointer-events: none;
+      visibility: hidden;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      background: rgba(255, 255, 255, 0.14);
+      transition: opacity 320ms ease, visibility 0ms linear 320ms;
+    }
+
+    #shopping-tool-page.is-cluster-open #shopping-cluster-blur-backdrop.is-visible {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transition: opacity 320ms ease, visibility 0ms;
+    }
+
+    #shopping-cluster-fly-anim {
+      position: fixed;
+      inset: 0;
+      z-index: 90;
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0ms linear 0ms, visibility 0ms linear 0ms;
+    }
+
+    #shopping-cluster-fly-anim.is-running {
+      opacity: 1;
+      visibility: visible;
+      transition: none;
+    }
+
+    .shopping-cluster-fly-title {
+      position: fixed;
+      margin: 0;
+      padding: 0;
+      font-family: "InterCustom", sans-serif;
+      font-weight: 700;
+      font-size: 75px;
+      line-height: 0.95;
+      text-align: right;
+      color: #000;
+      white-space: nowrap;
+      transform-origin: top right;
+      will-change: transform;
+    }
+
+    .shopping-cluster-fly-icon {
+      position: fixed;
+      margin: 0;
+      padding: 0;
+      object-fit: contain;
+      transform-origin: center center;
+      will-change: transform;
+    }
+
+    .shopping-cluster {
+      position: absolute;
+      width: min(320px, 24vw);
+      height: 210px;
+      cursor: pointer;
+      opacity: 0;
+      z-index: 3;
+      transform: translate(-50%, -50%) scale(0.92);
+      transition: opacity 420ms ease, transform 760ms cubic-bezier(0.22, 1, 0.36, 1), left 760ms cubic-bezier(0.22, 1, 0.36, 1), top 760ms cubic-bezier(0.22, 1, 0.36, 1), z-index 0ms;
+    }
+
+    #shopping-tool-page.is-bloomed .shopping-cluster {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    #shopping-tool-page.is-cluster-open .shopping-cluster:not(.is-active-cluster) {
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0.38;
+    }
+
+    .shopping-cluster.is-active-cluster {
+      z-index: 20;
+      width: min(780px, 92vw);
+      min-height: 320px;
+      transform: translate(-50%, -50%) scale(1.04);
+    }
+
+    .shopping-cluster-label {
+      position: absolute;
+      left: 50%;
+      top: -40px;
+      margin: 0;
+      padding: 0 6px;
+      transform: translateX(-50%);
+      font-family: "InterCustom", sans-serif;
+      font-weight: 700;
+      font-size: 30px;
+      line-height: 1.0;
+      color: #000;
+      white-space: nowrap;
+      text-align: center;
+      pointer-events: auto;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    #shopping-tool-page.is-cluster-open .shopping-cluster .shopping-cluster-label {
+      opacity: 0;
+    }
+
+    .shopping-cluster-preview-icon {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: min(260px, 78%);
+      height: auto;
+      min-height: 60px;
+      max-height: 200px;
+      object-fit: contain;
+      pointer-events: auto;
+      cursor: pointer;
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 420ms ease;
+    }
+
+    #shopping-tool-page.is-bloomed .shopping-cluster:not(.is-active-cluster) .shopping-cluster-preview-icon {
+      opacity: 1;
+    }
+
+    #shopping-tool-page.shopping-fly-playing .shopping-cluster.is-active-cluster .shopping-cluster-preview-icon {
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 80ms ease, visibility 0ms linear 80ms;
+    }
+
+    #shopping-tool-page.is-cluster-open:not(.shopping-fly-playing) .shopping-cluster.is-active-cluster .shopping-cluster-preview-icon {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .shopping-cluster-stack {
+      position: absolute;
+      inset: 0;
+    }
+
+    #shopping-tool-page.is-bloomed .shopping-cluster:not(.is-active-cluster) .shopping-cluster-stack {
+      pointer-events: none;
+    }
+
+    .shopping-cluster-logo {
+      position: absolute;
+      width: 150px;
+      height: 120px;
+      object-fit: contain;
+      opacity: 0;
+      --pile-tx: 0px;
+      --pile-ty: 0px;
+      --shop-i: 0;
+      transform: translate(0, 0) scale(0.96);
+      transition: opacity 420ms ease, transform 620ms cubic-bezier(0.22, 1, 0.36, 1), filter 420ms ease;
+      filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0));
+    }
+
+    #shopping-tool-page.is-bloomed .shopping-cluster:not(.is-active-cluster) .shopping-cluster-logo {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    #shopping-tool-page.is-cluster-open .shopping-cluster:not(.is-active-cluster) .shopping-cluster-logo {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .shopping-cluster.is-active-cluster .shopping-cluster-stack:not(.shopping-cluster-stack--floating) {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(3, 140px);
+      gap: 22px 28px;
+      justify-content: center;
+      justify-items: center;
+      align-items: start;
+      width: min(720px, 90vw);
+      margin: 0 auto;
+      min-height: 240px;
+      inset: auto;
+      pointer-events: auto;
+    }
+
+    .shopping-cluster.is-active-cluster .shopping-cluster-stack[data-shop-cols="5"]:not(.shopping-cluster-stack--floating),
+    #shopping-cluster-brand-layer.is-active .shopping-cluster-stack[data-shop-cols="5"].shopping-cluster-stack--floating {
+      grid-template-columns: repeat(5, 140px);
+      gap: 22px 28px;
+      width: min(812px, 96vw);
+    }
+
+    #shopping-cluster-brand-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 24;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      visibility: hidden;
+    }
+
+    #shopping-cluster-brand-layer.is-active {
+      visibility: visible;
+    }
+
+    #shopping-cluster-brand-layer.is-active .shopping-cluster-stack.shopping-cluster-stack--floating {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(3, 140px);
+      gap: 22px 28px;
+      justify-content: center;
+      justify-items: center;
+      align-items: start;
+      width: min(720px, 90vw);
+      margin: 0;
+      min-height: 240px;
+      pointer-events: auto;
+    }
+
+    .shopping-cluster.is-active-cluster .shopping-cluster-stack:not(.shopping-cluster-stack--floating):not(.is-open-layout) .shopping-cluster-logo {
+      position: relative;
+      left: auto !important;
+      top: auto !important;
+      width: 130px;
+      height: 104px;
+      visibility: visible;
+      opacity: 0;
+      transform: translate(var(--pile-tx, 0px), var(--pile-ty, 0px)) scale(0.92);
+      transition: none;
+    }
+
+    #shopping-cluster-brand-layer.is-active .shopping-cluster-stack.is-open-layout .shopping-cluster-logo {
+      position: relative;
+      left: auto !important;
+      top: auto !important;
+      width: 130px;
+      height: 104px;
+      visibility: visible;
+      opacity: 1;
+      transform: translate(0, 0) scale(1);
+      filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.1));
+      cursor: pointer;
+      pointer-events: auto;
+      transition:
+        transform 680ms cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 520ms cubic-bezier(0.22, 1, 0.36, 1),
+        filter 480ms ease;
+      transition-delay: calc(var(--shop-i, 0) * 48ms);
+    }
+
+    #shopping-cluster-brand-layer.is-active .shopping-cluster-stack.is-open-layout .shopping-cluster-logo.is-dimmed {
+      opacity: 0.12;
+      transition: transform 680ms cubic-bezier(0.22, 1, 0.36, 1), opacity 220ms ease, filter 480ms ease;
+      transition-delay: calc(var(--shop-i, 0) * 48ms);
+    }
+
+    .shopping-cluster.is-active-cluster .shopping-cluster-stack:not(.shopping-cluster-stack--floating):not(.is-open-layout) .shopping-cluster-logo.is-dimmed {
+      opacity: 0;
+    }
+
+    #shopping-cluster-view {
+      position: absolute;
+      inset: 0;
+      z-index: 25;
+      opacity: 0;
+      pointer-events: none;
+      visibility: hidden;
+      transition: opacity 280ms ease, visibility 0ms linear 280ms;
+    }
+
+    #shopping-tool-page.is-cluster-open #shopping-cluster-view {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 280ms ease, visibility 0ms linear 0ms;
+    }
+
+    #shopping-cluster-header-row {
+      position: absolute;
+      top: 52px;
+      left: 110px;
+      right: 50px;
+      z-index: 26;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+      pointer-events: none;
+    }
+
+    #shopping-cluster-header-row > * {
+      pointer-events: auto;
+    }
+
+    #shopping-cluster-topbar {
+      position: relative;
+      top: auto;
+      left: auto;
+      z-index: 1;
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 16px;
+      padding-top: 18px;
+    }
+
+    #shopping-cluster-heading-center {
+      flex: 0 1 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: min(560px, 48vw);
+    }
+
+    #shopping-ethics-wrap {
+      position: relative;
+      display: inline-flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    #shopping-ethics-menu {
+      position: absolute;
+      top: 44px;
+      left: 0;
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      background: #fff;
+      border: 1px solid #000;
+      padding: 10px 12px;
+      z-index: 40;
+      min-width: 420px;
+    }
+
+    #shopping-ethics-menu.is-open {
+      display: flex;
+    }
+
+    .shopping-ethics-option {
+      font-family: "MontserratCustom", sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.2;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+      background: transparent;
+      border: 0;
+      color: #000;
+      padding: 8px 10px;
+      text-align: left;
+      transition: background-color 180ms ease, color 180ms ease;
+    }
+
+    .shopping-ethics-option.is-selected {
+      background: #000;
+      color: #fff;
+    }
+
+    .shopping-cluster-close {
+      border: 0;
+      background: transparent;
+      padding: 0;
+      margin: 0;
+      color: #000;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      font-family: "MontserratCustom", sans-serif;
+      font-size: 30px;
+      font-weight: 400;
+      line-height: 1;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      transition: opacity 180ms ease;
+    }
+
+    .shopping-cluster-close:hover {
+      opacity: 0.6;
+    }
+
+    .shopping-cluster-close svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    #shopping-cluster-title {
+      position: relative;
+      top: auto;
+      right: auto;
+      left: auto;
+      width: 100%;
+      max-width: min(560px, 48vw);
+      margin: 0;
+      font-family: "InterCustom", sans-serif;
+      font-weight: 700;
+      font-size: 75px;
+      line-height: 0.95;
+      text-align: right;
+    }
+
+    #shopping-cluster-header-icon {
+      display: block;
+      width: min(220px, 42vw);
+      min-width: 180px;
+      min-height: 140px;
+      height: auto;
+      max-height: 200px;
+      margin: 10px auto 0;
+      object-fit: contain;
+      opacity: 1;
+      transition: opacity 220ms ease;
+    }
+
+    #shopping-cluster-empty {
+      position: relative;
+      top: auto;
+      right: auto;
+      left: auto;
+      width: 100%;
+      margin: 12px 0 0 0;
+      font-family: "MontserratCustom", sans-serif;
+      font-size: 30px;
+      font-weight: 400;
+      line-height: 1.16;
+      text-align: right;
+      opacity: 0;
+      transition: opacity 220ms ease;
+    }
+
+    #shopping-tool-page.is-no-matches #shopping-cluster-empty {
+      opacity: 1;
+    }
+
+    #compare-chart-stage {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    #compare-insights-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 55;
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 420ms ease, visibility 0ms linear 420ms;
+    }
+
+    #compare-page.compare-insights-on #compare-insights-overlay {
+      pointer-events: auto;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 420ms ease, visibility 0ms;
+    }
+
+    #compare-insights-white {
+      position: absolute;
+      inset: 0;
+      background: #fff;
+      opacity: 0;
+      transition: opacity 520ms ease;
+      z-index: 1;
+    }
+
+    #compare-page.compare-insights-white-on #compare-insights-white {
+      opacity: 1;
+    }
+
+    #compare-insights-title {
+      position: absolute;
+      margin: 0;
+      font-family: "InterCustom", sans-serif;
+      font-weight: 700;
+      font-size: 120px;
+      line-height: 0.95;
+      color: #000;
+      white-space: nowrap;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      transition:
+        left 720ms cubic-bezier(0.22, 1, 0.36, 1),
+        top 720ms cubic-bezier(0.22, 1, 0.36, 1),
+        transform 720ms cubic-bezier(0.22, 1, 0.36, 1),
+        filter 280ms ease,
+        opacity 280ms ease;
+      z-index: 4;
+      max-width: calc(100vw - 100px);
+    }
+
+    #compare-insights-title.is-corner {
+      left: 50px;
+      top: 50px;
+      transform: translate(0, 0);
+    }
+
+    #compare-page.compare-insights-detail-open #compare-insights-title {
+      filter: blur(14px);
+      opacity: 0.32;
+    }
+
+    #compare-insights-burst {
+      position: absolute;
+      left: 80px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto;
+      gap: clamp(12px, 2.5vmin, 28px);
+      align-items: center;
+      justify-items: center;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    #compare-insight-logo-nike {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    #compare-insight-logo-tf {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    #compare-insight-logo-forever21 {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    #compare-insight-logo-champion {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .compare-insights-logo {
+      width: min(42vmin, 260px);
+      height: min(34vmin, 200px);
+      object-fit: contain;
+      display: block;
+      opacity: 0;
+      transition: opacity 420ms ease, filter 280ms ease;
+    }
+
+    .compare-insights-logo.is-visible {
+      opacity: 1;
+    }
+
+    #compare-page.compare-insights-detail-open .compare-insights-logo {
+      opacity: 0;
+      transition: opacity 280ms ease;
+    }
+
+    #compare-page.compare-insights-detail-open .compare-insights-logo.is-focused {
+      opacity: 1;
+      z-index: 6;
+    }
+
+    #compare-insights-detail-box {
+      position: absolute;
+      right: 60px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: min(620px, calc(100vw - 680px));
+      max-width: calc(100vw - 680px);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 12;
+      transition: opacity 280ms ease;
+      text-align: left;
+    }
+
+    #compare-insights-detail-box.is-detail-group-2 {
+      width: min(620px, calc(100vw - 680px));
+      max-width: calc(100vw - 680px);
+    }
+
+    #compare-insights-detail-box.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #compare-insights-detail-title {
+      margin: 0 0 12px 0;
+      font-family: "InterCustom", sans-serif;
+      font-size: 75px;
+      font-weight: 700;
+      line-height: 0.95;
+    }
+
+    #compare-insights-detail-text {
+      margin: 0;
+      font-family: "MontserratCustom", sans-serif;
+      font-size: 30px;
+      font-weight: 400;
+      line-height: 1.16;
+    }
+
     .compare-filter-item {
       font-family: "MontserratCustom", sans-serif;
       font-size: 16px;
@@ -1008,7 +1726,37 @@
     }
 
     .scatter-logo.is-hovered {
-      transform: scale(1.22);
+      transform: scale(1.16);
+    }
+
+    .scatter-dot {
+      transition: opacity 280ms ease, transform 280ms ease, filter 280ms ease;
+      transform-origin: center;
+      transform-box: fill-box;
+      opacity: 1;
+      filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0));
+    }
+
+    .scatter-logo-image {
+      transition: opacity 280ms ease, transform 280ms ease, filter 280ms ease;
+      transform-origin: center;
+      transform-box: fill-box;
+      opacity: 0;
+      transform: scale(0.46);
+      filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0));
+      pointer-events: none;
+    }
+
+    .scatter-logo.is-hovered .scatter-dot {
+      opacity: 0;
+      transform: scale(0.84);
+      filter: drop-shadow(0 0 9px rgba(0, 0, 0, 0.22));
+    }
+
+    .scatter-logo.is-hovered .scatter-logo-image {
+      opacity: 1;
+      transform: scale(1);
+      filter: drop-shadow(0 0 11px rgba(255, 255, 255, 0.5));
     }
 
     #transition-overlay {
@@ -1185,6 +1933,12 @@
       color: #000;
       z-index: 4;
       pointer-events: none;
+      opacity: 0;
+      transition: opacity 600ms ease;
+    }
+
+    #metrics-bag-page.is-title-visible #metrics-bag-title {
+      opacity: 1;
     }
 
     #metrics-bag-page.is-opened #metrics-bag-image {
@@ -1708,22 +2462,87 @@
     </section>
 
     <section id="compare-page" class="page snap-page" aria-label="Brand metric comparison">
-      <div id="compare-top-copy" aria-hidden="true">
-        <h2 id="compare-title">COMPARE</h2>
-        <p id="compare-copy">Click a legend square to filter metrics in or out. Click a bar or brand name to learn more about its scoring.</p>
+      <div id="compare-chart-stage">
+        <div id="compare-top-copy" aria-hidden="true">
+          <h2 id="compare-title">COMPARE</h2>
+          <p id="compare-copy">Click a legend square to filter metrics in or out. Click a bar or brand name to learn more about its scoring.</p>
+        </div>
+        <div id="compare-axis-frame">
+          <div id="compare-axis-panel">
+            <svg id="compare-chart" role="img" aria-label="Bar comparison of brands by ethical compliance score with weighted metric composition"></svg>
+          </div>
+        </div>
+        <div id="compare-filter-menu" aria-label="Metric filter menu"></div>
       </div>
-      <div id="compare-axis-frame">
-        <div id="compare-axis-panel">
-          <svg id="compare-chart" role="img" aria-label="Bar comparison of brands by ethical compliance score with weighted metric composition"></svg>
+      <div id="compare-insights-overlay" aria-hidden="true">
+        <div id="compare-insights-white" aria-hidden="true"></div>
+        <h2 id="compare-insights-title">KEY INSIGHTS</h2>
+        <div id="compare-insights-burst">
+          <img id="compare-insight-logo-nike" class="compare-insights-logo" src="./media/logos/nike.png" alt="Nike" />
+          <img id="compare-insight-logo-tf" class="compare-insights-logo" src="./media/logos/TF.png" alt="Tom Ford" />
+          <img id="compare-insight-logo-forever21" class="compare-insights-logo" src="./media/logos/forever21.png" alt="Forever 21" />
+          <img id="compare-insight-logo-champion" class="compare-insights-logo" src="./media/logos/champion.png" alt="Champion" />
+        </div>
+        <div id="compare-insights-detail-box" aria-live="polite">
+          <h3 id="compare-insights-detail-title"></h3>
+          <p id="compare-insights-detail-text"></p>
         </div>
       </div>
-      <div id="compare-filter-menu" aria-label="Metric filter menu"></div>
+    </section>
+
+    <section id="conscious-shopping-page" class="page snap-page" aria-label="Conscious shopping introduction">
+      <div id="conscious-shopping-white" aria-hidden="true"></div>
+      <div id="conscious-shopping-copy">
+        <h2 id="conscious-shopping-title">Conscious Shopping</h2>
+        <p id="conscious-shopping-text">
+          To help you shop more consciously, scroll to use our tool. Click the style group cluster that best suits you and determine your ethical non-negotiables, based on the Ethical Compliance Index metrics, by using the filter at the top. Based on your filters, brands from the analysis will disappear, only leaving visible the brands that fit your criteria. Click on the brand you choose to access its site.
+        </p>
+      </div>
+    </section>
+
+    <section id="shopping-tool-page" class="page snap-page" aria-label="Shopping tool">
+      <div id="shopping-tool-white" aria-hidden="true"></div>
+      <div id="shopping-tool-stage">
+        <div id="shopping-tool-clusters" aria-label="Style group clusters">
+          <div id="shopping-cluster-blur-backdrop" aria-hidden="true"></div>
+        </div>
+
+        <div id="shopping-cluster-fly-anim" aria-hidden="true">
+          <h3 class="shopping-cluster-fly-title"></h3>
+          <img class="shopping-cluster-fly-icon" src="" alt="" />
+        </div>
+
+        <div id="shopping-cluster-view" aria-hidden="true">
+          <div id="shopping-cluster-brand-layer" aria-hidden="true"></div>
+          <div id="shopping-cluster-header-row">
+            <div id="shopping-cluster-topbar">
+              <button id="shopping-cluster-close" class="shopping-cluster-close" type="button" aria-label="Close cluster view">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" aria-hidden="true" focusable="false">
+                  <line x1="18" y1="18" x2="82" y2="82" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <line x1="82" y1="18" x2="18" y2="82" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </button>
+              <div id="shopping-ethics-wrap">
+                <button id="shopping-ethics-button" class="brand-detail-action" type="button">Ethical Non-Negotiables</button>
+                <div id="shopping-ethics-menu" aria-label="Ethical non-negotiables menu"></div>
+              </div>
+            </div>
+            <div id="shopping-cluster-heading-center">
+              <h3 id="shopping-cluster-title"></h3>
+              <img id="shopping-cluster-header-icon" src="" alt="" />
+              <p id="shopping-cluster-empty"></p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
 
   <script>
     const controlFile = "./Data/Control_Database.xlsx";
     const metricsFile = "./Data/Metrics_Database.xlsx";
+    const shoppingToolFile = "./Data/Shopping_Tool.xlsx";
+    const shoppingMatchSheetFile = "./media/logos/match_sheet.xlsx";
     const scatterTicks = [0, 25, 50, 75, 100];
     const barsTicks = [0, 50, 100, 150, 200];
     const introTokenDefs = [
@@ -1759,6 +2578,8 @@
       ["levi strauss & co", "./media/logos/levi.png"],
       ["levi strauss & co.", "./media/logos/levi.png"],
       ["levi strauss and co", "./media/logos/levi.png"],
+      ["levi's", "./media/logos/levi.png"],
+      ["levis", "./media/logos/levi.png"],
       ["ll. bean", "./media/logos/llbean.png"],
       ["ll bean", "./media/logos/llbean.png"],
       ["marc jacobs", "./media/logos/MJ.png"],
@@ -1783,6 +2604,39 @@
       ["victoria’s secret", "./media/logos/VS.png"],
       ["wrangler", "./media/logos/wrangler.png"]
     ]);
+    const brandDotColorMap = new Map([
+      ["gap", "#0057b8"],
+      ["abercrombie & fitch", "#5a3d2e"],
+      ["american eagle", "#0f4c81"],
+      ["anthropologie", "#a3602e"],
+      ["banana republic", "#264653"],
+      ["champion", "#c62828"],
+      ["calvin klein", "#6d6875"],
+      ["coach", "#8d5524"],
+      ["converse", "#272727"],
+      ["fruit of the loom", "#6b8e23"],
+      ["forever 21", "#c6a700"],
+      ["hanes", "#b71c1c"],
+      ["kate spade", "#00a19a"],
+      ["levi strauss & co.", "#d32f2f"],
+      ["ll. bean", "#1f6f50"],
+      ["marc jacobs", "#111111"],
+      ["michael kors", "#b08d57"],
+      ["new balance", "#ba181b"],
+      ["the north face", "#d90429"],
+      ["nike", "#ff6f00"],
+      ["old navy", "#1d3557"],
+      ["patagonia", "#2a9d8f"],
+      ["ralph lauren", "#002868"],
+      ["steve madden", "#7f5539"],
+      ["tory burch", "#8f2d56"],
+      ["tom ford", "#3a0ca3"],
+      ["tommy hilfiger", "#0a4ea1"],
+      ["under armour", "#9d0208"],
+      ["urban outfitters", "#7a5c3e"],
+      ["victoria's secret & co", "#c2185b"],
+      ["wrangler", "#1565c0"]
+    ]);
     const compareSeriesDefs = [
       { key: "ethical", label: "Ethical Compliance Index", color: "#111111" },
       { key: "socialTransparency", label: "Social Transparency", color: "#074196" },
@@ -1805,7 +2659,10 @@
     };
 
     function normalizeBrand(value) {
-      return String(value || "").trim().toLowerCase();
+      return String(value || "")
+        .trim()
+        .toLowerCase()
+        .replace(/\u2019|\u2018/g, "'");
     }
 
     function isBrandExcludedFromProject(brand) {
@@ -1985,7 +2842,36 @@
       if (brandLogoMap.has(normalized)) {
         return brandLogoMap.get(normalized);
       }
+      if (normalized.includes("levi") && !normalized.includes("lululemon")) {
+        return "./media/logos/levi.png";
+      }
       return null;
+    }
+
+    function getBrandDotColorForScatter(brandName) {
+      const normalized = normalizeBrand(brandName);
+      if (brandDotColorMap.has(normalized)) {
+        return brandDotColorMap.get(normalized);
+      }
+      if (normalized.includes("american eagle")) {
+        return "#0f4c81";
+      }
+      if (normalized.includes("levi")) {
+        return "#d32f2f";
+      }
+      if (normalized.includes("victoria")) {
+        return "#c2185b";
+      }
+      if (normalized.includes("north face")) {
+        return "#d90429";
+      }
+      if (normalized.includes("kate spade")) {
+        return "#00a19a";
+      }
+      if (normalized.includes("calvin klein") || normalized.includes("clavin klein")) {
+        return "#6d6875";
+      }
+      return "#3f3f46";
     }
 
     function getScatterLogoSizeForBrand(brandName) {
@@ -2020,10 +2906,15 @@
           const cx = xToPx(point.ethical);
           const cy = yToPx(point.scale);
           const logoPath = getBrandLogoForScatter(point.brand);
+          const dotColor = getBrandDotColorForScatter(point.brand);
           const brandKey = normalizeBrand(point.brand);
           const isVisible = !hiddenAll && (!visibleBrandKeys || visibleBrandKeys.has(brandKey));
           const visibilityClass = isVisible ? "is-visible" : "is-hidden";
-          return `<image class="scatter-logo ${visibilityClass}" data-brand="${escapeXml(point.brand)}" data-brand-key="${escapeXml(brandKey)}" data-ethical="${Math.ceil(point.ethical)}" data-scale="${Math.ceil(point.scale)}" href="${logoPath}" x="${cx - logoSize / 2}" y="${cy - logoSize / 2}" width="${logoSize}" height="${logoSize}" preserveAspectRatio="xMidYMid meet" />`;
+          const dotRadius = Math.max(5.5, Math.min(11, logoSize * 0.11));
+          return `<g class="scatter-logo ${visibilityClass}" data-brand="${escapeXml(point.brand)}" data-brand-key="${escapeXml(brandKey)}" data-ethical="${Math.ceil(point.ethical)}" data-scale="${Math.ceil(point.scale)}" data-cx="${cx}" data-cy="${cy}" data-size="${logoSize}">
+            <circle class="scatter-dot" cx="${cx}" cy="${cy}" r="${dotRadius}" fill="${dotColor}" />
+            <image class="scatter-logo-image" href="${logoPath}" x="${cx - logoSize / 2}" y="${cy - logoSize / 2}" width="${logoSize}" height="${logoSize}" preserveAspectRatio="xMidYMid meet" />
+          </g>`;
         })
         .join("");
 
@@ -2061,12 +2952,8 @@
           if (marker.classList.contains("is-hidden")) {
             return;
           }
-          const x = Number(marker.getAttribute("x"));
-          const y = Number(marker.getAttribute("y"));
-          const w = Number(marker.getAttribute("width"));
-          const h = Number(marker.getAttribute("height"));
-          const cx = x + w / 2;
-          const cy = y + h / 2;
+          const cx = Number(marker.getAttribute("data-cx"));
+          const cy = Number(marker.getAttribute("data-cy"));
           const dx = pointerX - cx;
           const dy = pointerY - cy;
           const distSq = dx * dx + dy * dy;
@@ -2135,12 +3022,9 @@
         const boxWidth = lineWidth + paddingX * 2;
         const boxHeight = lineHeight * 3 + paddingY * 2;
 
-        const x = Number(marker.getAttribute("x"));
-        const y = Number(marker.getAttribute("y"));
-        const w = Number(marker.getAttribute("width"));
-        const h = Number(marker.getAttribute("height"));
-        const cx = x + w / 2;
-        const cy = y + h / 2;
+        const cx = Number(marker.getAttribute("data-cx"));
+        const cy = Number(marker.getAttribute("data-cy"));
+        const markerSize = Number(marker.getAttribute("data-size")) || 68;
 
         let boxX = cx + 12;
         let boxY = cy - boxHeight - 12;
@@ -2148,7 +3032,7 @@
           boxX = cx - boxWidth - 12;
         }
         if (boxY < 4) {
-          boxY = cy + 12;
+          boxY = cy + Math.max(12, markerSize * 0.28);
         }
 
         tooltipBg.setAttribute("x", String(boxX));
@@ -2591,6 +3475,25 @@
     const brandDetailState = {
       currentBrandKey: null
     };
+    const shoppingState = {
+      phase: "idle", // idle | intro | bloomed | cluster
+      clusters: new Map(),
+      brandToLogo: new Map(),
+      brandToLink: new Map(),
+      activeCluster: null,
+      selectedEthics: new Set(),
+      cutoffsP60: null,
+      clusterFlyToken: 0,
+      clusterFlyTimer: null
+    };
+    const compareInsightsState = {
+      step: 0,
+      wheelAccumDown: 0,
+      wheelAccumUp: 0,
+      lastDownStepAtMs: 0,
+      lastUpStepAtMs: 0,
+      lastKeyStepAtMs: 0
+    };
 
     function formatScore(value) {
       const number = Number(value);
@@ -2699,10 +3602,28 @@
       return true;
     }
 
+    let brandDetailSourcePage = null;
+
     function openBrandDetail(brandKey) {
       const detailPage = document.getElementById("brand-detail-page");
       if (!detailPage) {
         return false;
+      }
+      const insightsPage = document.getElementById("insights-page-1");
+      const comparePage = document.getElementById("compare-page");
+      const visRatio = (el) => {
+        if (!el) return 0;
+        const r = el.getBoundingClientRect();
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        const visible = Math.max(0, Math.min(vh, r.bottom) - Math.max(0, r.top));
+        return r.height > 0 ? visible / r.height : 0;
+      };
+      if (comparePage && visRatio(comparePage) > 0.4) {
+        brandDetailSourcePage = comparePage;
+      } else if (insightsPage && visRatio(insightsPage) > 0.4) {
+        brandDetailSourcePage = insightsPage;
+      } else {
+        brandDetailSourcePage = insightsPage || comparePage || null;
       }
       const didRender = renderBrandDetail(brandKey);
       if (!didRender) {
@@ -2729,6 +3650,10 @@
       detailPage.classList.remove("is-abercrombie-detail");
       if (brandsMenu) {
         brandsMenu.classList.remove("is-open");
+      }
+      if (brandDetailSourcePage) {
+        brandDetailSourcePage.scrollIntoView({ behavior: "instant", block: "start" });
+        brandDetailSourcePage = null;
       }
     }
 
@@ -2787,7 +3712,7 @@
     const metricDetails = {
       "metric-lc": {
         title: "Labor Compensation",
-        text: "Fill with sample text",
+        text: "This metric evaluates the risk of each brand’s garment workers being underpaid based on the minimum and living wages of the countries where their suppliers’ facilities are located. This data is extracted from Wikirate, WageIndicator, and Valuing Impact.",
         placement: "bottom",
         weightText: "Accounts for 15% of the Ethical Compliance Index"
       },
@@ -2811,7 +3736,7 @@
       },
       "metric-hrrr": {
         title: "Human Rights Risk & Responsiveness",
-        text: "This scores for this metric rate a brand based on the data from the Business & Human Rights Centre, which reports on news and allegations relating to the human rights impact of brands and their response if any. The scores were weighted and calculated using machine learning.",
+        text: "The scores for this metric rate a brand based on the data from the Business & Human Rights Centre, which reports on news and allegations relating to the human rights impact of brands and their response if any. The scores were weighted and calculated using machine learning.",
         placement: "right",
         weightText: "Accounts for 20% of the Ethical Compliance Index"
       }
@@ -2881,16 +3806,41 @@
       });
     }
 
+    function areAllIntroTokensInsideChart() {
+      const content = document.getElementById("intro-content");
+      const chart = document.getElementById("intro-chart");
+      if (!content || !chart) {
+        return false;
+      }
+      const contentRect = content.getBoundingClientRect();
+      const chartRect = chart.getBoundingClientRect();
+      return introTokenDefs.every((tokenDef) => {
+        const tokenState = getIntroTokenById(tokenDef.id);
+        if (!tokenState || !tokenState.el) {
+          return false;
+        }
+        const centerX = contentRect.left + tokenState.x + tokenState.el.offsetWidth / 2;
+        const centerY = contentRect.top + tokenState.y + tokenState.el.offsetHeight / 2;
+        return (
+          centerX >= chartRect.left
+          && centerX <= chartRect.right
+          && centerY >= chartRect.top
+          && centerY <= chartRect.bottom
+        );
+      });
+    }
+
     function maybeStartRevealTimer() {
       if (introState.revealed || introState.revealTimer || introState.scoreShown) {
         return;
       }
 
-      const allPlaced = introTokenDefs.every((tokenDef) => {
+      const allPlacedByDropState = introTokenDefs.every((tokenDef) => {
         const tokenState = getIntroTokenById(tokenDef.id);
         return tokenState && tokenState.placed;
       });
 
+      const allPlaced = allPlacedByDropState || areAllIntroTokensInsideChart();
       if (!allPlaced) {
         return;
       }
@@ -3005,6 +3955,95 @@
       window.requestAnimationFrame(step);
     }
 
+    function buildGameToExploreMorphClones() {
+      const overlay = document.getElementById("transition-overlay");
+      if (!overlay) return [];
+      overlay.innerHTML = "";
+      const clones = [];
+
+      introTokenDefs.forEach((tokenDef) => {
+        const tokenState = getIntroTokenById(tokenDef.id);
+        if (!tokenState || !tokenState.el) return;
+        const point = getIntroBrandPoint(tokenDef);
+        if (!point) return;
+
+        const rect = tokenState.el.getBoundingClientRect();
+        const brandKey = normalizeBrand(point.brand);
+        const dotColor = getBrandDotColorForScatter(point.brand);
+
+        const clone = document.createElement("div");
+        clone.style.cssText = `position:fixed;left:${rect.left}px;top:${rect.top}px;width:${rect.width}px;height:${rect.height}px;z-index:201;border-radius:8px;overflow:hidden;pointer-events:none;`;
+        clone.dataset.brandKey = brandKey;
+
+        const fill = document.createElement("div");
+        fill.style.cssText = `position:absolute;inset:0;background:${dotColor};border-radius:inherit;opacity:0;`;
+        clone.appendChild(fill);
+
+        const img = document.createElement("img");
+        img.src = tokenDef.file;
+        img.style.cssText = "position:relative;width:100%;height:100%;object-fit:contain;pointer-events:none;z-index:1;";
+        clone.appendChild(img);
+
+        overlay.appendChild(clone);
+        clones.push({ el: clone, img, fill, brandKey });
+      });
+
+      return clones;
+    }
+
+    function animateMorphClonesToDots(morphClones, revealAll) {
+      const svg = document.getElementById("insights-chart");
+      if (!svg) return;
+
+      const morphDuration = 800;
+      const ease = "cubic-bezier(0.22,1,0.36,1)";
+
+      window.requestAnimationFrame(() => {
+        morphClones.forEach((cd) => {
+          const scatterGroup = Array.from(svg.querySelectorAll(".scatter-logo")).find(
+            (el) => el.getAttribute("data-brand-key") === cd.brandKey
+          );
+          const dotCircle = scatterGroup?.querySelector(".scatter-dot");
+          if (!dotCircle) return;
+
+          const dotRect = dotCircle.getBoundingClientRect();
+          const targetSize = Math.max(dotRect.width, dotRect.height);
+          const cx = dotRect.left + dotRect.width / 2;
+          const cy = dotRect.top + dotRect.height / 2;
+
+          cd.el.style.transition = `left ${morphDuration}ms ${ease}, top ${morphDuration}ms ${ease}, width ${morphDuration}ms ${ease}, height ${morphDuration}ms ${ease}, border-radius ${morphDuration}ms ease`;
+          cd.el.style.left = `${cx - targetSize / 2}px`;
+          cd.el.style.top = `${cy - targetSize / 2}px`;
+          cd.el.style.width = `${targetSize}px`;
+          cd.el.style.height = `${targetSize}px`;
+          cd.el.style.borderRadius = "50%";
+
+          cd.fill.style.transition = `opacity ${morphDuration * 0.55}ms ease`;
+          cd.fill.style.opacity = "1";
+
+          cd.img.style.transition = `opacity ${morphDuration * 0.5}ms ease`;
+          cd.img.style.opacity = "0";
+        });
+
+        window.setTimeout(() => {
+          morphClones.forEach((cd) => {
+            const scatterGroup = Array.from(svg.querySelectorAll(".scatter-logo")).find(
+              (el) => el.getAttribute("data-brand-key") === cd.brandKey
+            );
+            if (scatterGroup) {
+              scatterGroup.classList.remove("is-hidden");
+              scatterGroup.classList.add("is-visible");
+            }
+          });
+
+          const overlay = document.getElementById("transition-overlay");
+          if (overlay) overlay.innerHTML = "";
+
+          revealRemainingInsightsLogos(revealAll);
+        }, morphDuration + 60);
+      });
+    }
+
     function animateGameTokensToExploreSizeThenGo() {
       const targetSize = 68;
       const animated = [];
@@ -3026,7 +4065,8 @@
       });
 
       window.setTimeout(() => {
-        goToExploreView(false);
+        const morphClones = buildGameToExploreMorphClones();
+        goToExploreView(false, morphClones);
       }, animated.length > 0 ? 700 : 0);
     }
 
@@ -3085,6 +4125,10 @@
       }
 
       maybeStartRevealTimer();
+      // Trackpad/browser edge-cases can miss final placement state updates; re-check once layout settles.
+      window.setTimeout(() => {
+        maybeStartRevealTimer();
+      }, 80);
     }
 
     function startIntroDrag(event, tokenDef) {
@@ -3162,7 +4206,7 @@
       });
     }
 
-    function goToExploreView(revealAll = false) {
+    function goToExploreView(revealAll = false, morphClones = null) {
       const introView = document.getElementById("intro-view");
       const gamePage = document.getElementById("game-page");
       const insightsPage = document.getElementById("insights-page-1");
@@ -3192,7 +4236,10 @@
         if (currentPoints.length > 0) {
           renderLogoScatter(currentPoints);
         }
-        if (currentPoints.length > 0 && !revealAll) {
+        const hasMorph = morphClones && morphClones.length > 0;
+        if (hasMorph) {
+          setInsightsMode("hidden-all");
+        } else if (currentPoints.length > 0 && !revealAll) {
           const transitionBrandKeys = new Set(getIntroTransitionBrandKeys());
           setInsightsMode("subset-only", Array.from(transitionBrandKeys));
         } else {
@@ -3203,7 +4250,11 @@
         window.requestAnimationFrame(() => {
           insightsPage.scrollIntoView({ behavior: "auto", block: "start" });
           renderLogoScatter(currentPoints);
-          revealRemainingInsightsLogos(revealAll);
+          if (hasMorph) {
+            animateMorphClonesToDots(morphClones, revealAll);
+          } else {
+            revealRemainingInsightsLogos(revealAll);
+          }
         });
       }
     }
@@ -3225,6 +4276,8 @@
       const playIntroPage = document.getElementById("play-intro-page");
       const insightsPage = document.getElementById("insights-page-1");
       const comparePage = document.getElementById("compare-page");
+      const consciousPage = document.getElementById("conscious-shopping-page");
+      const shoppingToolPage = document.getElementById("shopping-tool-page");
 
       const observer = new IntersectionObserver(
         (entries) => {
@@ -3239,6 +4292,24 @@
                   startComparePageAnimation();
                 } else {
                   comparePage.classList.remove("is-animated");
+                }
+              } else if (entry.target.id === "conscious-shopping-page") {
+                consciousPage.classList.toggle("is-visible", entry.isIntersecting && entry.intersectionRatio > 0.35);
+              } else if (entry.target.id === "shopping-tool-page") {
+                const active = entry.isIntersecting && entry.intersectionRatio > 0.35;
+                shoppingToolPage.classList.toggle("is-visible", active);
+                if (active) {
+                  // Render clusters on entry (data-driven from Shopping_Tool.xlsx + match_sheet.xlsx).
+                  // Do not use children.length === 0: #shopping-cluster-blur-backdrop is always a child.
+                  const clustersEl = document.getElementById("shopping-tool-clusters");
+                  if (clustersEl && !clustersEl.querySelector(".shopping-cluster")) {
+                    renderShoppingClustersBloom();
+                  } else {
+                    shoppingToolPage.classList.add("is-bloomed");
+                  }
+                } else {
+                  shoppingToolPage.classList.remove("is-bloomed", "is-cluster-open", "is-no-matches");
+                  closeShoppingCluster();
                 }
               }
               return;
@@ -3264,6 +4335,12 @@
       if (comparePage) {
         observer.observe(comparePage);
       }
+      if (consciousPage) {
+        observer.observe(consciousPage);
+      }
+      if (shoppingToolPage) {
+        observer.observe(shoppingToolPage);
+      }
     }
 
     function initCompareInteractions() {
@@ -3287,11 +4364,11 @@
       const metricItems = Array.from(document.querySelectorAll(".metrics-burst-item"));
       const metricScrollSequence = ["metric-st", "metric-hrrr", "metric-ei", "metric-lc", "metric-sct"];
       /** Min ms between metrics wheel steps — higher = less sensitive. */
-      const METRICS_WHEEL_STEP_GAP_MS = 920;
+      const METRICS_WHEEL_STEP_GAP_MS = 1200;
       /** Sum of wheel delta (same direction) required before a step can fire — filters light trackpad noise. */
-      const METRICS_WHEEL_ACCUM_THRESHOLD = 96;
+      const METRICS_WHEEL_ACCUM_THRESHOLD = 180;
       /** Keyboard-only: still debounced, but no pixel accumulation (keys are discrete). */
-      const METRICS_KEY_STEP_GAP_MS = 560;
+      const METRICS_KEY_STEP_GAP_MS = 700;
       const metricsWheelDeltaYPixels = (event) => {
         const lineMode = typeof WheelEvent !== "undefined" ? WheelEvent.DOM_DELTA_LINE : 1;
         const pageMode = typeof WheelEvent !== "undefined" ? WheelEvent.DOM_DELTA_PAGE : 2;
@@ -3307,11 +4384,290 @@
       const gamePage = document.getElementById("game-page");
       const insightsPage = document.getElementById("insights-page-1");
       const comparePage = document.getElementById("compare-page");
-      if (!methodIntroPage || !metricsBagPage || !metricDetailBox || !metricDetailTitle || !metricDetailWeight || !metricDetailText || !playIntroPage || !gamePage || !insightsPage || !comparePage) {
+      const consciousPage = document.getElementById("conscious-shopping-page");
+      const shoppingToolPage = document.getElementById("shopping-tool-page");
+      if (!methodIntroPage || !metricsBagPage || !metricDetailBox || !metricDetailTitle || !metricDetailWeight || !metricDetailText || !playIntroPage || !gamePage || !insightsPage || !comparePage || !consciousPage || !shoppingToolPage) {
         return;
       }
 
       methodIntroPage.classList.add("is-pre-reveal");
+
+      const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+
+      const compareInsightsOverlay = document.getElementById("compare-insights-overlay");
+      const compareInsightsTitle = document.getElementById("compare-insights-title");
+      const compareInsightsDetailBox = document.getElementById("compare-insights-detail-box");
+      const compareInsightsDetailTitle = document.getElementById("compare-insights-detail-title");
+      const compareInsightsDetailText = document.getElementById("compare-insights-detail-text");
+      const compareInsightLogoEls = Array.from(document.querySelectorAll(".compare-insights-logo"));
+
+      const shoppingClustersEl = document.getElementById("shopping-tool-clusters");
+      const shoppingEthicsButton = document.getElementById("shopping-ethics-button");
+      const shoppingEthicsMenu = document.getElementById("shopping-ethics-menu");
+      const shoppingClusterClose = document.getElementById("shopping-cluster-close");
+      const initShoppingToolUI = () => {
+        buildShoppingEthicsMenu();
+        if (shoppingEthicsButton && shoppingEthicsMenu) {
+          shoppingEthicsButton.addEventListener("click", (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            shoppingEthicsMenu.classList.toggle("is-open");
+          });
+          document.addEventListener("click", (event) => {
+            const target = event.target;
+            if (!(target instanceof Element)) return;
+            if (!target.closest("#shopping-ethics-wrap")) {
+              shoppingEthicsMenu.classList.remove("is-open");
+            }
+          });
+        }
+        if (shoppingClustersEl) {
+          shoppingClustersEl.addEventListener("click", (event) => {
+            const target = event.target;
+            if (!(target instanceof Element)) return;
+            const cluster = target.closest(".shopping-cluster");
+            if (!(cluster instanceof HTMLElement)) return;
+            const name = String(cluster.getAttribute("data-cluster") || "").trim();
+            if (!name) return;
+            openShoppingCluster(name);
+          });
+        }
+        if (shoppingClusterClose) {
+          shoppingClusterClose.addEventListener("click", (event) => {
+            event.preventDefault();
+            closeShoppingCluster();
+          });
+        }
+        const brandLayer = document.getElementById("shopping-cluster-brand-layer");
+        if (brandLayer) {
+          brandLayer.addEventListener("click", (event) => {
+            const target = event.target;
+            if (!(target instanceof Element)) return;
+            const logo = target.closest(".shopping-cluster-logo");
+            if (!(logo instanceof HTMLElement)) return;
+            const brand = logo.getAttribute("data-brand") || "";
+            if (!brand) return;
+            const key = normalizeBrand(brand);
+            const url = shoppingState.brandToLink.get(key);
+            if (url) {
+              window.open(url, "_blank", "noopener,noreferrer");
+            }
+          });
+        }
+      };
+      initShoppingToolUI();
+
+      const compareInsightGroups = [
+        {
+          title: "Nike & Tom Ford",
+          text:
+            "Nike and Tom Ford are outside of the trendline because of their revenue. Nike is the largest revenue in the dataset and Tom Ford is the smallest. Because of the normalization of revenues, these brands are the two limits of the scale, placing them at 100 and 0.",
+          focusIds: ["compare-insight-logo-nike", "compare-insight-logo-tf"]
+        },
+        {
+          title: "Champion & Forever 21",
+          text:
+            "Champion and Forever 21 are the lowest scoring brands in Ethical Compliance. It's important to know these brands are owned by the same parent company: Authentic Brands Group. ABG is a private company, meaning that they are not responsible to provide records or really answer to anyone other than their board, a trait they share with the brands that follow them in the trend line like Tory Burch and LL Bean. While this does not automatically make them ethically corrupt brands, it also does not mean they are good, it simply means they aren't transparent about their practices.",
+          focusIds: ["compare-insight-logo-champion", "compare-insight-logo-forever21"]
+        }
+      ];
+
+      const resetCompareInsightsExperience = () => {
+        compareInsightsState.step = 0;
+        compareInsightsState.wheelAccumDown = 0;
+        compareInsightsState.wheelAccumUp = 0;
+        compareInsightsState.lastDownStepAtMs = 0;
+        compareInsightsState.lastUpStepAtMs = 0;
+        compareInsightsState.lastKeyStepAtMs = 0;
+        comparePage.classList.remove(
+          "compare-insights-on",
+          "compare-insights-white-on",
+          "compare-insights-detail-open"
+        );
+        if (compareInsightsTitle) {
+          compareInsightsTitle.classList.remove("is-corner");
+        }
+        compareInsightLogoEls.forEach((el) => {
+          el.classList.remove("is-visible", "is-focused");
+        });
+        if (compareInsightsDetailBox) {
+          compareInsightsDetailBox.classList.remove("is-visible", "is-detail-group-2");
+        }
+        if (compareInsightsOverlay) {
+          compareInsightsOverlay.setAttribute("aria-hidden", "true");
+        }
+      };
+
+      const hideCompareInsightDetailOnly = () => {
+        comparePage.classList.remove("compare-insights-detail-open");
+        compareInsightLogoEls.forEach((el) => el.classList.remove("is-focused"));
+        if (compareInsightsDetailBox) {
+          compareInsightsDetailBox.classList.remove("is-visible", "is-detail-group-2");
+        }
+      };
+
+      const showCompareInsightGroupDetail = (groupIndex) => {
+        const group = compareInsightGroups[groupIndex];
+        if (!group || !compareInsightsDetailTitle || !compareInsightsDetailText) {
+          return;
+        }
+        compareInsightsDetailTitle.textContent = group.title;
+        compareInsightsDetailText.textContent = group.text;
+        comparePage.classList.add("compare-insights-detail-open");
+        compareInsightLogoEls.forEach((el) => {
+          el.classList.toggle("is-focused", group.focusIds.includes(el.id));
+        });
+        if (compareInsightsDetailBox) {
+          compareInsightsDetailBox.classList.toggle("is-detail-group-2", groupIndex === 1);
+          compareInsightsDetailBox.classList.add("is-visible");
+        }
+      };
+
+      const staggerCompareInsightLogos = (done) => {
+        const order = [
+          "compare-insight-logo-nike",
+          "compare-insight-logo-tf",
+          "compare-insight-logo-champion",
+          "compare-insight-logo-forever21"
+        ];
+        order.forEach((id, i) => {
+          window.setTimeout(() => {
+            const node = document.getElementById(id);
+            if (node) {
+              node.classList.add("is-visible");
+            }
+            if (i === order.length - 1 && typeof done === "function") {
+              window.setTimeout(done, 80);
+            }
+          }, i * 130);
+        });
+      };
+
+      const beginCompareInsightsCornerAndLogos = () => {
+        if (!compareInsightsTitle) {
+          compareInsightsState.step = 2;
+          showCompareInsightGroupDetail(0);
+          return;
+        }
+        if (compareInsightsTitle.classList.contains("is-corner")) {
+          compareInsightsState.step = 2;
+          showCompareInsightGroupDetail(0);
+          return;
+        }
+        let settled = false;
+        let fallbackTimer = null;
+        const finish = () => {
+          if (settled) return;
+          settled = true;
+          if (fallbackTimer !== null) window.clearTimeout(fallbackTimer);
+          compareInsightsTitle.removeEventListener("transitionend", onTitleMoved);
+          compareInsightsState.step = 2;
+          showCompareInsightGroupDetail(0);
+        };
+        const onTitleMoved = (event) => {
+          if (event.propertyName !== "left" && event.propertyName !== "top" && event.propertyName !== "transform") return;
+          finish();
+        };
+        compareInsightsTitle.addEventListener("transitionend", onTitleMoved);
+        fallbackTimer = window.setTimeout(finish, 900);
+        compareInsightsTitle.classList.add("is-corner");
+      };
+
+      const applyCompareInsightsVisualStep = (step) => {
+        compareInsightsState.step = step;
+        if (step === 0) {
+          resetCompareInsightsExperience();
+          return;
+        }
+        comparePage.classList.add("compare-insights-on");
+        if (compareInsightsOverlay) {
+          compareInsightsOverlay.setAttribute("aria-hidden", "false");
+        }
+        comparePage.classList.add("compare-insights-white-on");
+        if (step === 1) {
+          if (compareInsightsTitle) {
+            compareInsightsTitle.classList.remove("is-corner");
+          }
+          hideCompareInsightDetailOnly();
+          compareInsightLogoEls.forEach((el) => el.classList.remove("is-visible", "is-focused"));
+          return;
+        }
+        if (compareInsightsTitle) {
+          compareInsightsTitle.classList.add("is-corner");
+        }
+        if (step === 2) {
+          showCompareInsightGroupDetail(0);
+          return;
+        }
+        if (step === 3) {
+          showCompareInsightGroupDetail(1);
+        }
+      };
+
+      const advanceCompareInsightsWheel = () => {
+        const step = compareInsightsState.step;
+        if (step === 0) {
+          applyCompareInsightsVisualStep(1);
+          return;
+        }
+        if (step === 1) {
+          beginCompareInsightsCornerAndLogos();
+          return;
+        }
+        if (step === 2) {
+          applyCompareInsightsVisualStep(3);
+          return;
+        }
+        if (step === 3) {
+          const consciousPage = document.getElementById("conscious-shopping-page");
+          applyCompareInsightsVisualStep(0);
+          suppressConsciousDownUntilIdle = true;
+          if (consciousPage) {
+            consciousPage.scrollIntoView({ behavior: "instant", block: "start" });
+          }
+        }
+      };
+
+      const rewindCompareInsightsWheel = () => {
+        const step = compareInsightsState.step;
+        if (step === 0) {
+          return;
+        }
+        if (step === 3) {
+          applyCompareInsightsVisualStep(2);
+          return;
+        }
+        if (step === 2) {
+          compareInsightLogoEls.forEach((el) => el.classList.remove("is-visible", "is-focused"));
+          hideCompareInsightDetailOnly();
+          if (compareInsightsTitle) {
+            compareInsightsTitle.classList.remove("is-corner");
+          }
+          compareInsightsState.step = 1;
+          return;
+        }
+        if (step === 1) {
+          applyCompareInsightsVisualStep(0);
+        }
+      };
+
+      if (compareInsightsOverlay && compareInsightsTitle && compareInsightsDetailBox) {
+        resetCompareInsightsExperience();
+        const compareInsightsLeaveObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.target !== comparePage) {
+                return;
+              }
+              if (entry.intersectionRatio < 0.22 && compareInsightsState.step !== 0) {
+                resetCompareInsightsExperience();
+              }
+            });
+          },
+          { threshold: [0, 0.22, 0.45, 0.65] }
+        );
+        compareInsightsLeaveObserver.observe(comparePage);
+      }
 
       const resetMethodIntroReveal = () => {
         methodIntroState.revealed = false;
@@ -3347,7 +4703,7 @@
             }
             if (entry.intersectionRatio > 0.6) {
               // Ignore carry-over wheel momentum right after snapping into this section.
-              methodIntroState.entryLockUntilMs = Date.now() + 450;
+              methodIntroState.entryLockUntilMs = Date.now() + 650;
               methodIntroState.suppressMethodDownUntilIdle = true;
               if (methodIntroState.methodDownIdleTimer) {
                 window.clearTimeout(methodIntroState.methodDownIdleTimer);
@@ -3390,7 +4746,6 @@
       );
       metricsBagObserver.observe(metricsBagPage);
 
-      const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
       const hideMetricDetail = (unlockScroll = false) => {
         metricsBagPage.classList.remove("is-detail-open");
         metricDetailBox.classList.remove("is-visible", "align-left", "align-right");
@@ -3513,7 +4868,7 @@
       let playIntroGateWheelGestureId = null;
       /** Time of last metrics→play intro snap; wheel gate also clears after PLAY_INTRO_METRICS_EXIT_GATE_MS so continuous scroll still reaches the game. */
       let playIntroMetricsExitAtMs = 0;
-      const PLAY_INTRO_METRICS_EXIT_GATE_MS = 320;
+      const PLAY_INTRO_METRICS_EXIT_GATE_MS = 520;
       /** After keyboard-driven metrics→play intro, first "down" key on intro disarms only. */
       let playIntroGateSuppressOneKeyToGame = false;
 
@@ -3521,9 +4876,10 @@
         if (metricsBagState.phase === "ready-exit") {
           metricsBagState.phase = "closed";
           metricsBagState.canScrollToGameIntro = false;
-          playIntroPage.scrollIntoView({ behavior: "auto", block: "start" });
-          metricsExitMomentumCatchUntilMs = Date.now() + 1400;
+          playIntroPage.scrollIntoView({ behavior: "smooth", block: "start" });
+          metricsExitMomentumCatchUntilMs = Date.now() + 1800;
           playIntroWheelAccumDown = 0;
+          suppressPlayIntroDownUntilIdle = true;
           playIntroMetricsExitAtMs = Date.now();
           if (exitSource === "keydown") {
             playIntroGateSuppressOneKeyToGame = true;
@@ -3539,7 +4895,7 @@
 
       let allowGameJump = false;
       let playIntroWheelAccumDown = 0;
-      const PLAY_INTRO_TO_GAME_WHEEL_THRESHOLD = 110;
+      const PLAY_INTRO_TO_GAME_WHEEL_THRESHOLD = 140;
       let suppressPlayIntroScrollUpUntilIdle = false;
       let playIntroScrollUpIdleTimer = null;
       const schedulePlayIntroScrollUpMomentumEnd = () => {
@@ -3549,6 +4905,41 @@
         playIntroScrollUpIdleTimer = window.setTimeout(() => {
           suppressPlayIntroScrollUpUntilIdle = false;
           playIntroScrollUpIdleTimer = null;
+        }, 420);
+      };
+      let suppressPlayIntroDownUntilIdle = false;
+      let playIntroDownIdleTimer = null;
+      const schedulePlayIntroDownMomentumEnd = () => {
+        if (playIntroDownIdleTimer) {
+          window.clearTimeout(playIntroDownIdleTimer);
+        }
+        playIntroDownIdleTimer = window.setTimeout(() => {
+          suppressPlayIntroDownUntilIdle = false;
+          playIntroDownIdleTimer = null;
+          playIntroWheelAccumDown = 0;
+        }, 480);
+      };
+      let suppressCompareDownUntilIdle = false;
+      let compareDownIdleTimer = null;
+      const scheduleCompareDownMomentumEnd = () => {
+        if (compareDownIdleTimer) {
+          window.clearTimeout(compareDownIdleTimer);
+        }
+        compareDownIdleTimer = window.setTimeout(() => {
+          suppressCompareDownUntilIdle = false;
+          compareDownIdleTimer = null;
+          compareInsightsState.wheelAccumDown = 0;
+        }, 300);
+      };
+      let suppressConsciousDownUntilIdle = false;
+      let consciousDownIdleTimer = null;
+      const scheduleConsciousDownMomentumEnd = () => {
+        if (consciousDownIdleTimer) {
+          window.clearTimeout(consciousDownIdleTimer);
+        }
+        consciousDownIdleTimer = window.setTimeout(() => {
+          suppressConsciousDownUntilIdle = false;
+          consciousDownIdleTimer = null;
         }, 280);
       };
       const revealMethodIntro = () => {
@@ -3587,6 +4978,7 @@
         methodIntroState.transitioningToBag = true;
         methodIntroPage.classList.add("is-transitioning-forward");
         metricsBagPage.classList.remove("is-active");
+        metricsBagPage.classList.remove("is-title-visible");
 
         const rect = methodImage.getBoundingClientRect();
         const clone = methodImage.cloneNode(true);
@@ -3599,13 +4991,15 @@
         overlay.innerHTML = "";
         overlay.appendChild(clone);
 
+        const bagImage = document.getElementById("metrics-bag-image");
+
         const targetWidth = rect.width * 1.5;
         const targetHeight = rect.height * 1.5;
         const targetLeft = (window.innerWidth - targetWidth) / 2;
         const targetTop = (window.innerHeight - targetHeight) / 2;
 
         window.requestAnimationFrame(() => {
-          clone.style.transition = "left 900ms ease, top 900ms ease, width 900ms ease, height 900ms ease";
+          clone.style.transition = "left 900ms cubic-bezier(0.22,1,0.36,1), top 900ms cubic-bezier(0.22,1,0.36,1), width 900ms cubic-bezier(0.22,1,0.36,1), height 900ms cubic-bezier(0.22,1,0.36,1)";
           clone.style.left = `${targetLeft}px`;
           clone.style.top = `${targetTop}px`;
           clone.style.width = `${targetWidth}px`;
@@ -3614,10 +5008,16 @@
 
         window.setTimeout(() => {
           metricsBagPage.scrollIntoView({ behavior: "auto", block: "start" });
+          metricsBagPage.classList.add("is-title-visible");
+          clone.style.transition = "opacity 400ms ease";
+          clone.style.opacity = "0";
+        }, 900);
+
+        window.setTimeout(() => {
           metricsBagPage.classList.add("is-active");
           overlay.innerHTML = "";
           methodIntroState.transitioningToBag = false;
-        }, 930);
+        }, 1320);
       };
 
       const scheduleMethodScrollUpMomentumEnd = () => {
@@ -3627,7 +5027,7 @@
         methodIntroState.methodScrollUpIdleTimer = window.setTimeout(() => {
           methodIntroState.suppressMethodScrollUpUntilIdle = false;
           methodIntroState.methodScrollUpIdleTimer = null;
-        }, 280);
+        }, 420);
       };
 
       /** From metrics bag: plain scroll back — NO slide-in entry (that is lyrics → method intro only). */
@@ -3649,7 +5049,7 @@
 
         methodIntroState.suppressMethodScrollUpUntilIdle = true;
         scheduleMethodScrollUpMomentumEnd();
-        methodIntroState.entryLockUntilMs = Date.now() + 700;
+        methodIntroState.entryLockUntilMs = Date.now() + 900;
         methodIntroPage.scrollIntoView({ behavior: "instant", block: "start" });
       };
 
@@ -3740,9 +5140,28 @@
         return sectionVisibilityRatio(comparePage) > 0.6;
       }
 
+      function isConsciousActive() {
+        return consciousPage && sectionVisibilityRatio(consciousPage) > 0.6;
+      }
+
+      /** KEY INSIGHTS wheel routing only when Compare is at least as visible as Explore — avoids overlap steals during Explore→Compare snap. */
+      function shouldHandleCompareKeyInsightsNav() {
+        if (!compareInsightsOverlay) {
+          return false;
+        }
+        const cr = sectionVisibilityRatio(comparePage);
+        const ir = sectionVisibilityRatio(insightsPage);
+        return cr >= ir && cr > 0.42;
+      }
+
       window.addEventListener(
         "wheel",
         (event) => {
+          const brandDetailPage = document.getElementById("brand-detail-page");
+          if (brandDetailPage && brandDetailPage.classList.contains("is-open")) {
+            return;
+          }
+
           if (allowGameJump) {
             /* Must swallow wheel during the game snap: otherwise default scrolling + momentum
                skips past play intro / game into insights (mandatory snap chain). */
@@ -3751,7 +5170,7 @@
           }
 
           const nowMs = Date.now();
-          if (nowMs - methodIntroState.lastWheelEventAtMs > 240) {
+          if (nowMs - methodIntroState.lastWheelEventAtMs > 340) {
             methodIntroState.wheelGestureId += 1;
           }
           methodIntroState.lastWheelEventAtMs = nowMs;
@@ -3786,7 +5205,7 @@
             methodIntroState.methodDownIdleTimer = window.setTimeout(() => {
               methodIntroState.suppressMethodDownUntilIdle = false;
               methodIntroState.methodDownIdleTimer = null;
-            }, 180);
+            }, 360);
             return;
           }
 
@@ -3837,6 +5256,11 @@
             if (event.deltaY < 0 && suppressPlayIntroScrollUpUntilIdle) {
               event.preventDefault();
               schedulePlayIntroScrollUpMomentumEnd();
+              return;
+            }
+            if (event.deltaY > 0 && suppressPlayIntroDownUntilIdle) {
+              event.preventDefault();
+              schedulePlayIntroDownMomentumEnd();
               return;
             }
             if (event.deltaY > 0) {
@@ -3913,12 +5337,67 @@
             return;
           }
 
+          if (isInsightsActive() && event.deltaY > 0) {
+            event.preventDefault();
+            suppressCompareDownUntilIdle = true;
+            compareInsightsState.wheelAccumDown = 0;
+            comparePage.scrollIntoView({ behavior: "instant", block: "start" });
+            return;
+          }
+
+          if (shouldHandleCompareKeyInsightsNav() && event.deltaY > 0 && suppressCompareDownUntilIdle) {
+            event.preventDefault();
+            scheduleCompareDownMomentumEnd();
+            return;
+          }
+
+          if (shouldHandleCompareKeyInsightsNav() && event.deltaY > 0) {
+            event.preventDefault();
+            const dyCompareDown = metricsWheelDeltaYPixels(event);
+            compareInsightsState.wheelAccumDown += dyCompareDown;
+            compareInsightsState.wheelAccumUp = 0;
+            if (compareInsightsState.wheelAccumDown < METRICS_WHEEL_ACCUM_THRESHOLD) {
+              return;
+            }
+            const tCompareDown = Date.now();
+            if (tCompareDown - compareInsightsState.lastDownStepAtMs < METRICS_WHEEL_STEP_GAP_MS) {
+              return;
+            }
+            compareInsightsState.wheelAccumDown = 0;
+            compareInsightsState.lastDownStepAtMs = tCompareDown;
+            advanceCompareInsightsWheel();
+            return;
+          }
+
           if (isCompareActive() && event.deltaY < 0) {
+            if (shouldHandleCompareKeyInsightsNav() && compareInsightsState.step !== 0) {
+              event.preventDefault();
+              const dyCompareUp = Math.abs(metricsWheelDeltaYPixels(event));
+              compareInsightsState.wheelAccumUp += dyCompareUp;
+              compareInsightsState.wheelAccumDown = 0;
+              if (compareInsightsState.wheelAccumUp < METRICS_WHEEL_ACCUM_THRESHOLD) {
+                return;
+              }
+              const tCompareUp = Date.now();
+              if (tCompareUp - compareInsightsState.lastUpStepAtMs < METRICS_WHEEL_STEP_GAP_MS) {
+                return;
+              }
+              compareInsightsState.wheelAccumUp = 0;
+              compareInsightsState.lastUpStepAtMs = tCompareUp;
+              rewindCompareInsightsWheel();
+              return;
+            }
             event.preventDefault();
             // Prevent wheel momentum from immediately overshooting Explore to Game Intro.
             suppressPlayIntroScrollUpUntilIdle = true;
             schedulePlayIntroScrollUpMomentumEnd();
             insightsPage.scrollIntoView({ behavior: "smooth", block: "start" });
+            return;
+          }
+
+          if (isConsciousActive() && event.deltaY > 0 && suppressConsciousDownUntilIdle) {
+            event.preventDefault();
+            scheduleConsciousDownMomentumEnd();
             return;
           }
 
@@ -4071,6 +5550,38 @@
             }
             return;
           }
+          if (isInsightsActive() && ["ArrowDown", "PageDown", " ", "End"].includes(event.key)) {
+            event.preventDefault();
+            comparePage.scrollIntoView({ behavior: "instant", block: "start" });
+            return;
+          }
+          if (
+            shouldHandleCompareKeyInsightsNav()
+            && ["ArrowDown", "PageDown", " ", "End"].includes(event.key)
+          ) {
+            event.preventDefault();
+            const tkCiDown = Date.now();
+            if (tkCiDown - compareInsightsState.lastKeyStepAtMs < METRICS_KEY_STEP_GAP_MS) {
+              return;
+            }
+            compareInsightsState.lastKeyStepAtMs = tkCiDown;
+            advanceCompareInsightsWheel();
+            return;
+          }
+          if (
+            shouldHandleCompareKeyInsightsNav()
+            && ["ArrowUp", "PageUp", "Home"].includes(event.key)
+            && compareInsightsState.step !== 0
+          ) {
+            event.preventDefault();
+            const tkCiUp = Date.now();
+            if (tkCiUp - compareInsightsState.lastKeyStepAtMs < METRICS_KEY_STEP_GAP_MS) {
+              return;
+            }
+            compareInsightsState.lastKeyStepAtMs = tkCiUp;
+            rewindCompareInsightsWheel();
+            return;
+          }
           if (isCompareActive() && ["ArrowUp", "PageUp", "Home"].includes(event.key)) {
             event.preventDefault();
             insightsPage.scrollIntoView({ behavior: "auto", block: "start" });
@@ -4157,12 +5668,15 @@
         phaseTwoDownIdleTimer = window.setTimeout(() => {
           suppressPhaseTwoDownUntilIdle = false;
           phaseTwoDownIdleTimer = null;
-        }, 240);
+        }, 400);
       };
 
       window.addEventListener(
         "wheel",
         (event) => {
+          const bdp = document.getElementById("brand-detail-page");
+          if (bdp && bdp.classList.contains("is-open")) return;
+
           const titleVis = titlePageVisibilityRatio();
           const pngBridgeActive =
             titleIntroSequenceComplete
@@ -4225,22 +5739,22 @@
         ignoreAdvanceUntilMs: 0
       };
       /** Min time between lyric paragraph steps (wheel). */
-      const lyricStepIntervalMs = 1320;
+      const lyricStepIntervalMs = 1500;
       /** Arrow keys between lyric paragraphs only (kept light). */
-      const LYRICS_KEY_STEP_GAP_MS = 420;
+      const LYRICS_KEY_STEP_GAP_MS = 560;
       /** Wheel delta before one lyric paragraph step counts. */
-      const LYRICS_WHEEL_ACCUM_THRESHOLD = 92;
+      const LYRICS_WHEEL_ACCUM_THRESHOLD = 160;
       /** PNG bridge: total wheel “budget” per step (pixel-ish) after per-event capping. */
-      const TITLE_PNG_WHEEL_ACCUM_THRESHOLD = 268;
+      const TITLE_PNG_WHEEL_ACCUM_THRESHOLD = 320;
       /** PNG bridge: max |delta| counted from a single wheel event (smooths trackpad spikes). */
-      const TITLE_PNG_MAX_CONTRIB_PER_WHEEL = 74;
+      const TITLE_PNG_MAX_CONTRIB_PER_WHEEL = 56;
       /** PNG bridge: min ms between scroll-down steps (separate from scroll-up). */
-      const TITLE_PNG_WHEEL_STEP_GAP_DOWN_MS = 430;
-      const TITLE_PNG_WHEEL_STEP_GAP_UP_MS = 430;
+      const TITLE_PNG_WHEEL_STEP_GAP_DOWN_MS = 560;
+      const TITLE_PNG_WHEEL_STEP_GAP_UP_MS = 560;
       /** PNG bridge: min ms between Arrow/PageDown/Space/End steps. */
-      const TITLE_PNG_KEY_STEP_GAP_MS = 680;
+      const TITLE_PNG_KEY_STEP_GAP_MS = 780;
       /** Ms after opening lyrics before wheel can advance — absorbs opening momentum. */
-      const LYRICS_AFTER_OPEN_IGNORE_MS = 560;
+      const LYRICS_AFTER_OPEN_IGNORE_MS = 720;
       const lyricsWheelDeltaYPixels = (event) => {
         const lineMode = typeof WheelEvent !== "undefined" ? WheelEvent.DOM_DELTA_LINE : 1;
         const pageMode = typeof WheelEvent !== "undefined" ? WheelEvent.DOM_DELTA_PAGE : 2;
@@ -4579,6 +6093,9 @@
       window.addEventListener(
         "wheel",
         (event) => {
+          const bdp2 = document.getElementById("brand-detail-page");
+          if (bdp2 && bdp2.classList.contains("is-open")) return;
+
           if (!titleIntroSequenceComplete || titlePhaseTwoRevealInProgress) {
             return;
           }
@@ -4892,12 +6409,678 @@
 
     let currentPoints = [];
 
+    async function loadShoppingToolAssets() {
+      const safeReadSheet = (buffer, sheetName) => {
+        const wb = readWorkbookFromBuffer(buffer);
+        if (sheetName && wb.SheetNames.includes(sheetName)) {
+          const ws = wb.Sheets[sheetName];
+          return XLSX.utils.sheet_to_json(ws, { header: 1, defval: null, raw: true });
+        }
+        return getFirstSheetRows(wb);
+      };
+
+      const [toolRes, matchRes] = await Promise.all([fetch(shoppingToolFile), fetch(shoppingMatchSheetFile)]);
+      if (!toolRes.ok) {
+        throw new Error("Could not load Shopping_Tool.xlsx from the Data folder.");
+      }
+      if (!matchRes.ok) {
+        throw new Error("Could not load match_sheet.xlsx from media/logos.");
+      }
+      const [toolBuf, matchBuf] = await Promise.all([toolRes.arrayBuffer(), matchRes.arrayBuffer()]);
+      const toolWb = readWorkbookFromBuffer(toolBuf);
+      const toolRows = getFirstSheetRows(toolWb);
+      const linkRows = safeReadSheet(toolBuf, "Brand_Links");
+      const matchRows = safeReadSheet(matchBuf);
+
+      const parseClusters = (rows) => {
+        if (!rows || rows.length === 0) return new Map();
+        const headerRow = rows[0] || [];
+        const clusterCols = [];
+        for (let c = 0; c < headerRow.length; c += 1) {
+          const name = String(headerRow[c] || "").trim();
+          if (name) clusterCols.push({ col: c, name });
+        }
+        const clusterMap = new Map(clusterCols.map((it) => [it.name, new Set()]));
+        for (let r = 1; r < rows.length; r += 1) {
+          const row = rows[r] || [];
+          clusterCols.forEach(({ col, name }) => {
+            const val = row[col];
+            if (val == null || val === "") return;
+            clusterMap.get(name)?.add(String(val).trim());
+          });
+        }
+        const out = new Map();
+        clusterMap.forEach((set, key) => out.set(key, Array.from(set)));
+        return out;
+      };
+
+      const parseMatchSheet = (rows) => {
+        const map = new Map();
+        if (!rows || rows.length === 0) return map;
+        const findHeaderIndex = () => {
+          const max = Math.min(rows.length, 12);
+          for (let i = 0; i < max; i += 1) {
+            const headers = (rows[i] || []).map((h) => String(h || "").trim().toLowerCase());
+            const b = headers.findIndex((h) => h.includes("brand"));
+            const p = headers.findIndex((h) => h.includes("png") || h.includes("file") || h.includes("logo"));
+            if (b !== -1 && p !== -1) {
+              return { row: i, brandIdx: b, pngIdx: p };
+            }
+          }
+          return null;
+        };
+        const header = findHeaderIndex();
+        if (!header) return map;
+        for (let i = header.row + 1; i < rows.length; i += 1) {
+          const row = rows[i] || [];
+          const brand = row[header.brandIdx];
+          const file = row[header.pngIdx];
+          if (!brand || !file) continue;
+          const brandKey = normalizeBrand(String(brand));
+          const rawFile = String(file).trim();
+          const path = rawFile.startsWith("./") ? rawFile : `./media/logos/${rawFile}`;
+          map.set(brandKey, path);
+        }
+        return map;
+      };
+
+      const parseBrandLinks = (rows) => {
+        const map = new Map();
+        if (!rows || rows.length === 0) return map;
+        const headerRow = (rows[0] || []).map((h) => String(h || "").trim().toLowerCase());
+        const brandIdx = headerRow.findIndex((h) => h.includes("brand"));
+        const linkIdx = headerRow.findIndex((h) => h.includes("link") || h.includes("url") || h.includes("website") || h.includes("site"));
+        if (brandIdx === -1 || linkIdx === -1) return map;
+        for (let i = 1; i < rows.length; i += 1) {
+          const row = rows[i] || [];
+          const brand = row[brandIdx];
+          const link = row[linkIdx];
+          if (!brand || !link) continue;
+          const key = normalizeBrand(String(brand));
+          let url = String(link).trim();
+          if (url && !/^https?:\/\//i.test(url)) url = "https://" + url;
+          if (url) map.set(key, url);
+        }
+        return map;
+      };
+
+      shoppingState.clusters = parseClusters(toolRows);
+      shoppingState.brandToLogo = parseMatchSheet(matchRows);
+      shoppingState.brandToLink = parseBrandLinks(linkRows);
+    }
+
+    function percentile(values, p) {
+      const nums = values.map((v) => Number(v)).filter((v) => Number.isFinite(v)).sort((a, b) => a - b);
+      if (nums.length === 0) return 0;
+      const clampedP = Math.max(0, Math.min(1, p));
+      const idx = (nums.length - 1) * clampedP;
+      const lo = Math.floor(idx);
+      const hi = Math.ceil(idx);
+      if (lo === hi) return nums[lo];
+      const t = idx - lo;
+      return nums[lo] * (1 - t) + nums[hi] * t;
+    }
+
+    function computeMetricCutoffsP60(points) {
+      const getVals = (key) => points.map((pt) => (pt.metrics ? pt.metrics[key] : null));
+      return {
+        laborCompensation: percentile(getVals("laborCompensation"), 0.6),
+        humanRights: percentile(getVals("humanRights"), 0.6),
+        environmentalImpact: percentile(getVals("environmentalImpact"), 0.6),
+        supplyChainTransparency: percentile(getVals("supplyChainTransparency"), 0.6),
+        socialTransparency: percentile(getVals("socialTransparency"), 0.6)
+      };
+    }
+
+    function getShoppingLogoForBrand(brandName) {
+      const key = normalizeBrand(brandName);
+      const compact = key.replace(/[^a-z0-9]+/g, "");
+      if (
+        compact.includes("levistrauss")
+        || compact === "levi"
+        || /^levis/.test(compact)
+        || (key.includes("levi") && !key.includes("lululemon"))
+      ) {
+        return "./media/logos/levi.png";
+      }
+      if (shoppingState.brandToLogo && shoppingState.brandToLogo.has(key)) {
+        return shoppingState.brandToLogo.get(key);
+      }
+      return getBrandLogoForScatter(brandName);
+    }
+
+    function syncShoppingEthicsMenuSelection() {
+      const menu = document.getElementById("shopping-ethics-menu");
+      if (!menu) return;
+      menu.querySelectorAll(".shopping-ethics-option").forEach((btn) => {
+        const key = btn.getAttribute("data-ethics-key") || "";
+        btn.classList.toggle("is-selected", shoppingState.selectedEthics.has(key));
+      });
+    }
+
+    function buildShoppingEthicsMenu() {
+      const menu = document.getElementById("shopping-ethics-menu");
+      if (!menu) return;
+      const options = [
+        { id: "laborCompensation", label: "Fair Wages & Worker Protection" },
+        { id: "humanRights", label: "Strong Human Rights Practices" },
+        { id: "environmentalImpact", label: "Environmental Sustainability" },
+        { id: "supplyChainTransparency", label: "Transparent Supply Chains" },
+        { id: "socialTransparency", label: "Corporate Accountability & Transparency" }
+      ];
+      menu.innerHTML = options
+        .map((opt) => `<button class="shopping-ethics-option" type="button" data-ethics-key="${escapeXml(opt.id)}">${escapeXml(opt.label)}</button>`)
+        .join("");
+      syncShoppingEthicsMenuSelection();
+      if (!menu.dataset.ethicsMenuBound) {
+        menu.dataset.ethicsMenuBound = "1";
+        menu.addEventListener("click", (event) => {
+          const target = event.target;
+          if (!(target instanceof HTMLElement)) return;
+          const btn = target.closest(".shopping-ethics-option");
+          if (!(btn instanceof HTMLElement)) return;
+          const key = btn.getAttribute("data-ethics-key");
+          if (!key) return;
+          if (shoppingState.selectedEthics.has(key)) shoppingState.selectedEthics.delete(key);
+          else shoppingState.selectedEthics.add(key);
+          syncShoppingEthicsMenuSelection();
+          applyShoppingEthicsFilter();
+        });
+      }
+    }
+
+    function getShoppingClusterIconPath(clusterName) {
+      const safe = String(clusterName || "").trim();
+      if (!safe) return "";
+      return `./media/clusters/${encodeURIComponent(safe)}.png`;
+    }
+
+    function normalizeShoppingClusterKey(value) {
+      return String(value || "")
+        .trim()
+        .replace(/\r|\n|\t/g, "")
+        .replace(/\u00a0/g, " ")
+        .replace(/\s+/g, " ")
+        .normalize("NFC")
+        .toLowerCase();
+    }
+
+    function findShoppingClusterByKey(clustersEl, rawName) {
+      if (!clustersEl) return null;
+      const tl = normalizeShoppingClusterKey(rawName);
+      if (!tl) return null;
+      const list = Array.from(clustersEl.querySelectorAll(".shopping-cluster"));
+      let hit = list.find((el) => normalizeShoppingClusterKey(el.getAttribute("data-cluster") || "") === tl);
+      if (hit) return hit;
+      return list.find((el) => {
+        const lab = el.querySelector(".shopping-cluster-label");
+        return lab && normalizeShoppingClusterKey(lab.textContent || "") === tl;
+      });
+    }
+
+    function resetShoppingClusterFlyOverlay() {
+      const page = document.getElementById("shopping-tool-page");
+      const flyRoot = document.getElementById("shopping-cluster-fly-anim");
+      const flyTitle = flyRoot?.querySelector(".shopping-cluster-fly-title");
+      const flyIcon = flyRoot?.querySelector(".shopping-cluster-fly-icon");
+      const title = document.getElementById("shopping-cluster-title");
+      const headerIcon = document.getElementById("shopping-cluster-header-icon");
+      if (shoppingState.clusterFlyTimer != null) {
+        window.clearTimeout(shoppingState.clusterFlyTimer);
+        shoppingState.clusterFlyTimer = null;
+      }
+      if (page) page.classList.remove("shopping-fly-playing");
+      if (flyRoot) {
+        flyRoot.classList.remove("is-running");
+        flyRoot.setAttribute("aria-hidden", "true");
+      }
+      if (flyTitle instanceof HTMLElement) {
+        flyTitle.removeAttribute("style");
+        flyTitle.textContent = "";
+      }
+      if (flyIcon instanceof HTMLElement) {
+        flyIcon.removeAttribute("style");
+        flyIcon.src = "";
+      }
+      if (title instanceof HTMLElement) title.style.removeProperty("opacity");
+      if (headerIcon instanceof HTMLElement) headerIcon.style.removeProperty("opacity");
+    }
+
+    function layoutActiveClusterPileOffsets(activeCluster) {
+      const stack = activeCluster.querySelector(".shopping-cluster-stack");
+      const logos = Array.from(activeCluster.querySelectorAll(".shopping-cluster-logo"));
+      if (!stack || logos.length === 0) return;
+      const clusterKey = String(activeCluster.getAttribute("data-cluster") || "").trim();
+      const isCasual = clusterKey === "Casual";
+      const cols = isCasual ? 5 : 3;
+      const gap = 28;
+      const rowGap = 22;
+      const cellW = 140;
+      const cellH = 110;
+      stack.dataset.shopCols = String(cols);
+      const n = logos.length;
+      const rows = Math.ceil(n / cols);
+      const gridW = cols * cellW + (cols - 1) * gap;
+      const gridH = rows * cellH + (rows - 1) * rowGap;
+      const originX = gridW / 2;
+      const originY = gridH / 2;
+      stack.style.width = `${gridW}px`;
+      stack.style.minHeight = `${gridH}px`;
+      logos.forEach((img, i) => {
+        const col = i % cols;
+        const row = Math.floor(i / cols);
+        const cellCx = col * (cellW + gap) + cellW / 2;
+        const cellCy = row * (cellH + rowGap) + cellH / 2;
+        const pileTx = originX - cellCx;
+        const pileTy = originY - cellCy;
+        img.style.setProperty("--pile-tx", `${Math.round(pileTx)}px`);
+        img.style.setProperty("--pile-ty", `${Math.round(pileTy)}px`);
+      });
+    }
+
+    function buildShoppingClusterBloomSlots(total) {
+      const slots = [];
+      const pattern = [
+        { cols: 3, topPct: 26 },
+        { cols: 2, topPct: 50 },
+        { cols: 3, topPct: 74 }
+      ];
+      pattern.forEach(({ cols, topPct }) => {
+        for (let c = 0; c < cols; c += 1) {
+          if (slots.length >= total) return;
+          const leftPct = cols === 2 ? (c === 0 ? 37.5 : 62.5) : 16.667 + c * 33.333;
+          slots.push({ leftPct, topPct, leftOffsetPx: 0 });
+        }
+      });
+      let extraRow = 0;
+      while (slots.length < total) {
+        const topPct = 74 + extraRow * 14;
+        for (let c = 0; c < 3 && slots.length < total; c += 1) {
+          slots.push({ leftPct: 16.667 + c * 33.333, topPct, leftOffsetPx: 0 });
+        }
+        extraRow += 1;
+      }
+      return slots;
+    }
+
+    function applyShoppingClusterBloomOverrides(clusterNames, slots) {
+      const norm = (s) => String(s || "").trim();
+
+      const dramaticIdx = clusterNames.findIndex((n) => norm(n) === "Dramatic");
+      const casualIdx = clusterNames.findIndex((n) => norm(n) === "Casual");
+      const romanticIdx = clusterNames.findIndex((n) => norm(n) === "Romantic");
+      const outdoorIdx = clusterNames.findIndex((n) => norm(n) === "Outdoor");
+
+      if (dramaticIdx >= 0 && romanticIdx >= 0 && slots[dramaticIdx] && slots[romanticIdx]) {
+        const mirrorLeft = 100 - slots[dramaticIdx].leftPct;
+        const targetTop = slots[dramaticIdx].topPct;
+        const occupantIdx = slots.findIndex((s, i) =>
+          i !== romanticIdx && Math.abs(s.leftPct - mirrorLeft) < 2 && s.topPct === targetTop
+        );
+        const oldRomantic = { leftPct: slots[romanticIdx].leftPct, topPct: slots[romanticIdx].topPct, leftOffsetPx: slots[romanticIdx].leftOffsetPx };
+        slots[romanticIdx].leftPct = mirrorLeft;
+        slots[romanticIdx].topPct = targetTop;
+        slots[romanticIdx].leftOffsetPx = 0;
+        if (occupantIdx >= 0) {
+          slots[occupantIdx].leftPct = oldRomantic.leftPct;
+          slots[occupantIdx].topPct = oldRomantic.topPct;
+          slots[occupantIdx].leftOffsetPx = oldRomantic.leftOffsetPx;
+        }
+      }
+
+      if (casualIdx >= 0 && outdoorIdx >= 0 && slots[casualIdx] && slots[outdoorIdx]) {
+        const mirrorLeft = 100 - slots[casualIdx].leftPct;
+        const targetTop = slots[casualIdx].topPct;
+        const occupantIdx = slots.findIndex((s, i) =>
+          i !== outdoorIdx && Math.abs(s.leftPct - mirrorLeft) < 2 && s.topPct === targetTop
+        );
+        const oldOutdoor = { leftPct: slots[outdoorIdx].leftPct, topPct: slots[outdoorIdx].topPct, leftOffsetPx: slots[outdoorIdx].leftOffsetPx };
+        slots[outdoorIdx].leftPct = mirrorLeft;
+        slots[outdoorIdx].topPct = targetTop;
+        slots[outdoorIdx].leftOffsetPx = 0;
+        if (occupantIdx >= 0) {
+          slots[occupantIdx].leftPct = oldOutdoor.leftPct;
+          slots[occupantIdx].topPct = oldOutdoor.topPct;
+          slots[occupantIdx].leftOffsetPx = oldOutdoor.leftOffsetPx;
+        }
+      }
+
+      const sedIdx = clusterNames.findIndex((n) => norm(n) === "Seductive");
+      const sophIdx = clusterNames.findIndex((n) => norm(n) === "Sophisticated");
+      if (sedIdx >= 0 && sophIdx >= 0 && slots[sedIdx] && slots[sophIdx]) {
+        const half = 50;
+        slots[sedIdx].leftOffsetPx = (slots[sedIdx].leftOffsetPx || 0) - half;
+        slots[sophIdx].leftOffsetPx = (slots[sophIdx].leftOffsetPx || 0) + half;
+      }
+      return slots;
+    }
+
+    function renderShoppingClustersBloom() {
+      const container = document.getElementById("shopping-tool-clusters");
+      const page = document.getElementById("shopping-tool-page");
+      if (!container || !page) return;
+      container.querySelectorAll(".shopping-cluster").forEach((node) => node.remove());
+      const clusterNames = Array.from(shoppingState.clusters.keys());
+      const slots = applyShoppingClusterBloomOverrides(clusterNames, buildShoppingClusterBloomSlots(clusterNames.length));
+      clusterNames.forEach((clusterName, index) => {
+        const clusterKey = String(clusterName || "").trim();
+        const brands = shoppingState.clusters.get(clusterName) || [];
+        const isCasual = clusterKey === "Casual";
+        const displayBrands = isCasual ? brands : brands.slice(0, 12);
+        const slot = slots[index] || { leftPct: 50, topPct: 50, leftOffsetPx: 0 };
+        const { leftPct, topPct } = slot;
+        const ox = Number(slot.leftOffsetPx) || 0;
+        const leftStyle = ox !== 0 ? `calc(${leftPct}% + ${ox}px)` : `${leftPct}%`;
+        const iconSrc = getShoppingClusterIconPath(clusterKey);
+        const previewCols = isCasual ? 5 : 3;
+        const logos = displayBrands
+          .map((brand, i) => {
+            const src = getShoppingLogoForBrand(brand) || "";
+            const dx = (i % previewCols) * 12 - 12;
+            const dy = Math.floor(i / previewCols) * 8 - 6;
+            return `<img class="shopping-cluster-logo" data-brand="${escapeXml(brand)}" style="--shop-i:${i};left:${dx}px;top:${dy}px;" src="${escapeXml(src)}" alt="${escapeXml(brand)}" />`;
+          })
+          .join("");
+        const delay = index * 70;
+        const shopColsAttr = isCasual ? ` data-shop-cols="5"` : "";
+        container.insertAdjacentHTML(
+          "beforeend",
+          `<div class="shopping-cluster" data-cluster="${escapeXml(clusterKey)}" style="left:${leftStyle};top:${topPct}%;transition-delay:${delay}ms">
+            <p class="shopping-cluster-label">${escapeXml(clusterKey)}</p>
+            <img class="shopping-cluster-preview-icon" src="${escapeXml(iconSrc)}" alt="" />
+            <div class="shopping-cluster-stack"${shopColsAttr}>${logos}</div>
+          </div>`
+        );
+      });
+      window.requestAnimationFrame(() => {
+        page.classList.add("is-bloomed");
+      });
+    }
+
+    function openShoppingCluster(clusterName) {
+      const page = document.getElementById("shopping-tool-page");
+      const clustersEl = document.getElementById("shopping-tool-clusters");
+      const view = document.getElementById("shopping-cluster-view");
+      const title = document.getElementById("shopping-cluster-title");
+      const headerIcon = document.getElementById("shopping-cluster-header-icon");
+      const backdrop = document.getElementById("shopping-cluster-blur-backdrop");
+      const flyRoot = document.getElementById("shopping-cluster-fly-anim");
+      const flyTitle = flyRoot?.querySelector(".shopping-cluster-fly-title");
+      const flyIcon = flyRoot?.querySelector(".shopping-cluster-fly-icon");
+      if (!page || !clustersEl || !view || !title || !headerIcon || !flyRoot || !(flyTitle instanceof HTMLElement) || !(flyIcon instanceof HTMLElement)) {
+        return;
+      }
+
+      const key = String(clusterName || "").trim();
+      const activeEl = findShoppingClusterByKey(clustersEl, key) || findShoppingClusterByKey(clustersEl, clusterName);
+      if (!activeEl) return;
+
+      const previewIcon = activeEl.querySelector(".shopping-cluster-preview-icon");
+      const labelEl = activeEl.querySelector(".shopping-cluster-label");
+      if (!(previewIcon instanceof HTMLElement) || !(labelEl instanceof HTMLElement)) return;
+
+      const firstIcon = previewIcon.getBoundingClientRect();
+      const firstLabel = labelEl.getBoundingClientRect();
+      const iconPath = getShoppingClusterIconPath(key);
+
+      shoppingState.activeCluster = key;
+      shoppingState.clusterFlyToken += 1;
+      const flyToken = shoppingState.clusterFlyToken;
+      resetShoppingClusterFlyOverlay();
+
+      clustersEl.querySelectorAll(".shopping-cluster").forEach((el) => {
+        el.classList.remove("is-open-layout");
+      });
+      const preBrandLayer = document.getElementById("shopping-cluster-brand-layer");
+      if (preBrandLayer) {
+        preBrandLayer.classList.remove("is-active");
+        preBrandLayer.setAttribute("aria-hidden", "true");
+        const orphanStack = preBrandLayer.querySelector(".shopping-cluster-stack");
+        if (orphanStack instanceof HTMLElement) {
+          const owner = String(orphanStack.dataset.ownerCluster || "").trim();
+          let host = owner ? findShoppingClusterByKey(clustersEl, owner) : null;
+          if (!host) {
+            host = Array.from(clustersEl.querySelectorAll(".shopping-cluster")).find((c) => !c.querySelector(".shopping-cluster-stack"));
+          }
+          if (host) {
+            host.appendChild(orphanStack);
+            orphanStack.classList.remove("shopping-cluster-stack--floating", "is-open-layout");
+            delete orphanStack.dataset.ownerCluster;
+          }
+        }
+      }
+
+      page.classList.add("is-cluster-open");
+      view.setAttribute("aria-hidden", "false");
+      if (backdrop) {
+        backdrop.classList.add("is-visible");
+        backdrop.setAttribute("aria-hidden", "false");
+      }
+      title.textContent = key;
+      headerIcon.src = iconPath;
+      headerIcon.alt = "";
+
+      clustersEl.querySelectorAll(".shopping-cluster").forEach((el) => {
+        el.classList.toggle("is-active-cluster", el === activeEl);
+      });
+
+      title.style.opacity = "0";
+      headerIcon.style.opacity = "0";
+
+      activeEl.querySelectorAll(".shopping-cluster-logo").forEach((img) => {
+        img.style.removeProperty("--pile-tx");
+        img.style.removeProperty("--pile-ty");
+      });
+      layoutActiveClusterPileOffsets(activeEl);
+
+      const setFlyInvert = (el, first, last, originX, originY) => {
+        el.style.position = "fixed";
+        el.style.left = `${last.left}px`;
+        el.style.top = `${last.top}px`;
+        el.style.width = `${Math.max(1, last.width)}px`;
+        el.style.height = `${Math.max(1, last.height)}px`;
+        el.style.boxSizing = "border-box";
+        el.style.margin = "0";
+        el.style.padding = "0";
+        el.style.transformOrigin = `${originX} ${originY}`;
+        const dx = first.left - last.left;
+        const dy = first.top - last.top;
+        const sx = first.width / Math.max(1, last.width);
+        const sy = first.height / Math.max(1, last.height);
+        el.style.transition = "none";
+        el.style.transform = `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`;
+      };
+
+      const runFly = () => {
+        if (flyToken !== shoppingState.clusterFlyToken) return;
+        const lastTitle = title.getBoundingClientRect();
+        const lastImg = headerIcon.getBoundingClientRect();
+
+        flyIcon.src = iconPath;
+        flyIcon.alt = "";
+
+        flyTitle.textContent = key;
+        const titleStyle = window.getComputedStyle(title);
+        flyTitle.style.fontFamily = titleStyle.fontFamily;
+        flyTitle.style.fontWeight = titleStyle.fontWeight;
+        flyTitle.style.fontSize = titleStyle.fontSize;
+        flyTitle.style.lineHeight = titleStyle.lineHeight;
+        flyTitle.style.letterSpacing = titleStyle.letterSpacing;
+        flyTitle.style.textAlign = "right";
+        flyTitle.style.color = "#000";
+        flyTitle.style.whiteSpace = "nowrap";
+        flyTitle.style.overflow = "visible";
+
+        setFlyInvert(flyTitle, firstLabel, lastTitle, "100%", "0%");
+        setFlyInvert(flyIcon, firstIcon, lastImg, "50%", "50%");
+
+        flyRoot.setAttribute("aria-hidden", "false");
+        flyRoot.classList.add("is-running");
+        page.classList.add("shopping-fly-playing");
+
+        window.requestAnimationFrame(() => {
+          window.requestAnimationFrame(() => {
+            if (flyToken !== shoppingState.clusterFlyToken) return;
+            const dur = "720ms";
+            const ease = "cubic-bezier(0.22, 1, 0.36, 1)";
+            flyTitle.style.transition = `transform ${dur} ${ease}`;
+            flyIcon.style.transition = `transform ${dur} ${ease}`;
+            flyTitle.style.transform = "none";
+            flyIcon.style.transform = "none";
+
+            shoppingState.clusterFlyTimer = window.setTimeout(() => {
+              shoppingState.clusterFlyTimer = null;
+              if (flyToken !== shoppingState.clusterFlyToken) return;
+              flyRoot.classList.remove("is-running");
+              flyRoot.setAttribute("aria-hidden", "true");
+              page.classList.remove("shopping-fly-playing");
+              flyTitle.removeAttribute("style");
+              flyIcon.removeAttribute("style");
+              title.style.removeProperty("opacity");
+              headerIcon.style.removeProperty("opacity");
+              window.requestAnimationFrame(() => {
+                if (flyToken !== shoppingState.clusterFlyToken) return;
+                const brandLayer = document.getElementById("shopping-cluster-brand-layer");
+                const stackEl = activeEl.querySelector(".shopping-cluster-stack");
+                if (brandLayer && stackEl) {
+                  stackEl.classList.add("shopping-cluster-stack--floating");
+                  stackEl.dataset.ownerCluster = key;
+                  brandLayer.appendChild(stackEl);
+                  brandLayer.classList.add("is-active");
+                  brandLayer.setAttribute("aria-hidden", "false");
+                  window.requestAnimationFrame(() => {
+                    if (flyToken !== shoppingState.clusterFlyToken) return;
+                    stackEl.classList.add("is-open-layout");
+                    applyShoppingEthicsFilter();
+                  });
+                } else {
+                  applyShoppingEthicsFilter();
+                }
+              });
+            }, 780);
+          });
+        });
+      };
+
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(runFly);
+      });
+
+      applyShoppingEthicsFilter();
+    }
+
+    function closeShoppingCluster() {
+      const page = document.getElementById("shopping-tool-page");
+      const clustersEl = document.getElementById("shopping-tool-clusters");
+      const view = document.getElementById("shopping-cluster-view");
+      const backdrop = document.getElementById("shopping-cluster-blur-backdrop");
+      const ethicsMenu = document.getElementById("shopping-ethics-menu");
+      const brandLayer = document.getElementById("shopping-cluster-brand-layer");
+      if (!page || !clustersEl || !view) return;
+      const clusterName = shoppingState.activeCluster;
+      shoppingState.clusterFlyToken += 1;
+      resetShoppingClusterFlyOverlay();
+      const floatStack = brandLayer?.querySelector(".shopping-cluster-stack");
+      if (floatStack instanceof HTMLElement && clusterName) {
+        const cn = String(clusterName || "").trim();
+        const home = findShoppingClusterByKey(clustersEl, cn);
+        if (home) {
+          home.appendChild(floatStack);
+          delete floatStack.dataset.ownerCluster;
+        }
+        floatStack.classList.remove("shopping-cluster-stack--floating", "is-open-layout");
+      }
+      if (brandLayer) {
+        brandLayer.classList.remove("is-active");
+        brandLayer.setAttribute("aria-hidden", "true");
+      }
+      shoppingState.activeCluster = null;
+      shoppingState.selectedEthics.clear();
+      syncShoppingEthicsMenuSelection();
+      if (ethicsMenu) {
+        ethicsMenu.classList.remove("is-open");
+      }
+      page.classList.remove("is-cluster-open", "is-no-matches");
+      view.setAttribute("aria-hidden", "true");
+      if (backdrop) {
+        backdrop.classList.remove("is-visible");
+        backdrop.setAttribute("aria-hidden", "true");
+      }
+      clustersEl.querySelectorAll(".shopping-cluster").forEach((el) => {
+        el.classList.remove("is-open-layout", "is-active-cluster");
+        const stack = el.querySelector(".shopping-cluster-stack");
+        if (stack) {
+          stack.style.width = "";
+          stack.style.minHeight = "";
+        }
+        el.querySelectorAll(".shopping-cluster-logo").forEach((logo) => {
+          logo.classList.remove("is-dimmed");
+          logo.style.removeProperty("--pile-tx");
+          logo.style.removeProperty("--pile-ty");
+        });
+      });
+      const empty = document.getElementById("shopping-cluster-empty");
+      if (empty) {
+        empty.textContent = "";
+      }
+    }
+
+    function getBrandPointByName(brandName) {
+      const key = normalizeBrand(brandName);
+      return currentPoints.find((pt) => normalizeBrand(pt.brand) === key) || null;
+    }
+
+    function applyShoppingEthicsFilter() {
+      const page = document.getElementById("shopping-tool-page");
+      const empty = document.getElementById("shopping-cluster-empty");
+      const clustersEl = document.getElementById("shopping-tool-clusters");
+      if (!page || !empty || !clustersEl || !shoppingState.activeCluster) return;
+      if (!shoppingState.cutoffsP60) {
+        shoppingState.cutoffsP60 = computeMetricCutoffsP60(currentPoints);
+      }
+      const selected = Array.from(shoppingState.selectedEthics);
+      const cutoffs = shoppingState.cutoffsP60;
+      const ac = String(shoppingState.activeCluster || "").trim();
+      const activeCluster = findShoppingClusterByKey(clustersEl, ac);
+      if (!activeCluster) return;
+      const brandLayer = document.getElementById("shopping-cluster-brand-layer");
+      const stack =
+        (brandLayer && brandLayer.classList.contains("is-active") ? brandLayer.querySelector(".shopping-cluster-stack") : null) ||
+        activeCluster.querySelector(".shopping-cluster-stack");
+      if (!stack) return;
+      let matchCount = 0;
+      stack.querySelectorAll(".shopping-cluster-logo").forEach((img) => {
+        const brand = img.getAttribute("data-brand") || "";
+        const pt = getBrandPointByName(brand);
+        const passesAll = selected.every((metricKey) => {
+          const val = pt && pt.metrics ? Number(pt.metrics[metricKey] || 0) : 0;
+          const cutoff = Number(cutoffs[metricKey] || 0);
+          return val >= cutoff;
+        });
+        if (passesAll) matchCount += 1;
+        img.classList.toggle("is-dimmed", selected.length > 0 && !passesAll);
+      });
+      const noneMatch = selected.length > 0 && matchCount === 0;
+      page.classList.toggle("is-no-matches", noneMatch);
+      empty.textContent = noneMatch
+        ? "No brands meet all selected ethical requirements. Try removing one filter or expanding your criteria."
+        : "";
+    }
+
     async function init() {
       currentPoints = [];
       try {
         currentPoints = await loadData();
       } catch (error) {
         console.error("loadData failed; continuing with UI init", error);
+      }
+      try {
+        await loadShoppingToolAssets();
+      } catch (error) {
+        console.error("loadShoppingToolAssets failed; continuing without shopping tool", error);
+      }
+      if (currentPoints.length > 0) {
+        shoppingState.cutoffsP60 = computeMetricCutoffsP60(currentPoints);
       }
 
       try {
