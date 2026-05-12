@@ -1698,6 +1698,44 @@
       padding: 10px 0 18px 0;
     }
 
+    #insights-metric-menu {
+      position: absolute;
+      display: none;
+      flex-direction: column;
+      background: #fff;
+      border: 1px solid #000;
+      padding: 8px 0;
+      z-index: 40;
+      min-width: 340px;
+    }
+
+    #insights-metric-menu.is-open {
+      display: flex;
+    }
+
+    .insights-metric-option {
+      width: 100%;
+      border: 0;
+      background: #fff;
+      color: #000;
+      text-align: left;
+      padding: 10px 14px;
+      font-family: "MontserratCustom", sans-serif;
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.15;
+      cursor: pointer;
+    }
+
+    .insights-metric-option:hover {
+      background: #f5f5f5;
+    }
+
+    .insights-metric-option.is-active {
+      background: #000;
+      color: #fff;
+    }
+
     #insights-chart {
       width: 100%;
       height: 100%;
@@ -2421,7 +2459,7 @@
 
     <section id="play-intro-page" class="page snap-page" aria-label="Game introduction">
       <h2 id="play-intro-title">LET'S START WITH A GAME</h2>
-      <p id="play-intro-copy">When you play, you will find an axis, where the horizontal line is our ethical compliance score, the vertical line is the company's size in revenue scale. You will be given 6 brands of this project and you have to drag and drop them within the axis where you think they are meant to be based on the intersection of the two measurements.</p>
+      <p id="play-intro-copy">When you play you will find an axis, where the horizontal line is our ethical compliance score, and the vertical line is the company's size in revenue scale. You will be given 6 brands of this analysis, which you have to drag and drop within the axis where you think they belong based on the intersection of the two measurements.</p>
     </section>
 
     <section id="game-page" class="page snap-page" aria-label="Interactive game and data views">
@@ -2458,6 +2496,14 @@
         <div id="insights-axis-panel">
           <svg id="insights-chart" role="img" aria-label="Scatter plot of Ethical Compliance Score vs Revenue Scale Score with brand logos"></svg>
         </div>
+      </div>
+      <div id="insights-metric-menu" aria-label="Metric selection menu">
+        <button class="insights-metric-option is-active" type="button" data-metric-key="ethical">Ethical Compliance</button>
+        <button class="insights-metric-option" type="button" data-metric-key="socialTransparency">Social Transparency</button>
+        <button class="insights-metric-option" type="button" data-metric-key="laborCompensation">Labor Compensation</button>
+        <button class="insights-metric-option" type="button" data-metric-key="humanRights">Human Rights Risk &amp; Responsiveness</button>
+        <button class="insights-metric-option" type="button" data-metric-key="environmentalImpact">Environmental Impact</button>
+        <button class="insights-metric-option" type="button" data-metric-key="supplyChainTransparency">Supply Chain Transparency</button>
       </div>
     </section>
 
@@ -2812,9 +2858,10 @@
       };
     }
 
-    function buildScatterAxisAndTicks(layout) {
+    function buildScatterAxisAndTicks(layout, options = {}) {
       const { margin, chartW, chartH, height, xToPx, yToPx } = layout;
       const axisAndTicks = [];
+      const isInteractive = options.interactive !== false;
 
       axisAndTicks.push(`<line x1="${margin.left}" y1="${margin.top + chartH}" x2="${margin.left + chartW}" y2="${margin.top + chartH}" stroke="#000" stroke-width="1.5" />`);
       axisAndTicks.push(`<line x1="${margin.left}" y1="${margin.top + chartH}" x2="${margin.left}" y2="${margin.top}" stroke="#000" stroke-width="1.5" />`);
@@ -2830,8 +2877,12 @@
         axisAndTicks.push(svgText(tick, margin.left - 12, y + 4, 'text-anchor="end" font-family="MontserratCustom" font-size="13" fill="#000" font-weight="400"'));
       });
 
-      axisAndTicks.push(svgText("Ethical Compliance Score", margin.left + chartW / 2, height - 10, 'text-anchor="middle" font-family="MontserratCustom" font-size="25" fill="#000" font-weight="400"'));
-      axisAndTicks.push(`<text x="12" y="${margin.top + chartH / 2}" transform="rotate(-90 12 ${margin.top + chartH / 2})" text-anchor="middle" font-family="MontserratCustom" font-size="25" fill="#000" font-weight="400">Revenue Scale Score</text>`);
+      if (isInteractive) {
+        axisAndTicks.push(`<text id="insights-x-axis-title" x="${margin.left + chartW / 2}" y="${height - 10}" text-anchor="middle" font-family="MontserratCustom" font-size="25" fill="#000" font-weight="400" style="cursor:pointer;text-decoration:underline;text-underline-offset:4px">${escapeXml(xMetricLabels[currentXMetric] || "Ethical Compliance Score")}</text>`);
+      } else {
+        axisAndTicks.push(svgText("Ethical Compliance Score", margin.left + chartW / 2, height - 10, 'text-anchor="middle" font-family="MontserratCustom" font-size="25" fill="#000" font-weight="400"'));
+      }
+      axisAndTicks.push(`<text id="insights-y-axis-title" x="12" y="${margin.top + chartH / 2}" transform="rotate(-90 12 ${margin.top + chartH / 2})" text-anchor="middle" font-family="MontserratCustom" font-size="25" fill="#000" font-weight="400" style="cursor:default">Revenue Scale Score</text>`);
 
       return axisAndTicks;
     }
@@ -2903,7 +2954,8 @@
       const markers = mappedPoints
         .map((point) => {
           const logoSize = getScatterLogoSizeForBrand(point.brand);
-          const cx = xToPx(point.ethical);
+          const xVal = getXValueForPoint(point);
+          const cx = xToPx(xVal);
           const cy = yToPx(point.scale);
           const logoPath = getBrandLogoForScatter(point.brand);
           const dotColor = getBrandDotColorForScatter(point.brand);
@@ -2911,7 +2963,7 @@
           const isVisible = !hiddenAll && (!visibleBrandKeys || visibleBrandKeys.has(brandKey));
           const visibilityClass = isVisible ? "is-visible" : "is-hidden";
           const dotRadius = Math.max(5.5, Math.min(11, logoSize * 0.11));
-          return `<g class="scatter-logo ${visibilityClass}" data-brand="${escapeXml(point.brand)}" data-brand-key="${escapeXml(brandKey)}" data-ethical="${Math.ceil(point.ethical)}" data-scale="${Math.ceil(point.scale)}" data-cx="${cx}" data-cy="${cy}" data-size="${logoSize}">
+          return `<g class="scatter-logo ${visibilityClass}" data-brand="${escapeXml(point.brand)}" data-brand-key="${escapeXml(brandKey)}" data-ethical="${Math.ceil(point.ethical)}" data-scale="${Math.ceil(point.scale)}" data-x-val="${Math.ceil(xVal)}" data-cx="${cx}" data-cy="${cy}" data-size="${logoSize}">
             <circle class="scatter-dot" cx="${cx}" cy="${cy}" r="${dotRadius}" fill="${dotColor}" />
             <image class="scatter-logo-image" href="${logoPath}" x="${cx - logoSize / 2}" y="${cy - logoSize / 2}" width="${logoSize}" height="${logoSize}" preserveAspectRatio="xMidYMid meet" />
           </g>`;
@@ -2919,13 +2971,15 @@
         .join("");
 
       svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
-      const yAxisTitleOverlay = `<text x="12" y="${layout.margin.top + layout.chartH / 2}" transform="rotate(-90 12 ${layout.margin.top + layout.chartH / 2})" text-anchor="middle" font-family="MontserratCustom" font-size="25" fill="#000" font-weight="400" pointer-events="none">Revenue Scale Score</text>`;
+      const yAxisTitleOverlay = `<text id="insights-y-axis-title-overlay" x="12" y="${layout.margin.top + layout.chartH / 2}" transform="rotate(-90 12 ${layout.margin.top + layout.chartH / 2})" text-anchor="middle" font-family="MontserratCustom" font-size="25" fill="#000" font-weight="400" style="cursor:default">Revenue Scale Score</text>`;
       svg.innerHTML = `<g>${axisAndTicks.join("")}${markers}${yAxisTitleOverlay}</g>
       <g id="insights-tooltip" visibility="hidden" pointer-events="none">
         <rect id="insights-tooltip-bg" x="0" y="0" width="0" height="0" rx="6" ry="6" fill="rgba(0,0,0,0.78)"></rect>
         <text id="insights-tooltip-line1" x="0" y="0" fill="#fff" font-family="MontserratCustom" font-size="15" font-weight="400" text-anchor="start"></text>
         <text id="insights-tooltip-line2" x="0" y="0" fill="#fff" font-family="MontserratCustom" font-size="15" font-weight="400" text-anchor="start"></text>
         <text id="insights-tooltip-line3" x="0" y="0" fill="#fff" font-family="MontserratCustom" font-size="15" font-weight="400" text-anchor="start"></text>
+        <text id="insights-tooltip-line4" x="0" y="0" fill="#fff" font-family="MontserratCustom" font-size="15" font-weight="400" text-anchor="start"></text>
+        <text id="insights-tooltip-line5" x="0" y="0" fill="#fff" font-family="MontserratCustom" font-size="15" font-weight="400" text-anchor="start"></text>
       </g>`;
 
       const tooltipGroup = svg.querySelector("#insights-tooltip");
@@ -2933,8 +2987,12 @@
       const tooltipLine1 = svg.querySelector("#insights-tooltip-line1");
       const tooltipLine2 = svg.querySelector("#insights-tooltip-line2");
       const tooltipLine3 = svg.querySelector("#insights-tooltip-line3");
+      const tooltipLine4 = svg.querySelector("#insights-tooltip-line4");
+      const tooltipLine5 = svg.querySelector("#insights-tooltip-line5");
+      const allTooltipLines = [tooltipLine1, tooltipLine2, tooltipLine3, tooltipLine4, tooltipLine5];
       const markerElements = svg.querySelectorAll(".scatter-logo");
       let activeScatterMarker = null;
+      let axisTooltipActive = false;
       const getNearestVisibleMarkerAtPointer = (event, maxDistancePx = 20) => {
         const rect = svg.getBoundingClientRect();
         if (!rect.width || !rect.height) {
@@ -2987,6 +3045,7 @@
         markerElements.forEach((el) => el.classList.remove("is-hovered"));
         tooltipGroup.setAttribute("visibility", "hidden");
         activeScatterMarker = null;
+        axisTooltipActive = false;
       };
       const showScatterHover = (marker) => {
         if (!marker || marker.classList.contains("is-hidden")) {
@@ -3003,14 +3062,19 @@
           marker.parentNode.appendChild(marker);
         }
         const brand = marker.getAttribute("data-brand") || "";
-        const ethicalScore = marker.getAttribute("data-ethical") || "";
+        const xValScore = marker.getAttribute("data-x-val") || marker.getAttribute("data-ethical") || "";
         const scaleScore = marker.getAttribute("data-scale") || "";
+        const xLabel = xMetricLabels[currentXMetric] || "Ethical Compliance Score";
         const line1 = brand;
-        const line2 = `Ethical Compliance Score: ${ethicalScore}`;
+        const line2 = `${xLabel}: ${xValScore}`;
         const line3 = `Revenue Scale Score: ${scaleScore}`;
         tooltipLine1.textContent = line1;
         tooltipLine2.textContent = line2;
         tooltipLine3.textContent = line3;
+        tooltipLine4.textContent = "";
+        tooltipLine5.textContent = "";
+        tooltipLine4.setAttribute("visibility", "hidden");
+        tooltipLine5.setAttribute("visibility", "hidden");
         const lineWidth = Math.max(
           tooltipLine1.getComputedTextLength(),
           tooltipLine2.getComputedTextLength(),
@@ -3048,6 +3112,109 @@
         tooltipGroup.setAttribute("visibility", "visible");
       };
 
+      const wrapText = (text, maxChars) => {
+        const words = text.split(" ");
+        const lines = [];
+        let current = "";
+        words.forEach((word) => {
+          if (current && (current + " " + word).length > maxChars) {
+            lines.push(current);
+            current = word;
+          } else {
+            current = current ? current + " " + word : word;
+          }
+        });
+        if (current) lines.push(current);
+        return lines;
+      };
+
+      const showAxisTooltip = (lines, anchorX, anchorY, placement) => {
+        clearScatterHover();
+        axisTooltipActive = true;
+        const paddingX = 12;
+        const paddingY = 10;
+        const lineHeight = 20;
+        const lineCount = lines.length;
+
+        allTooltipLines.forEach((el, i) => {
+          if (i < lineCount) {
+            el.textContent = lines[i];
+            el.setAttribute("visibility", "visible");
+          } else {
+            el.textContent = "";
+            el.setAttribute("visibility", "hidden");
+          }
+        });
+
+        const maxLineWidth = Math.max(...allTooltipLines.slice(0, lineCount).map((el) => el.getComputedTextLength()));
+        const boxWidth = maxLineWidth + paddingX * 2;
+        const boxHeight = lineHeight * lineCount + paddingY * 2;
+
+        let boxX, boxY;
+        if (placement === "above") {
+          boxX = anchorX - boxWidth / 2;
+          boxY = anchorY - boxHeight - 8;
+        } else {
+          boxX = anchorX + 8;
+          boxY = anchorY - boxHeight / 2;
+        }
+
+        if (boxX < 4) boxX = 4;
+        if (boxX + boxWidth > width - 4) boxX = width - boxWidth - 4;
+        if (boxY < 4) boxY = 4;
+
+        tooltipBg.setAttribute("x", String(boxX));
+        tooltipBg.setAttribute("y", String(boxY));
+        tooltipBg.setAttribute("width", String(boxWidth));
+        tooltipBg.setAttribute("height", String(boxHeight));
+
+        allTooltipLines.forEach((el, i) => {
+          if (i < lineCount) {
+            el.setAttribute("x", String(boxX + paddingX));
+            el.setAttribute("y", String(boxY + paddingY + 14 + i * lineHeight));
+          }
+        });
+
+        tooltipGroup.setAttribute("visibility", "visible");
+      };
+
+      const yAxisTitle = svg.querySelector("#insights-y-axis-title-overlay") || svg.querySelector("#insights-y-axis-title");
+      if (yAxisTitle) {
+        yAxisTitle.style.pointerEvents = "auto";
+        yAxisTitle.addEventListener("mouseenter", () => {
+          const lines = wrapText("The Revenue Scale Score is measured by normalizing the yearly revenue of all brands to avoid skews due to revenues that are too high or too low.", 52);
+          const svgRect = svg.getBoundingClientRect();
+          const titleClientRect = yAxisTitle.getBoundingClientRect();
+          const viewBox = svg.viewBox.baseVal;
+          const scaleX = viewBox && viewBox.width ? viewBox.width / svgRect.width : 1;
+          const scaleY = viewBox && viewBox.height ? viewBox.height / svgRect.height : 1;
+          const anchorX = (titleClientRect.right - svgRect.left) * scaleX + 10;
+          const anchorY = (titleClientRect.top + titleClientRect.height / 2 - svgRect.top) * scaleY;
+          showAxisTooltip(lines, anchorX, anchorY, "right");
+        });
+        yAxisTitle.addEventListener("mouseleave", () => {
+          if (axisTooltipActive) clearScatterHover();
+        });
+      }
+
+      const xAxisTitleEl = svg.querySelector("#insights-x-axis-title");
+      if (xAxisTitleEl) {
+        xAxisTitleEl.addEventListener("mouseenter", () => {
+          const lines = wrapText("Click to open the metrics menu to see how brands' scores change based on the metric and the overall index.", 52);
+          const svgRect = svg.getBoundingClientRect();
+          const titleClientRect = xAxisTitleEl.getBoundingClientRect();
+          const viewBox = svg.viewBox.baseVal;
+          const scaleX = viewBox && viewBox.width ? viewBox.width / svgRect.width : 1;
+          const scaleY = viewBox && viewBox.height ? viewBox.height / svgRect.height : 1;
+          const anchorX = (titleClientRect.left + titleClientRect.width / 2 - svgRect.left) * scaleX;
+          const anchorY = (titleClientRect.top - svgRect.top) * scaleY;
+          showAxisTooltip(lines, anchorX, anchorY, "above");
+        });
+        xAxisTitleEl.addEventListener("mouseleave", () => {
+          if (axisTooltipActive) clearScatterHover();
+        });
+      }
+
       markerElements.forEach((marker) => {
         marker.addEventListener("mouseenter", () => {
           showScatterHover(marker);
@@ -3063,6 +3230,7 @@
       });
 
       svg.addEventListener("mousemove", (event) => {
+        if (axisTooltipActive) return;
         const nearestMarker = getNearestVisibleMarkerAtPointer(event, 24);
         if (nearestMarker) {
           showScatterHover(nearestMarker);
@@ -3072,6 +3240,9 @@
       });
 
       svg.addEventListener("click", (event) => {
+        if (event.target instanceof Element && event.target.id === "insights-x-axis-title") {
+          return;
+        }
         const targetLogo = activeScatterMarker || getNearestVisibleMarkerAtPointer(event, 32) || getScatterLogoFromEvent(event);
         if (!targetLogo) {
           return;
@@ -3087,6 +3258,75 @@
         event.stopPropagation();
         openBrandDetail(brandKey);
       }, true);
+
+      const xAxisTitle = svg.querySelector("#insights-x-axis-title");
+      if (xAxisTitle) {
+        xAxisTitle.addEventListener("click", (event) => {
+          event.stopPropagation();
+          const menu = document.getElementById("insights-metric-menu");
+          if (!menu) return;
+
+          if (menu.classList.contains("is-open")) {
+            menu.classList.remove("is-open");
+            return;
+          }
+
+          const pageEl = document.getElementById("insights-page-1");
+          const pageRect = pageEl ? pageEl.getBoundingClientRect() : { left: 0, top: 0 };
+          const titleRect = xAxisTitle.getBoundingClientRect();
+
+          menu.style.display = "flex";
+          const menuHeight = menu.offsetHeight;
+          menu.style.display = "";
+
+          const menuWidth = 340;
+          const centerX = titleRect.left + titleRect.width / 2 - pageRect.left;
+          const topPos = titleRect.top - pageRect.top - menuHeight - 6;
+
+          menu.style.left = (centerX - menuWidth / 2) + "px";
+          menu.style.top = topPos + "px";
+          menu.style.position = "absolute";
+          menu.classList.add("is-open");
+        });
+      }
+    }
+
+    function initInsightsMetricMenu() {
+      const menu = document.getElementById("insights-metric-menu");
+      if (!menu) return;
+
+      menu.addEventListener("click", (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLElement)) return;
+        const option = target.closest(".insights-metric-option");
+        if (!(option instanceof HTMLElement)) return;
+        const metricKey = option.getAttribute("data-metric-key");
+        if (!metricKey || metricKey === currentXMetric) {
+          menu.classList.remove("is-open");
+          return;
+        }
+
+        currentXMetric = metricKey;
+        insightsState.mode = "all-visible";
+        insightsState.visibleBrandKeys = [];
+
+        menu.querySelectorAll(".insights-metric-option").forEach((btn) => {
+          btn.classList.toggle("is-active", btn.getAttribute("data-metric-key") === metricKey);
+        });
+
+        menu.classList.remove("is-open");
+
+        if (currentPoints.length > 0) {
+          animateScatterToCurrentMetric();
+        }
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!menu.classList.contains("is-open")) return;
+        const target = event.target;
+        if (target instanceof Element && (target.closest("#insights-metric-menu") || target.id === "insights-x-axis-title")) return;
+        menu.classList.remove("is-open");
+      });
     }
 
     function getIntroTransitionBrandKeys() {
@@ -3134,7 +3374,7 @@
     function renderIntroChart() {
       const svg = document.getElementById("intro-chart");
       const layout = getScatterLayout(svg);
-      const axisAndTicks = buildScatterAxisAndTicks(layout);
+      const axisAndTicks = buildScatterAxisAndTicks(layout, { interactive: false });
       svg.setAttribute("viewBox", `0 0 ${layout.width} ${layout.height}`);
       svg.innerHTML = `<g>${axisAndTicks.join("")}</g>`;
     }
@@ -3448,6 +3688,63 @@
     const insightsState = {
       mode: "all-visible"
     };
+
+    let currentXMetric = "ethical";
+
+    const xMetricLabels = {
+      ethical: "Ethical Compliance Score",
+      socialTransparency: "Social Transparency Score",
+      laborCompensation: "Labor Compensation Score",
+      humanRights: "Human Rights Risk & Responsiveness Score",
+      environmentalImpact: "Environmental Impact Score",
+      supplyChainTransparency: "Supply Chain Transparency Score"
+    };
+
+    function getXValueForPoint(point) {
+      if (currentXMetric === "ethical") {
+        return point.ethical;
+      }
+      return (point.metrics && point.metrics[currentXMetric]) || 0;
+    }
+
+    let scatterAnimationId = 0;
+
+    function animateScatterToCurrentMetric() {
+      const svg = document.getElementById("insights-chart");
+      if (!svg) return;
+      const layout = getScatterLayout(svg);
+      const { xToPx } = layout;
+      const markers = svg.querySelectorAll(".scatter-logo");
+      const thisAnimId = ++scatterAnimationId;
+
+      const titleEl = svg.querySelector("#insights-x-axis-title");
+      if (titleEl) {
+        titleEl.textContent = xMetricLabels[currentXMetric] || "Ethical Compliance Score";
+      }
+
+      markers.forEach((marker) => {
+        const brandKey = marker.getAttribute("data-brand-key") || "";
+        const point = currentPoints.find((p) => normalizeBrand(p.brand) === brandKey);
+        if (!point) return;
+
+        const oldCx = Number(marker.getAttribute("data-cx"));
+        const newXVal = getXValueForPoint(point);
+        const newCx = xToPx(newXVal);
+        const dx = newCx - oldCx;
+
+        marker.style.transition = "transform 650ms cubic-bezier(0.25, 1, 0.5, 1)";
+        marker.style.transform = `translate(${dx}px, 0) scale(1)`;
+
+        marker.setAttribute("data-cx", String(newCx));
+        marker.setAttribute("data-x-val", String(Math.ceil(newXVal)));
+      });
+
+      window.setTimeout(() => {
+        if (scatterAnimationId !== thisAnimId) return;
+        renderLogoScatter(currentPoints);
+      }, 680);
+    }
+
     const methodIntroState = {
       revealed: false,
       transitioningToBag: false,
@@ -3515,7 +3812,6 @@
       const metrics = brandPoint.metrics || {};
       const clampScore = (value) => Math.max(0, Math.min(100, Number(value) || 0));
       const rows = [
-        { ...compareSeriesDefs[0], value: clampScore(brandPoint.ethical) },
         { ...compareSeriesDefs[1], value: clampScore(metrics.socialTransparency) },
         { ...compareSeriesDefs[2], value: clampScore(metrics.laborCompensation) },
         { ...compareSeriesDefs[3], value: clampScore(metrics.humanRights) },
@@ -3718,13 +4014,13 @@
       },
       "metric-st": {
         title: "Social Transparency",
-        text: "This metric extracts scores from the Fashion Transparency Index by Fashion Revolution, which provides scores from 2023, grading the brand on their public disclosure on social and environmental impact.",
+        text: "This metric extracts scores from the Fashion Transparency Index by Fashion Revolution, which provides scores from 2023, grading the brand on their public disclosure of their social and environmental impact.",
         placement: "top",
         weightText: "Accounts for 30% of the Ethical Compliance Index"
       },
       "metric-ei": {
         title: "Environmental Impact",
-        text: "This metric extracts scores from the What Fuels Fashion analysis by Fashion Revolution, which provides scores from 2025 grading the brand on their disclosure of their climate and energy-related policies, practices and impacts in their operations.",
+        text: "This metric extracts scores from the What Fuels Fashion analysis by Fashion Revolution, which provides scores from 2025, grading the brand on their disclosure of their climate and energy-related policies, practices, and impact in their operations.",
         placement: "bottom",
         weightText: "Accounts for 20% of the Ethical Compliance Index"
       },
@@ -3736,7 +4032,7 @@
       },
       "metric-hrrr": {
         title: "Human Rights Risk & Responsiveness",
-        text: "The scores for this metric rate a brand based on the data from the Business & Human Rights Centre, which reports on news and allegations relating to the human rights impact of brands and their response if any. The scores were weighted and calculated using machine learning.",
+        text: "The scores for this metric rate a brand based on the data from the Business & Human Rights Centre, which reports on news and allegations relating to the human rights impact of brands and their response, if any. The scores were weighted and calculated using machine learning.",
         placement: "right",
         weightText: "Accounts for 20% of the Ethical Compliance Index"
       }
@@ -5916,9 +6212,8 @@
           primary1: "These are a pair of sneakers from Ralph Lauren.",
           primary2: "Ralph Lauren sources shoes from factories in South China.",
           secondaryImage: "./media/title/RL.png",
-          secondary1: "This is labor activist Meng Han, from South China.",
-          secondary2: "In November, 2016, he was sentenced to <strong>21 months</strong> for educating workers from a Chinese factory about their rights.",
-          secondary3: "Ralph Lauren would source from this factory."
+          secondary1: "This is labor activist Meng Han from South China.",
+          secondary2: "In November 2016, he was sentenced to <strong>21 months</strong> for educating workers from a Chinese factory about their rights.",
         }
       };
 
@@ -7133,6 +7428,11 @@
         initBrandDetailUI();
       } catch (error) {
         console.error("initBrandDetailUI failed", error);
+      }
+      try {
+        initInsightsMetricMenu();
+      } catch (error) {
+        console.error("initInsightsMetricMenu failed", error);
       }
     }
 
